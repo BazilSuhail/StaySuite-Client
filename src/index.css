@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*{
+  scroll-behavior: smooth;
+}
+
+.reserved-date { 
+    color: #545454 ;
+    pointer-events: none; 
+}
+    
+::-webkit-scrollbar {
+  width: 8px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ff0048ab;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c3c3c3;
+}
+
+
+.slider-thumb{ 
+  border-radius: 50%;
+}
+.slider-thumb::-webkit-slider-thumb {
+  appearance: none;
+  width: 8px; 
+  padding-bottom: 20px;
+  background-color: #e4266c;  
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.slider-thumb2 { 
+  border-radius: 50%;
+}
+
+.slider-thumb2::-webkit-slider-thumb {
+  appearance: none;
+  width: 8px; 
+  margin-top: -15px;
+  padding-top: 21px;
+  background-color: #e4266c;  
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+
+/* From Uiverse.io by cohencoo */ 
+.custom-loader {
+  width: 70px;
+  height: 70px;
+  background: #d1225c;
+  border-radius: 50px;
+  -webkit-mask: radial-gradient(circle 31px at 50% calc(100% + 13px),#000 95%,#0000) top 4px left 50%,
+    radial-gradient(circle 31px,#000 95%,#0000) center,
+    radial-gradient(circle 31px at 50% -13px,#000 95%,#0000) bottom 4px left 50%,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  -webkit-mask-repeat: no-repeat;
+  animation: cu10 1.5s infinite;
+}
+
+@keyframes cu10 {
+  0% {
+    -webkit-mask-size: 0    18px,0    18px,0    18px,auto
+  }
+
+  16.67% {
+    -webkit-mask-size: 100% 18px,0    18px,0    18px,auto
+  }
+
+  33.33% {
+    -webkit-mask-size: 100% 18px,100% 18px,0    18px,auto
+  }
+
+  50% {
+    -webkit-mask-size: 100% 18px,100% 18px,100% 18px,auto
+  }
+
+  66.67% {
+    -webkit-mask-size: 0    18px,100% 18px,100% 18px,auto
+  }
+
+  83.33% {
+    -webkit-mask-size: 0    18px,0    18px,100% 18px,auto
+  }
+
+  100% {
+    -webkit-mask-size: 0    18px,0    18px,0    18px,auto
+  }
+}
