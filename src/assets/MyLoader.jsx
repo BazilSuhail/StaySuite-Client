@@ -1,5 +1,3 @@
-import React from 'react'
-
 const MyLoader = () => {
     return (
         <div className="bg-white w-full min-h-screen flex justify-center items-center">
@@ -11,5 +9,4 @@ const MyLoader = () => {
 
     )
 }
-
 export default MyLoader

@@ -5,10 +5,13 @@ import collaboratorLogo from "../../logo.svg";
 import { useNavigate } from 'react-router-dom';
 import { CgProfile } from 'react-icons/cg';
 import { FaUserCircle } from 'react-icons/fa';
+import { useAuthContext } from '../../AuthProvider';
 
 const SignUpForm = () => {
+  const { showToast} = useAuthContext();
   const navigate = useNavigate();
   const [focusField, setFocusField] = useState('');
+    const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -40,13 +43,17 @@ const SignUpForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const response = await axios.post(`${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/auth/register`, formData);
-      alert('Registration successful!');
+      //alert('Registration successful!');
+      showToast("Registration successfull! 😇");
       navigate('/signIn');
     }
     catch (error) {
       console.error(error);
-      alert('Registration failed!' + error.response.data.error);
+      setLoading(false);
+      //alert('Registration failed!' + error.response.data.error);
+      showToast('Registration failed! ' + error.response.data.error);
     }
   };
   const handleFocus = (field) => {
@@ -56,42 +63,16 @@ const SignUpForm = () => {
   const handleBlur = () => {
     setFocusField('');
   };
-  /*
-   <div className="mb-4">
-            <p className="text-sm font-medium text-gray-600 mb-2">
-              How would you like to continue?
-            </p>
-            <div className="flex items-center mb-2">
-              <input
-                type="checkbox"
-                id="guestRole"
-                name="role"
-                value="Guest"
-                checked={formData.role === 'Guest'}
-                onChange={handleChange}
-                className="mr-2"
-              />
-              <label htmlFor="guestRole" className="text-sm text-gray-600">
-                As a Guest
-              </label>
-            </div>
   
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="hostRole"
-                name="role"
-                value="Host"
-                checked={formData.role === 'Host'}
-                onChange={handleChange}
-                className="mr-2"
-              />
-              <label htmlFor="hostRole" className="text-sm text-gray-600">
-                As a Host
-              </label>
-            </div>
-          </div>
-  */
+  if (loading) {
+    return <div className="bg-white w-full min-h-screen flex justify-center items-center">
+      <div>
+        <div className="animate-spin"><div className="lg:scale-[0.7] scale-[0.65] custom-loader"></div></div>
+        <p className='text-[14px] text-rose-700 font-[700]'>Registering Your Account In ...</p>
+        <p className='text-[14px] text-rose-500 font-[600]'>Please Wait</p>
+      </div>
+    </div>;
+  }
 
   return (
     <main className='h-screen w-full pt-[75px] flex justify-center items-center bg-gray-100'>
@@ -145,7 +126,7 @@ const SignUpForm = () => {
               <label className={`flex items-center w-[50%] text-rose-600 space-x-2 p-2 border-2 rounded-lg cursor-pointer ${formData.role === 'Guest' ? 'border-rose-600 bg-rose-100' : 'border-gray-300'}`}
                 onClick={() => handleRoleChange('Guest')}
               >
-                <FaUserCircle size={22}/>
+                <FaUserCircle size={22} />
                 <span className='text-rose-950 text-[17px]'>Guest</span>
               </label>
               <label className={`flex items-center w-[50%] text-rose-600 space-x-2 p-2 border-2 rounded-lg cursor-pointer ${formData.role === 'Host' ? 'border-rose-600 bg-rose-100' : 'border-gray-300'}`}

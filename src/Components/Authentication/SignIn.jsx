@@ -3,12 +3,14 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../AuthProvider';
 import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai';
-import collaboratorLogo from "../../logo.svg"; 
+import collaboratorLogo from "../../logo.svg";
 
 const SignInnForm = () => {
   const navigate = useNavigate();
-  const { login } = useAuthContext();
+  const { login, showToast } = useAuthContext();
   const [focusField, setFocusField] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -27,6 +29,7 @@ const SignInnForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/auth/login`,
         formData
@@ -35,12 +38,16 @@ const SignInnForm = () => {
       //localStorage.setItem('token', response.data.token);
       login(response.data.token);
 
-      alert('Login successful!');
+      //alert('Login successful!');
+      showToast("Login successfull, Navigating to profile");
       navigate('/profile');
+
     }
     catch (error) {
       console.error(error);
-      alert('Login failed!');
+      setLoading(false);
+      //alert('Login failed!');
+      showToast("Login failed, No Account Found 😢");
     }
   };
   const handleFocus = (field) => {
@@ -50,6 +57,15 @@ const SignInnForm = () => {
   const handleBlur = () => {
     setFocusField('');
   };
+
+  if (loading) {
+    return <div className="bg-white w-full min-h-screen flex justify-center items-center">
+      <div>
+        <div className="animate-spin"><div className="lg:scale-[0.7] scale-[0.65] custom-loader"></div></div>
+        <p className='text-[14px] text-rose-700 font-[600]'>Signing In ...</p>
+      </div>
+    </div>;
+  }
 
   return (
     <main className='h-screen w-full pt-[75px] flex justify-center items-center bg-gray-100'>

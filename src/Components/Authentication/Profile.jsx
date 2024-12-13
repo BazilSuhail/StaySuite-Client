@@ -141,7 +141,7 @@ const Profile = () => {
 
                             <div className='flex flex-col justify-center items-center mb-4'>
                                 <img
-                                    src={`/Avatars/${selectedAvatar}.jpg`}
+                                    src={`/Avatars/${selectedAvatar || userInfo.profilePicture}.jpg`}
                                     alt="Profile Avatar"
                                     className="w-24 h-24 rounded-full border border-gray-300 shadow-md"
                                 />

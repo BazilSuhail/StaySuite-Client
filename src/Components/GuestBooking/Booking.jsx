@@ -6,27 +6,29 @@ import { useLocation, useParams } from 'react-router-dom';
 import { FaStar, FaShieldAlt, FaInfoCircle } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import { BsCircle, BsCheckCircle } from "react-icons/bs";
+import { useAuthContext } from '../../AuthProvider';
 
 const Booking = () => {
+    //const navigate = useNavigate();
+    
     const { listingId, hostId } = useParams();
+    const { showToast } = useAuthContext();
     const location = useLocation();
     const { listing, ratingReviews } = location.state || {};
     const [blockedDates, setBlockedDates] = useState([]);
     const [selectedDates, setSelectedDates] = useState({ checkIn: null, checkOut: null });
     const [guests, setGuests] = useState({ adults: 1, children: 0, infants: 0 });
-    //const [totalAmount, setTotalAmount] = useState(0);
-
     const [specialRequests, setSpecialRequests] = useState('');
-    const [message, setMessage] = useState('');
+    const [reftechBooking, setReftechBooking] = useState(false);
+    const [numberOfDays, setNumberOfDays] = useState(null);
+    
     const totalAmount = listing.price;
 
-    const [numberOfDays, setNumberOfDays] = useState(null);
+    /*useEffect(() => {
+    }, []);*/
 
     useEffect(() => {
         window.scrollTo(0, 0);
-      }, []);
-
-    useEffect(() => {
         const fetchBlockedDates = async () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/reservation/get-reserved-bookings/${listingId}`);
@@ -39,7 +41,7 @@ const Booking = () => {
         };
 
         fetchBlockedDates();
-    }, [listingId]);
+    }, [listingId,reftechBooking]);
 
     useEffect(() => {
         if (selectedDates.checkIn && selectedDates.checkOut) {
@@ -61,25 +63,27 @@ const Booking = () => {
     }, [selectedDates]);
 
     const handleDateChange = (date) => {
-        const today = new Date(); 
+        const today = new Date();
         today.setHours(0, 0, 0, 0);
-    
+
         if (date < today) {
             alert('Selected date cannot be before the current date.');
             return;
         }
-    
+
         if (!selectedDates.checkIn || (selectedDates.checkIn && selectedDates.checkOut)) {
             setSelectedDates({ checkIn: date, checkOut: null });
-        } else {
+        } 
+        else {
             if (date > selectedDates.checkIn) {
                 setSelectedDates({ ...selectedDates, checkOut: date });
-            } else {
+            } 
+            else {
                 alert('Check-Out date must be after Check-In date.');
             }
         }
     };
-    
+
 
     const tileDisabled = ({ date, view }) => {
         if (view === 'month') {
@@ -120,14 +124,23 @@ const Booking = () => {
                     specialRequests,
                 },
                 { headers: { Authorization: `Bearer ${token}` } }
-            );
-
-            setMessage('Booking created successfully!');
+            ); 
+            setReftechBooking(true);
             console.log(response.data);
+
+            setBlockedDates([]);
+            setSelectedDates({ checkIn: null, checkOut: null });
+            setGuests({ adults: 1, children: 0, infants: 0 });
+            setSpecialRequests(''); 
+            setNumberOfDays(null);
+            //toast
+            showToast("Reservation applied Successfully");
+            //navigate(-1);
         }
         catch (err) {
             console.error('Error creating booking:', err.response?.data || err.message);
-            setMessage('Failed to create booking. Please try again.');
+            showToast("Failed to create booking. Try Later !!");
+            //setMessage('Failed to create booking. Please try again.');
         }
     };
 
@@ -141,15 +154,15 @@ const Booking = () => {
                         <span>This is a rare find. Bo's place is usually booked.</span>
                     </p>
                 </div>
-               <div className='w-full xl:px-[15px]'>
-               <Calendar
-                    onChange={handleDateChange}
-                    value={[selectedDates.checkIn, selectedDates.checkOut]}
-                    tileDisabled={tileDisabled}
-                    tileClassName={tileClassName}
-                    selectRange={false}
-                />
-               </div>
+                <div className='w-full xl:px-[15px]'>
+                    <Calendar
+                        onChange={handleDateChange}
+                        value={[selectedDates.checkIn, selectedDates.checkOut]}
+                        tileDisabled={tileDisabled}
+                        tileClassName={tileClassName}
+                        selectRange={false}
+                    />
+                </div>
                 <div className="space-y-4">
 
                     <div className='p-[15px] bg-gray-50 border border-gray-300 rounded-lg'>
@@ -211,7 +224,7 @@ const Booking = () => {
 
                 </div>
 
-                <div className="space-y-4"> 
+                <div className="space-y-4">
                     <div className="border rounded-lg p-4 space-y-4">
                         <div className="flex items-start space-x-2">
                             <BsCheckCircle className="text-black mt-1 cursor-pointer" />
@@ -223,7 +236,7 @@ const Booking = () => {
                             <BsCircle className="text-gray-500 mt-1 cursor-pointer" />
                             <div>
                                 <p>Pay part now, part later</p>
-                                <p className="text-gray-500 text-sm">${((listing.price * 9) + 160 + 29 - 113) * 40 / 100 } due today. No extra fees. <FaInfoCircle className="inline text-gray-500 cursor-pointer" /></p>
+                                <p className="text-gray-500 text-sm">${((listing.price * 9) + 160 + 29 - 113) * 40 / 100} due today. No extra fees. <FaInfoCircle className="inline text-gray-500 cursor-pointer" /></p>
                             </div>
                         </div>
                     </div>
@@ -239,7 +252,7 @@ const Booking = () => {
                             onChange={(e) => setSpecialRequests(e.target.value)}
                             className="w-full border focus:border-none no-scrollbar rounded-md px-2 pt-2 pb-[150px]"
                         />
-                    </div>                    
+                    </div>
                     {numberOfDays !== null ?
                         <button onClick={handleBooking} className="w-full py-3 bg-gradient-to-r from-pink-700 to-pink-900 text-white font-semibold rounded-lg" >
                             Continue

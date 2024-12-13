@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaBars, FaBed, FaBell, FaHeart, FaSearch, FaSlidersH, FaTimes, FaUser, FaUserCircle } from 'react-icons/fa';
-import { AiOutlineSearch } from 'react-icons/ai';
+import { AiOutlineCheckCircle, AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import airbnb from "../logo.svg";
@@ -16,7 +16,7 @@ import FiltersModal from '../Components/Home/FilterModal';
 const Navbar = () => {
     const navigate = useNavigate();
 
-    const { user, userRole, notificationsCount, logout } = useAuthContext();
+    const { user, userRole, notificationsCount, logout, toast, closeToast } = useAuthContext();
 
     const [isOpen, setIsOpen] = useState(false);
     const [showSearchBar, setShowSearchBar] = useState(false);
@@ -128,7 +128,7 @@ const Navbar = () => {
 
     return (
         <header className="bg-white fixed w-full z-50 top-0">
-            {showFilterModal && <FiltersModal closeFilterModal={closeFilterModal} />}
+                       {showFilterModal && <FiltersModal closeFilterModal={closeFilterModal} />}
             <nav className='md:block hidden'>
                 <div className={`${location.pathname === '/' ? 'border-white pt-4' : 'border-b-[3px] border-gray-100 py-4'} mx-auto px-4 sm:px-6 md:px-[15px] lg:px-[35px] xl:px-[75px]`}>
                     <div className="flex justify-between items-center ">
@@ -236,7 +236,7 @@ const Navbar = () => {
                                             <NavLink to="/favourite-listings" className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                                                 Favourites
                                             </NavLink>
-                                            
+
                                             <NavLink to="/reserved-bookings" className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                                                 Reserved Bookings
                                             </NavLink>
@@ -285,7 +285,7 @@ const Navbar = () => {
                         >
 
                             {user &&
-                                <>{userRole === 'Host' ? <> 
+                                <>{userRole === 'Host' ? <>
                                     <NavLink to="/host-bookings" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                                         Host Bookings
                                     </NavLink>
@@ -294,10 +294,10 @@ const Navbar = () => {
                                     </NavLink>
                                 </>
                                     : <>
-                                    <NavLink to="/reserved-bookings-history"onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                                        Bookings History
-                                    </NavLink> 
-                                        <NavLink to="/reserved-bookings"onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                                        <NavLink to="/reserved-bookings-history" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                                            Bookings History
+                                        </NavLink>
+                                        <NavLink to="/reserved-bookings" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                                             Reserved Bookings
                                         </NavLink>
                                     </>}
@@ -307,7 +307,7 @@ const Navbar = () => {
                                 Privacy Policy
                             </NavLink>
                             <NavLink to="/accessibility" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                            Accessibility
+                                Accessibility
                             </NavLink>
 
                             <div className="w-full bg-gray-200 h-[2px] my-2"></div>
@@ -388,10 +388,38 @@ const Navbar = () => {
                             <span className="text-xs">JoinUs</span>
                         </NavLink>
                     }
-
                 </div>
-
             </nav>
+            {toast.visible && (
+                <motion.div
+                    className="fixed top-4 right-4 bg-white border text-black py-[4px] shadow-lg rounded-lg"
+                    initial={{ scale: 0.7, opacity: 1, x: 500 }}
+                    animate={{ scale: 1, opacity: 1, x: 0 }}
+                    exit={{ scale: 0.7, opacity: 0, x: 500 }}
+                    transition={{
+                        duration: 0.5,
+                        ease: [0.2, 0.8, 0.2, 1],
+                    }}
+                >
+                    <div className='flex flex-col px-[15px]'>
+                        <AiOutlineClose className="cursor-pointer ml-auto text-[14px] text-gray-600 hover:text-gray-800" onClick={closeToast} />
+                        <div className='w-full bg-gray-200 rounded-xl h-[1.5px] my-[4px]'></div>
+                        <div className='flex items-center pb-[10px] mt-[6px]' >
+                            <FaBell className='text-[28px] text-rose-500 border-[3px] border-rose-300 rounded-full p-[4px]' />
+                            <p className='mx-[15px]'>{toast.message}</p>
+                        </div>
+                    </div>
+                    <motion.div
+                        className="absolute bottom-0 left-0 h-[3px] bg-rose-300 rounded"
+                        initial={{ width: "100%" }}
+                        animate={{ width: 0 }}
+                        transition={{
+                            duration: 6,
+                            ease: "linear",
+                        }}
+                    />
+                </motion.div>
+            )}
         </header >
     );
 };

@@ -72,23 +72,23 @@ const GuestBookings = () => {
         return <MyLoader />;
     }
 
-   if (error || bookings.length === 0) {
-           return <>
-               <div className='bg-gray-100 pt-[115px] p-6 min-h-screen justify-center items-center '>
-                   <div className="max-w-[1150px] mx-auto" >
-                       <h3 className='text-[24px] mb-[15px] text-rose-600 font-[700]'>Visited Places</h3>
-                       <div className='h-[2.5px] bg-rose-600 mb-[35px] lg:mb-[55px]'></div>
-                       <div className="min-h-screen w-full flex flex-col justify-center items-center mix-blend-multiply mt-[-150px]">
-                           <img src={noReservations} alt="No Reservations" className="scale-[0.4]" />
-                           <p className="text-rose-800 font-[400] text-[15px] text-center mt-[-45px] md:mt-[-100px]">
-                               You haven't visited any place, make a Booking <br />
-                               <Link to="/" className="text-rose-600 underline font-[600]">Start Exploring</Link>
-                           </p>
-                       </div>
-                   </div>
-               </div>
-           </>;
-       }
+    if (error || bookings.length === 0) {
+        return <>
+            <div className='bg-gray-100 pt-[115px] p-6 min-h-screen justify-center items-center '>
+                <div className="max-w-[1150px] mx-auto" >
+                    <h3 className='text-[24px] mb-[15px] text-rose-600 font-[700]'>Visited Places</h3>
+                    <div className='h-[2.5px] bg-rose-600 mb-[35px] lg:mb-[55px]'></div>
+                    <div className="min-h-screen w-full flex flex-col justify-center items-center mix-blend-multiply mt-[-150px]">
+                        <img src={noReservations} alt="No Reservations" className="scale-[0.4]" />
+                        <p className="text-rose-800 font-[400] text-[15px] text-center mt-[-45px] md:mt-[-100px]">
+                            You haven't visited any place, make a Booking <br />
+                            <Link to="/" className="text-rose-600 underline font-[600]">Start Exploring</Link>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </>;
+    }
     return (
         <div className='bg-gray-50 pt-[120px] min-h-screen pb-[65px] justify-center items-center '>
             <div className="max-w-[950px] mx-auto px-6" >
@@ -100,12 +100,13 @@ const GuestBookings = () => {
                             key={booking._id}
                             className="bg-white rounded-xl flex md:flex-row flex-col justify-between border py-4 px-6 md:px-[45px] lg:px-[55px] hover:bg-gray-100 hover:border-[2px] hover:border-gray-300 transition duration-300 ease-in-out"
                         >
-                            <div className='flex items-center'>
+                            <div className='md:border-b-0 border-b-[2px] border-rose-600 pb-[12px] md:pb-0 flex items-center'>
                                 <div className='w-[45px] h-[45px] rounded-full flex items-center justify-center text-[28px] text-rose-100 bg-rose-600'>
                                     <TbBrandBooking />
                                 </div>
-                                
-                                <p className='font-[600] text-[18px] ml-[8px] text-rose-800'>{`${booking.listing.name.slice(0, 11)}...`}</p> 
+                                <p className='font-[600] text-[18px] ml-[8px] text-rose-800'>
+                                    {booking.listing.name.length > 25 ? `${booking.listing.name.slice(0, 25)}...` : booking.listing.name}
+                                </p>
                             </div>
 
                             <div className='hidden md:flex items-center'>
@@ -163,7 +164,7 @@ const GuestBookings = () => {
                 </div>
 
                 {showModal && selectedBooking && (
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="fixed inset-0 bg-black px-[15px] md:px-[25px] bg-opacity-50 flex items-center justify-center z-50">
                         <motion.div className="bg-white rounded-lg p-6 shadow-lg lg:w-[600px] w-[400px] relative"
                             initial={{ scale: 0.4, opacity: 1, y: 500 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -180,7 +181,7 @@ const GuestBookings = () => {
                                 <MdClose size={24} />
                             </button>
 
-                            <div className=" flex justify-center items-center font-semibold mb-4 fkex text-center text-gray-800">
+                            <div className="flex justify-center items-center font-semibold mb-4 fkex text-center text-gray-800">
                                 <p className='w-[38px] h-[38px] rounded-full flex items-center justify-center text-[28px] text-rose-100 bg-rose-600'>
                                     <TbBrandBooking />
                                 </p>
@@ -192,11 +193,11 @@ const GuestBookings = () => {
                                     Listing ID: <span className="font-normal">{selectedBooking.listingId}</span>
                                 </p>
                                 */}
-                                <div className='border-b-[2px] border-rose-700 pb-[8px] flex justify-between items-center'>
-                                    <p className="text-gray-700 font-medium">
-                                        Name: <span className="font-normal">{selectedBooking.listing.name}</span>
+                                <div className='border-b-[2px] w-full border-rose-700 pb-[8px] flex justify-between items-center'>
+                                    <p className="text-gray-700 font-medium w-[calc(100%-105px)] overflow-hidden">
+                                        Name: <span className="font-normal">{selectedBooking.listing.name.length > 25 ? `${selectedBooking.listing.name.slice(0, 25)}...` : selectedBooking.listing.name}</span>
                                     </p>
-                                    <Link to={`/listing/${selectedBooking.listingId}`} className='text-rose-700 hover:text-red-500 cursor-pointer flex items-center '>
+                                    <Link to={`/listing/${selectedBooking.listingId}`} className='w-[105px] overflow-hidden text-rose-700 hover:text-red-500 cursor-pointer flex items-center '>
                                         See Listings <FaArrowRight className='pl-[5px] mt-[2px]' />
                                     </Link>
                                 </div>
@@ -213,7 +214,6 @@ const GuestBookings = () => {
                                 </p>
                             </div>
 
-                            {/* Guests Section */}
                             <div className="mt-4">
                                 <p className="text-gray-700 font-medium mb-1 flex items-center gap-2">
                                     <label className='w-[30px] h-[30px] text-[18px] bg-rose-600 flex justify-center items-center rounded-full text-white'><AiOutlineUser /></label>
@@ -227,12 +227,10 @@ const GuestBookings = () => {
                                 </ul>
                             </div>
 
-                            {/* Total Amount */}
                             <p className="text-gray-700 font-medium mt-4">
                                 Total Amount: <span className="font-bold text-green-500">${selectedBooking.totalAmount}</span>
                             </p>
 
-                            {/* Special Requests */}
                             {selectedBooking.specialRequests && (
                                 <p className="text-sm text-gray-500 italic mt-2">
                                     Special Requests: {selectedBooking.specialRequests}
