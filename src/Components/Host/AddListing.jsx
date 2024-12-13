@@ -572,12 +572,10 @@ const AddListing = () => {
 
         const formDataToSend = new FormData();
 
-        // Appened All listng to the from
         formDataToSend.append('name', formData.name);
         formDataToSend.append('summary', formData.summary);
         formDataToSend.append('category', formData.category);
-        formDataToSend.append('property_type', formData.property_type);
-        formDataToSend.append('category', formData.category);
+        formDataToSend.append('property_type', formData.property_type); 
         formDataToSend.append('maxGuests', formData.maxGuests);
         formDataToSend.append('bedrooms', formData.bedrooms);
         formDataToSend.append('bathrooms', formData.bathrooms);
@@ -595,11 +593,9 @@ const AddListing = () => {
 
         try {
             const token = localStorage.getItem('token');
-
             const response = await axios.post(
                 `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/hosting/add-listing-with-images`,
-                formDataToSend,
-                {
+                formDataToSend, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`,
@@ -632,9 +628,6 @@ const AddListing = () => {
                 {currentStep === 2 && <Step2 formData={formData} handleChange={handleChange} setCurrentStep={setCurrentStep} />}
                 {currentStep === 3 && <Step3 formData={formData} handleChange={handleChange} setCurrentStep={setCurrentStep} />}
                 {currentStep === 4 && <Step4 formData={formData} setCurrentStep={setCurrentStep} handleAmenityChange={handleAmenityChange} handleAmenityRemove={handleAmenityRemove} handleAmenityAdd={handleAmenityAdd} />}
-                {/*currentStep === 5 && <Step5 formData={formData} handleChange={handleChange} setCurrentStep={setCurrentStep} setFormData={setFormData}/>*/}
-                {/*currentStep === 6 && <Step6 formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} setCurrentStep={setCurrentStep} setFormData={setFormData}/>*/}
-
                 {currentStep === 5 && (
                     <Step5
                         uploadMethod={uploadMethod}

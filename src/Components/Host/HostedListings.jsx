@@ -34,7 +34,7 @@ const HostedListings = () => {
   };
 
   const handleDeleteClick = (listingId) => {
-    //setDeleteListingId(listingId);
+    setDeleteListingId(listingId);
     setShowModal(true);
   };
 
@@ -73,10 +73,11 @@ const HostedListings = () => {
   }
 
   return (
-    <div className='bg-gray-100 pt-[90px] min-h-screen justify-center items-center '>
-      <div className="max-w-[950px] mx-auto" >
-        <h3 className='text-[24px] mb-[15px] text-rose-600 font-[700] xl:mb-[55px] text-center'>Your Property Listings</h3>
-        <div className="md:p-0 p-3 xl:scale-[1.1] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
+    <div className='bg-gray-100 pt-[110px] border-b-[2px] pb-[15px] min-h-screen justify-center items-center '>
+      <div className="md:px-[25px] px-[15px] xl:px-[150px]" >
+        <h3 className='text-[24px] text-rose-600 font-[700] text-center'>Your Property Listings</h3>
+        <div className='bg-rose-600  mt-[15px] mb-[35px] rounded-xl h-[2px]'></div>
+        <div className="md:p-0 p-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
           {listings.map((listing) => (
             <div
               key={listing._id}

@@ -165,10 +165,10 @@ const Navbar = () => {
                                         {user && userRole === 'Guest' ?
                                             <NavLink to="/reserved-bookings-history" className="text-gray-600 hover:text-black font-medium">
                                                 Experiences
-                                            </NavLink> : 
+                                            </NavLink> :
                                             <div onClick={() => setShowFilterModal(true)} className="text-gray-600 hover:text-black font-medium">
-                                            Experiences
-                                        </div>
+                                                Experiences
+                                            </div>
                                         }
                                     </motion.div>
                                 )}
@@ -177,10 +177,12 @@ const Navbar = () => {
 
                         <div className="flex items-center space-x-4">
                             <span className='text-gray-700 xl:block hidden text-md'>Airbnb Your Home</span>
-                            <NavLink to={userRole === "Guest" ? "/guest_notifications" : "/host_notifications"} className="hidden md:inline-flex items-center  space-x-2 hover:text-black">
-                                <FaBell className={`text-xl ${notificationsCount === 0 ? 'text-gray-500' : ' mr-[-20px]'}`} />
-                                {notificationsCount !== 0 && <div className='text-[12px] font-[600] rounded-full w-[20px] h-[20px] text-white text-center bg-rose-600 mt-[-20px]'>{notificationsCount}</div>}
-                            </NavLink>
+                            {user &&
+                                <NavLink to={userRole === "Guest" ? "/guest_notifications" : "/host_notifications"} className="hidden md:inline-flex items-center  space-x-2 hover:text-black">
+                                    <FaBell className={`text-xl ${notificationsCount === 0 ? 'text-gray-500' : ' mr-[-20px]'}`} />
+                                    {notificationsCount !== 0 && <div className='text-[12px] font-[600] rounded-full w-[20px] h-[20px] text-white text-center bg-rose-600 mt-[-20px]'>{notificationsCount}</div>}
+                                </NavLink>
+                            }
                             <div onClick={toggleMenu} className="flex items-center space-x-2 border rounded-full px-3 py-2 hover:shadow-lg transition-shadow">
                                 <div className='sm:block hidden'><GiHamburgerMenu className="text-xl text-gray-500" /></div>
                                 <div className="sm:hidden">
@@ -321,7 +323,7 @@ const Navbar = () => {
                                     <NavLink to="/profile" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                                         Profile
                                     </NavLink>
-                                    <button onClick={handleLogout} className="pl-[12px] text-start block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                                    <button onClick={handleLogout} className="pl-[12px] text-start block py-2 text-rose-600 hover:bg-rose-400 font-[600] rounded-lg">
                                         Logout
                                     </button>
                                 </>

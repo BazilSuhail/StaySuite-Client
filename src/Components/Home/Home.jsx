@@ -126,7 +126,7 @@ const Home = () => {
     <div className='mt-[85px] min-h-screen md:mt-[95px]'>
       <SearchBar handleSearch={handleSearch} />
 
-      <div className='top-[60px] w-full bg-white sticky'>
+      <div className='top-[60px] z-[999] w-full bg-white sticky'>
         <HorizontalScrollList setCategory={setCategory} />
       </div>
 
