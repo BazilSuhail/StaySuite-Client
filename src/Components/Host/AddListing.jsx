@@ -4,14 +4,16 @@ import { RiDeleteBinLine } from 'react-icons/ri';
 import { FaRegImage, FaLink } from 'react-icons/fa';
 import { RiCloseFill } from 'react-icons/ri';
 import { categories } from './AddListings_Utility';
+import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../AuthProvider';
 
 
 const Step1 = ({ formData, handleChange, setCurrentStep }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleCategoryClick = (category) => {
-        handleChange({ target: { name: 'category', value: category } }); // Simulate form input change
-        setIsModalOpen(false); // Close modal after selection
+        handleChange({ target: { name: 'category', value: category } }); 
+        setIsModalOpen(false);
     };
 
     return (
@@ -259,51 +261,7 @@ const Step5 = ({ uploadMethod, setUploadMethod, setCurrentStep }) => (
                 <FaRegImage className="text-rose-600 mr-2" size={24} />
                 <span>Upload Property Info Via Image Files</span>
             </label>
-        </div>
-
-        {/*<div className="flex flex-col items-center">
-      <label className="flex items-center space-x-2 cursor-pointer">
-        <div
-          className={`w-5 h-5 border-2 ${
-            uploadMethod === 'url' ? 'bg-rose-500 border-rose-500' : 'border-gray-400'
-          } rounded-md flex items-center justify-center`}
-        >
-          {uploadMethod === 'url' && (
-            <div className="w-2.5 h-2.5 bg-white rounded-md" />
-          )}
-        </div>
-        <span className="text-gray-700">Use Image URLs</span>
-        <input
-          type="radio"
-          name="uploadMethod"
-          value="url"
-          checked={uploadMethod === 'url'}
-          onChange={(e) => setUploadMethod(e.target.value)}
-          className="hidden"
-        />
-      </label>
-      <label className="flex items-center space-x-2 cursor-pointer">
-        <div
-          className={`w-5 h-5 border-2 ${
-            uploadMethod === 'file' ? 'bg-rose-500 border-rose-500' : 'border-gray-400'
-          } rounded-md flex items-center justify-center`}
-        >
-          {uploadMethod === 'file' && (
-            <div className="w-2.5 h-2.5 bg-white rounded-md" />
-          )}
-        </div>
-        <span className="text-gray-700">Upload Image Files</span>
-        <input
-          type="radio"
-          name="uploadMethod"
-          value="file"
-          checked={uploadMethod === 'file'}
-          onChange={(e) => setUploadMethod(e.target.value)}
-          className="hidden"
-        />
-      </label>
-    </div>*/}
-
+        </div> 
         <button
             onClick={() => setCurrentStep(4)}
             className="bg-gray-600 mt-[45px] text-white mr-[10px] px-[25px] py-[5px] rounded-lg"
@@ -503,6 +461,8 @@ const Step9 = ({ setFormData, handleFileSubmit, setCurrentStep }) => {
 
 
 const AddListing = () => {
+  const navigate = useNavigate();
+    const { showToast } = useAuthContext();
     const [formData, setFormData] = useState({
         name: '',
         summary: '',
@@ -590,7 +550,9 @@ const AddListing = () => {
                 formData,
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-            alert(response.data.message);
+            //alert(response.data.message);
+            navigate("/host-listing");
+            showToast(response.data.message);
         }
         catch (error) {
             console.error(error);
@@ -645,7 +607,9 @@ const AddListing = () => {
                 }
             );
 
-            alert(response.data.message);
+            navigate("/host-listing");
+            showToast(response.data.message);
+            //alert(response.data.message);
         }
         catch (error) {
             console.error('Error submitting listing with images:', error);

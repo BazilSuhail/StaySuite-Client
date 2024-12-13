@@ -402,8 +402,8 @@ const Profile = () => {
                     <div className="lg:w-1/3 mb-6 lg:mb-0">
                         <div className="flex justify-between py-6 p-[35px] bg-white rounded-[28px] shadow-sm ">
                             <div className='flex flex-col items-center justify-center'>
-                            <img
-                                    src={`/Avatars/${userInfo.profilePicture}.jpg`}
+                                <img
+                                    src={`/Avatars/${selectedAvatar || userInfo.profilePicture}.jpg`}
                                     alt="Profile Avatar"
                                     className="w-24 h-24 rounded-full border border-gray-300 shadow-md"
                                 />

@@ -128,7 +128,7 @@ const Navbar = () => {
 
     return (
         <header className="bg-white fixed w-full z-50 top-0">
-                       {showFilterModal && <FiltersModal closeFilterModal={closeFilterModal} />}
+            {showFilterModal && <FiltersModal closeFilterModal={closeFilterModal} />}
             <nav className='md:block hidden'>
                 <div className={`${location.pathname === '/' ? 'border-white pt-4' : 'border-b-[3px] border-gray-100 py-4'} mx-auto px-4 sm:px-6 md:px-[15px] lg:px-[35px] xl:px-[75px]`}>
                     <div className="flex justify-between items-center ">
@@ -162,9 +162,14 @@ const Navbar = () => {
                                         <div onClick={() => setShowFilterModal(true)} className="text-gray-600 hover:text-black font-medium">
                                             Explore
                                         </div>
-                                        <NavLink to="/reserved-bookings-history" className="text-gray-600 hover:text-black font-medium">
+                                        {user && userRole === 'Guest' ?
+                                            <NavLink to="/reserved-bookings-history" className="text-gray-600 hover:text-black font-medium">
+                                                Experiences
+                                            </NavLink> : 
+                                            <div onClick={() => setShowFilterModal(true)} className="text-gray-600 hover:text-black font-medium">
                                             Experiences
-                                        </NavLink>
+                                        </div>
+                                        }
                                     </motion.div>
                                 )}
                             </>

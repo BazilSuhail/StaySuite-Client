@@ -437,7 +437,7 @@ const EditListing = () => {
                     <label className="block text-gray-600 mb-1">Property Image {index + 1}'s' Preview</label>
                     <img
                       src={url}
-                      alt={`Additional Picture ${index + 1}`}
+                      alt='Conneciton Error'
                       className="w-[250px] md:w-[150px] h-[160px] md:h-[100px] object-cover rounded-md"
                     />
                   </div>

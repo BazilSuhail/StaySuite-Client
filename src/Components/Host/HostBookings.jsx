@@ -112,8 +112,8 @@ const HostBookings = () => {
                                     <TbBrandBooking />
                                 </div>
                                 <div className='flex w-[85%] pb-[4px] justify-between items-center'>
-                                    <div className='font-[600] text-[15px] md:text-[22px] text-rose-50'><p>{`${booking.listingDetails.name.slice(0, 35)}..` || 'N/A'}</p></div>
-                                    <Link to={`/listing/${booking.listingId}`} className='text-rose-50 hover:text-red-300 hover:underline cursor-pointer flex items-center '>
+                                    <div className='font-[600] text-[15px] md:text-[20px] text-rose-50'><p>{`${booking.listingDetails.name.slice(0, 20)}` || 'N/A'}</p></div>
+                                    <Link to={`/listing/${booking.listingId}`} className='text-rose-50 w-[110px] text-[15px] hover:text-red-300 hover:underline cursor-pointer flex items-center '>
                                         See Listings <FaArrowRight className='pl-[5px] mt-[2px]' />
                                     </Link>
                                 </div>
@@ -141,6 +141,7 @@ const HostBookings = () => {
                                 <div className='flex  mt-[8px] items-center space-x-2'>
                                     <GrStatusInfo className='text-rose-800 text-[18px]' />
                                     <p className='text-[15px] font-[600] text-gray-500 '>Status</p>
+                                    <p className={`font-[600] px-[12px] py-[2px] mt-[5px] text-white rounded-[30px] text-[12px] ${booking.status === 'approved' ? 'bg-green-800' : booking.status === 'pending' ? 'bg-yellow-600' : booking.status === 'confirmed' ? 'bg-blue-800' : booking.status === 'rejected' ? 'bg-red-800' : booking.status === 'completed' ? 'text-gray-800' : ''}`}>{booking.status}</p>
                                 </div>
 
                             </div>
