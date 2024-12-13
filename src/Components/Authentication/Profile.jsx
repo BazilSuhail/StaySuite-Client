@@ -6,6 +6,7 @@ import { RiDeleteBinLine } from 'react-icons/ri';
 import MyLoader from '../../assets/MyLoader';
 import { AiOutlineInstagram } from 'react-icons/ai';
 import { TiSocialFacebook } from 'react-icons/ti';
+import { motion } from 'framer-motion';
 
 const Profile = () => {
     const [userInfo, setUserInfo] = useState(null);
@@ -13,6 +14,10 @@ const Profile = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    // Avatar code 
+    const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
+    const [selectedAvatar, setSelectedAvatar] = useState(null);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -44,7 +49,8 @@ const Profile = () => {
                     [name]: value,
                 },
             });
-        } else {
+        }
+        else {
             setUpdatedData({
                 ...updatedData,
                 [name]: value,
@@ -59,11 +65,29 @@ const Profile = () => {
         });
     };
 
+    const openAvatarModal = () => {
+        setIsAvatarModalOpen(true);
+    };
+
+    const closeAvatarModal = () => {
+        setIsAvatarModalOpen(false);
+    };
+
+    const selectAvatar = (index) => {
+        setSelectedAvatar(index);
+        /*setUpdatedData({
+            ...updatedData,
+            profilePicture: index,
+        });*/
+        closeAvatarModal();
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.put(`${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/profile/update-info`, updatedData, {
+            const updatedProfile = { ...updatedData, profilePicture: selectedAvatar }; // Include avatar in profile update
+            const response = await axios.put(`${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/profile/update-info`, updatedProfile, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setUserInfo(response.data);
@@ -106,10 +130,28 @@ const Profile = () => {
                     {/* Left wala Section */}
                     <div className="lg:w-1/3 mb-6 lg:mb-0">
                         <div className="flex justify-between py-6 p-[35px] bg-white rounded-[28px] shadow-sm ">
-                            <div className='flex flex-col items-center justify-center'>
+                            {/*<div className='flex flex-col items-center justify-center'>
                                 <div className="w-[100px] h-[100px] bg-gray-300 rounded-full flex items-center justify-center mx-auto text-4xl font-bold text-gray-700 mb-[3px]">
                                     {userInfo.username.charAt(0)}
                                 </div>
+                                <h2 className="text-[25px] font-semibold">{userInfo.username}</h2>
+                                <p className="bg-gray-500 text-gray-100 text-center py-[1px] mt-[8px] text-[13px] rounded-[35px] w-[70px]">{userInfo.role}</p>
+
+                            </div>*/}
+
+                            <div className='flex flex-col justify-center items-center mb-4'>
+                                <img
+                                    src={`/Avatars/${selectedAvatar}.jpg`}
+                                    alt="Profile Avatar"
+                                    className="w-24 h-24 rounded-full border border-gray-300 shadow-md"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={openAvatarModal}
+                                    className='bg-blue-900 ml-[10px] text-white px-4 py-[2px] text-[12px] mt-[5px] rounded-md hover:bg-gray-600'
+                                >
+                                    Change Avatar
+                                </button>
                                 <h2 className="text-[25px] font-semibold">{userInfo.username}</h2>
                                 <p className="bg-gray-500 text-gray-100 text-center py-[1px] mt-[8px] text-[13px] rounded-[35px] w-[70px]">{userInfo.role}</p>
 
@@ -157,7 +199,7 @@ const Profile = () => {
                                 <p className="text-sm text-gray-500 mb-4">
                                     Before you book or host on Airbnb, you must to complete this step.
                                 </p>
-                                <button className="px-4 py-2 lg:pb-[24px] text-white text-sm rounded-md  "> 
+                                <button className="px-4 py-2 lg:pb-[24px] text-white text-sm rounded-md  ">
                                 </button>
                             </div>
                         </div>
@@ -191,11 +233,11 @@ const Profile = () => {
                                     value={updatedData.phoneNumber || userInfo.phoneNumber || ''}
                                     onChange={handleChange}
                                     className="p-[5px] border w-full my-[12px] border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    pattern="^\d{11}$"   
+                                    pattern="^\d{11}$"
                                     inputMode="numeric"
-                                    maxLength={11}    
-                                    required   
-                                    title="Please enter exactly 11 digits" 
+                                    maxLength={11}
+                                    required
+                                    title="Please enter exactly 11 digits"
                                 />
 
                             </p>
@@ -360,9 +402,11 @@ const Profile = () => {
                     <div className="lg:w-1/3 mb-6 lg:mb-0">
                         <div className="flex justify-between py-6 p-[35px] bg-white rounded-[28px] shadow-sm ">
                             <div className='flex flex-col items-center justify-center'>
-                                <div className="w-[100px] h-[100px] bg-gray-300 rounded-full flex items-center justify-center mx-auto text-4xl font-bold text-gray-700 mb-[3px]">
-                                    {userInfo.username.charAt(0)}
-                                </div>
+                            <img
+                                    src={`/Avatars/${userInfo.profilePicture}.jpg`}
+                                    alt="Profile Avatar"
+                                    className="w-24 h-24 rounded-full border border-gray-300 shadow-md"
+                                />
                                 <h2 className="text-[25px] font-semibold">{userInfo.username}</h2>
                                 <p className="bg-gray-500 text-gray-100 text-center py-[1px] mt-[8px] text-[13px] rounded-[35px] w-[70px]">{userInfo.role}</p>
 
@@ -371,7 +415,7 @@ const Profile = () => {
                                 <p className='text-[18px]'> {(() => {
                                     const reviewDate = new Date(userInfo.createdAt);
                                     const now = new Date();
-                                    const timeDiff = now - reviewDate; // Difference in milliseconds
+                                    const timeDiff = now - reviewDate;
 
                                     const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
                                     const months = Math.floor(days / 30);
@@ -410,7 +454,7 @@ const Profile = () => {
                                 <p className="text-sm text-gray-500 mb-4">
                                     Before you book or host on Airbnb, you must to complete this step.
                                 </p>
-                                <button className="px-4 py-2 lg:pb-[24px] text-white text-sm rounded-md  "> 
+                                <button className="px-4 py-2 lg:pb-[24px] text-white text-sm rounded-md  ">
                                 </button>
                             </div>
                         </div>
@@ -502,6 +546,36 @@ const Profile = () => {
                     </div>
                 </div>
             }
+            {/* Avatar Selection Modal */}
+            {isAvatarModalOpen && (
+                <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+                    <motion.div
+                        className='bg-white p-6 rounded-lg shadow-lg'
+                        initial={{ y: -100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: -100, opacity: 0 }}
+                    >
+                        <h2 className='text-xl font-bold mb-4'>Select an Avatar</h2>
+                        <div className='grid grid-cols-3 lg:grid-cols-4 gap-4'>
+                            {Array.from({ length: 12 }).map((_, index) => (
+                                <img
+                                    key={index}
+                                    src={`/Avatars/${index + 1}.jpg`}
+                                    alt={`Avatar ${index + 1}`}
+                                    className='w-24 h-24 rounded-full border border-gray-300 shadow-md cursor-pointer hover:opacity-75'
+                                    onClick={() => selectAvatar(index + 1)}
+                                />
+                            ))}
+                        </div>
+                        <button
+                            onClick={closeAvatarModal}
+                            className='mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600'
+                        >
+                            Close
+                        </button>
+                    </motion.div>
+                </div>
+            )}
         </main >
     );
 };

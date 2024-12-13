@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { TbBrandBooking } from 'react-icons/tb';
-import { FaUserCircle, FaEnvelope, FaMapMarkerAlt, FaInfoCircle, FaArrowRight, FaLinkedinIn, FaTwitter, FaPhoneAlt } from "react-icons/fa";
-import { AiFillFacebook, AiFillTwitterCircle, AiFillLinkedin, AiOutlineCalendar, AiOutlineInstagram } from "react-icons/ai";
+import { FaUserCircle, FaEnvelope, FaMapMarkerAlt, FaInfoCircle, FaArrowRight, FaLinkedinIn, FaPhoneAlt } from "react-icons/fa";
+import { AiOutlineCalendar, AiOutlineInstagram } from "react-icons/ai";
 import { Link } from 'react-router-dom';
 import { MdClose, MdOutlinePropane } from 'react-icons/md';
 import { GrStatusInfo } from 'react-icons/gr';
@@ -84,12 +84,12 @@ const HostBookings = () => {
         return (
             <div className='bg-gray-50 pt-[90px] min-h-screen pb-[65px] justify-center items-center '>
                 <div className="max-w-[950px] mx-auto px-6" >
-                    <h3 className='text-[24px]  text-rose-600 font-[700]  text-start'>My Reserved bookings</h3>
+                    <h3 className='text-[22px]  text-rose-600 font-[700]  text-start'>Bookings reserved on your Listings</h3>
                     <div className='h-[2px] bg-rose-300 rounded-lg my-[15px] mb-[35px]'></div>
                     <div className="flex flex-col space-y-[15px]">
                         <div className="min-h-screen w-full flex flex-col justify-center items-center mix-blend-multiply mt-[-150px]">
                             <img src={noReservations} alt="" className="scale-[0.4]" />
-                            <p className='text-rose-800 font-[400] text-[15px] text-center mt-[-45px] md:mt-[-100px]'>You haven't made any reservations. <br /> <Link to="/" className='text-rose-600 underline font-[600]'> Make a Boooking now</Link></p>
+                            <p className='text-rose-800 font-[400] text-[15px] text-center mt-[-45px] md:mt-[-100px]'>No reservations Made on any of your Lisitngs</p>
                         </div>
                     </div>
                 </div>

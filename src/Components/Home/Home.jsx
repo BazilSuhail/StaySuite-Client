@@ -87,7 +87,7 @@ const Home = () => {
       fetchListings(currentPage, category);
     }
   }, [currentPage, category, searchParams]);
- 
+
 
   const handleSearch = (location, guests) => {
     //console.log(location)
@@ -110,18 +110,14 @@ const Home = () => {
     }
   };
 
-  if (error || listings.length === 0) {
+  if (error) {
     return (
       <div className='mt-[85px] min-h-screen md:mt-[95px]'>
         <SearchBar handleSearch={handleSearch} />
-
         <div className='top-[60px] w-full bg-white sticky'>
           <HorizontalScrollList setCategory={setCategory} />
         </div>
-        <div className='mt-[150px] w-full flex flex-col  mx-auto contrast justify-center items-center '>
-          <img className='mix-blend-multiply z-10 scale-[0.8]' src={noResults} alt="" />
-          <p className='text-gray-400 bg-white z-30 pt-[18px] mt-[-70px] px-[55px] font-[600] text-[15px]'>No listings found</p>
-        </div>
+        <Homeloader />
       </div>
     );
   }
@@ -160,9 +156,13 @@ const Home = () => {
             </div>
           ))}
         </div>
-
       }
-
+      {listings.length === 0 &&
+        <div className='mt-[150px] w-full flex flex-col  mx-auto contrast justify-center items-center '>
+          <img className='mix-blend-multiply z-10 scale-[0.8]' src={noResults} alt="" />
+          <p className='text-gray-400 bg-white z-30 pt-[18px] mt-[-70px] px-[55px] font-[600] text-[15px]'>No listings found</p>
+        </div>
+      }
 
       {hasMore && (
         <div className="text-center mt-6">

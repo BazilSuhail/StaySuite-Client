@@ -229,19 +229,13 @@ export const Reviews = ({ listingId, ratingReviews, onClose }) => {
                                     }
                                     {reviews.map((review, index) => (
                                         <div key={index} className="mb-6 p-4 bg-white">
-                                            <div className="mb-[8px] flex items-center">
-                                                {/*
-                                                {review.user?.profilePicture ?
-                                                    <img
-                                                        src={review.user.profilePicture}
-                                                        alt={`${review.user.name}'s profile`}
-                                                        className="w-10 h-10 rounded-full mr-4"
-                                                    />
-                                                    :
-                                                    <div className="w-10 h-10 bg-gray-300 rounded-full mr-4"></div>
-                                                }
-                                                */}
-                                                <div className="w-10 h-10 flex justify-center items-center text-[22px] font-[600] bg-rose-500 text-white rounded-full mr-4"><p>{review.user?.username?.charAt(0) || 'P'}</p></div>
+                                            <div className="mb-[8px] flex items-center"> 
+                                                <img
+                                                    src={`/Avatars/${review.user.profilePicture}.jpg`}
+                                                    alt="No Profile Avatar"
+                                                    className="w-10 h-10 rounded-full mr-4 border border-gray-300 shadow-md"
+                                                />
+                                                {/*<div className="w-10 h-10 flex justify-center items-center text-[22px] font-[600] bg-rose-500 text-white rounded-full mr-4"><p>{review.user?.username?.charAt(0) || 'P'}</p></div>*/}
                                                 <div className=''>
                                                     <h4 className="text-[16px] font-medium">{review.user?.username || 'Anonymous'}</h4>
                                                     <p className='text-gray-500 text-[12px] font-[500]'>{review.user?.location.city || ''}, {review.user?.location.country || ''}</p>

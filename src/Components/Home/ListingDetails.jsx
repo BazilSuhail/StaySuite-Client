@@ -6,6 +6,8 @@ import { FaMedal, FaHome, FaDoorOpen, FaToilet, FaStarHalfAlt, FaStar } from 're
 import { AddRating, FavoriteButton, Reviews } from './ListingRating';
 import { useAuthContext } from '../../AuthProvider';
 import { GiAngelWings } from 'react-icons/gi';
+import { motion } from "framer-motion";
+import { AiOutlineClose } from 'react-icons/ai';
 
 const LisitngDetailsLoader = () => {
   return (
@@ -72,6 +74,8 @@ const ListingDetails = () => {
   const [ratingerror, setRatingerror] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+
+  const [isListingPicturesModalOpen, setIsListingPicturesModalOpen] = useState(false);
   const [ratingReviews, setRatingReviews] = useState([]);
 
   useEffect(() => {
@@ -143,10 +147,43 @@ const ListingDetails = () => {
   return (
     <div className="w-full overflow-x-hidden xl:px-[160px] min-h-screen p-6 bg-white">
 
-      {showModal && <Reviews listingId={id} ratingReviews={ratingReviews} onClose={() => setShowModal(false)} />}
       <h2 className="mt-[85px] mb-[20px] text-[22px] md:text-[30px] text-rose-950  font-semibold">{listing.name}</h2>
 
-      <div className='grid w-full overflow-hidden gap-[6px] grid-cols-5 rounded-[25px]'>
+      {showModal && <Reviews listingId={id} ratingReviews={ratingReviews} onClose={() => setShowModal(false)} />}
+      {isListingPicturesModalOpen &&
+        <div className="fixed inset-0 bg-black  bg-opacity-50 flex justify-center items-center z-50">
+          <motion.div className="bg-white rounded-lg overflow-y-auto py-[25px] no-scrollbar h-[80vh] w-[95vw] px-[8px] space-y-[8px] flex flex-col md:w-[90vw] mx-4 md:mx-auto shadow-lg"
+            initial={{ scale: 0.7, opacity: 1, y: 500 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.5,
+              ease: [0.2, 0.8, 0.2, 1],
+            }}
+          >
+            <button onClick={() => setIsListingPicturesModalOpen(false)}>
+              <AiOutlineClose className="text-xl ml-auto mb-[15px] mr-[12px] text-gray-500 hover:text-gray-800" />
+            </button>
+            <div className="h-[210px] sm:h-[350px]">
+              <img
+                src={listing.images.coverPicture}
+                alt={listing.title}
+                className="w-full rounded-xl h-full object-cover"
+              />
+            </div>
+            <div className='flex flex-col space-y-[8px]'>
+              {listing.images.additionalPictures.slice(0, 4).map((url, index) => (
+                <div key={index} className="h-[210px] sm:h-[350px]">
+                  <img src={url} alt={`Additional ${index + 1}`} className="w-full  rounded-xl h-full object-cover" />
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      }
+
+      <div className='relative grid w-full overflow-hidden gap-[6px] grid-cols-5 rounded-[25px]'>
+        <button onClick={() => setIsListingPicturesModalOpen(true)} className='lg:hidden absolute top-[10px] right-[15px] px-[12px] rounded-2xl bg-white text-black'>See Photos</button>
+
         <div className="col-span-5 h-[250px] sm:h-[350px] md:h-[430px] md:col-span-3">
           <img
             src={listing.images.coverPicture}
@@ -265,9 +302,9 @@ const ListingDetails = () => {
               <FaDoorOpen className="text-gray-700 mt-[12px] text-[28px] mr-[15px] " />
               <div>
                 <p className="font-semibold">Amenities</p>
-                <div className='flex mt-[8px] items-center'>
+                <div className='flex flex-wrap items-center'>
                   {listing.amenities.map((amenity, index) => (
-                    <p key={index} className="text-gray-800 px-[7px] py-[1px] text-[13px] font-[500] border-[2px] border-gray-500 rounded-xl mr-[10px] flex items-center break-words">{amenity}</p>
+                    <p key={index} className="text-gray-800 mt-[8px]  break-words px-[7px] py-[1px] text-[13px] font-[500] border-[2px] border-gray-500 rounded-xl mr-[10px] flex items-center">{amenity}</p>
                   ))}
                 </div>
 
