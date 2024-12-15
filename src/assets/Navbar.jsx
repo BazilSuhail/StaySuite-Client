@@ -281,64 +281,62 @@ const Navbar = () => {
                     </div>
                 </div>
                 {isOpen && (
-                    <div className="sm:hidden">
-                        <motion.div className="flex flex-col z-10 bg-white rounded-lg shadow-md mt-2 p-4"
-                            initial={{ opacity: 1, y: -500 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{
-                                duration: 0.5,
-                                ease: [0.2, 0.8, 0.2, 1],
-                            }}
-                        >
-
-                            {user &&
-                                <>{userRole === 'Host' ? <>
-                                    <NavLink to="/host-bookings" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                                        Host Bookings
-                                    </NavLink>
-                                    <NavLink to="/add-listing" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                                        Add Listing
-                                    </NavLink>
-                                </>
-                                    : <>
-                                        <NavLink to="/reserved-bookings-history" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                                            Bookings History
-                                        </NavLink>
-                                        <NavLink to="/reserved-bookings" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                                            Reserved Bookings
-                                        </NavLink>
-                                    </>}
-                                </>
-                            }
-                            <NavLink to="/privacy-policy" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                                Privacy Policy
-                            </NavLink>
-                            <NavLink to="/accessibility" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                                Accessibility
-                            </NavLink>
-
-                            <div className="w-full bg-gray-200 h-[2px] my-2"></div>
-                            {user ? (
-                                <>
-                                    <NavLink to="/profile" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                                        Profile
-                                    </NavLink>
-                                    <button onClick={handleLogout} className="pl-[12px] text-start block py-2 text-rose-600 hover:bg-rose-400 font-[600] rounded-lg">
-                                        Logout
-                                    </button>
-                                </>
-                            ) : (<>
-                                <NavLink to="/signUp" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                                    Sign up
+                   <div className='sm:hidden bg-white rounded-b-[25px] border-b-[1.5px] shadow-md'>
+                     <motion.div className=" flex flex-col z-10 mt-2 p-4"
+                        initial={{ opacity: 1, x: -500 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{
+                            duration: 0.5,
+                            ease: [0.2, 0.8, 0.2, 1],
+                        }}
+                    >
+                        {user &&
+                            <>{userRole === 'Host' ? <>
+                                <NavLink to="/host-bookings" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                                    Host Bookings
                                 </NavLink>
-                                <NavLink to="/signIn" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                                    Log in
+                                <NavLink to="/add-listing" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                                    Add Listing
                                 </NavLink>
                             </>
-                            )}
+                                : <>
+                                    <NavLink to="/reserved-bookings-history" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                                        Bookings History
+                                    </NavLink>
+                                    <NavLink to="/reserved-bookings" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                                        Reserved Bookings
+                                    </NavLink>
+                                </>}
+                            </>
+                        }
+                        <NavLink to="/privacy-policy" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                            Privacy Policy
+                        </NavLink>
+                        <NavLink to="/accessibility" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                            Accessibility
+                        </NavLink>
 
-                        </motion.div>
-                    </div>
+                        <div className="w-full bg-gray-200 h-[2px] my-2"></div>
+                        {user ? (
+                            <>
+                                <NavLink to="/profile" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                                    Profile
+                                </NavLink>
+                                <button onClick={handleLogout} className="pl-[12px] text-start block py-2 text-rose-600 hover:bg-rose-400 font-[600] rounded-lg">
+                                    Logout
+                                </button>
+                            </>
+                        ) : (<>
+                            <NavLink to="/signUp" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                                Sign up
+                            </NavLink>
+                            <NavLink to="/signIn" onClick={toggleMenu} className="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                                Log in
+                            </NavLink>
+                        </>
+                        )}
+                    </motion.div>
+                   </div>
                 )}
 
                 <div className={`fixed bottom-0 left-0 w-full bg-white shadow-lg flex  justify-between py-2 transition-transform duration-300 ${getNavbarTranslateClasses()} ${getNavbarClasses()} ${user ? 'px-[40px]' : 'px-[110px]'}`}>

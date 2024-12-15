@@ -8,7 +8,7 @@ import noResults from "../../assets/PhotosAssets/noResults.webp";
 
 const Homeloader = () => {
   return (
-    <div className='w-full px-[25px] xl:px-[55px] overflow-x-hidden flex justify-center items-center flex-col'>
+    <div className='w-full z-[30] px-[25px] xl:px-[55px] overflow-x-hidden flex justify-center items-center flex-col'>
       <div className='w-full'>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 pt-4 pb-[45px]">
           {Array.from({ length: 15 }).map((_, index) => (
@@ -126,7 +126,7 @@ const Home = () => {
     <div className='mt-[85px] min-h-screen md:mt-[95px]'>
       <SearchBar handleSearch={handleSearch} />
 
-      <div className='top-[60px] z-[999] w-full bg-white sticky'>
+      <div className='top-[60px] z-[20] w-full bg-white sticky'>
         <HorizontalScrollList setCategory={setCategory} />
       </div>
 
