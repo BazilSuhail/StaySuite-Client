@@ -10,6 +10,8 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxt/icon": "^1.10.3",
+    "@vueuse/motion": "^2.2.6",
     "axios": "^1.7.9",
     "nuxt": "^3.15.0",
     "vue": "latest",
