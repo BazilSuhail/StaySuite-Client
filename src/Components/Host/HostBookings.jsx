@@ -31,7 +31,7 @@ const HostBookings = () => {
                     }
                 );
 
-                setBookings(response.data.bookings);
+                setBookings(response.data);
             }
             catch (err) {
                 //setError('Failed to fetch bookings. Please try again.');
@@ -66,7 +66,7 @@ const HostBookings = () => {
         console.log(userId);
         try {
             const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/manage-bookings/get-reservers-details/${userId}`);
-            setGuestDetails(response.data.user);
+            setGuestDetails(response.data);
             setShowModal(true);
         } catch (err) {
             console.error('Error fetching guest details:', err.response?.data || err.message);
@@ -182,7 +182,7 @@ const HostBookings = () => {
                             }}
                             className="bg-white rounded-lg shadow-lg p-6 w-96">
                             {modalLoading ? (
-                               <MyLoader/>
+                                <MyLoader />
                             ) : guestDetails ? (
                                 <div className='relative'>
                                     <button onClick={() => setShowModal(false)} className="absolute top-[-5px] right-4 text-gray-500 hover:text-gray-700" aria-label="Close Modal" >
@@ -224,7 +224,7 @@ const HostBookings = () => {
 
                                     <div className="mt-4 border-t-[2px] pt-[8px]">
                                         <p className="flex items-center gap-2">
-                                            <FaUserCircle className="text-purple-500" size={28}/>
+                                            <FaUserCircle className="text-purple-500" size={28} />
                                             <strong>Social Links:</strong>
                                         </p>
                                         <ul className="list-none mt-3 ml-[35px] flex gap-[8px]">
@@ -244,18 +244,18 @@ const HostBookings = () => {
                                                     <Link
                                                         to={guestDetails.socialLinks.instagram}
                                                         target="_blank"
-                                                        rel="noopener noreferrer" 
+                                                        rel="noopener noreferrer"
                                                     >
                                                         <AiOutlineInstagram size={24} />
                                                     </Link>
                                                 </li>
                                             )}
                                             {guestDetails.socialLinks?.linkedin && (
-                                                 <li className='w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden bg-blue-700'>
+                                                <li className='w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden bg-blue-700'>
                                                     <Link
                                                         to={guestDetails.socialLinks.linkedin}
                                                         target="_blank"
-                                                        rel="noopener noreferrer" 
+                                                        rel="noopener noreferrer"
                                                     >
                                                         <FaLinkedinIn size={19} />
                                                     </Link>
@@ -265,7 +265,12 @@ const HostBookings = () => {
                                     </div>
                                 </div>
                             ) : (
-                                <p>No details available.</p>
+                                <div className='relative'>
+                                    <button onClick={() => setShowModal(false)} className="absolute top-[-5px] right-4 text-gray-500 hover:text-gray-700" aria-label="Close Modal" >
+                                        <MdClose size={24} />
+                                    </button>
+                                    <p>No details available.</p>
+                                </div>
                             )}
                         </motion.div>
                     </div>

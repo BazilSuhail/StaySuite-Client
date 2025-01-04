@@ -119,7 +119,8 @@ const EditListing = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      alert(response.data.message);
+      //alert(response.data.message);
+      alert("Listing Updated Successfully");
       navigate('/host-listing');
     }
     catch (err) {

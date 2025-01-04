@@ -552,7 +552,7 @@ const AddListing = () => {
             );
             //alert(response.data.message);
             navigate("/host-listing");
-            showToast(response.data.message);
+            showToast("Listing has been added successfullt");
         }
         catch (error) {
             console.error(error);
@@ -604,7 +604,9 @@ const AddListing = () => {
             );
 
             navigate("/host-listing");
-            showToast(response.data.message);
+
+            showToast("Listing has been added successfully with images");
+            //showToast(response.data.message);
             //alert(response.data.message);
         }
         catch (error) {

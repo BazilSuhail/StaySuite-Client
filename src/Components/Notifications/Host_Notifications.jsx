@@ -9,6 +9,8 @@ import { FaArrowRight } from "react-icons/fa";
 import { AiOutlineCalendar, AiOutlineUser } from "react-icons/ai"; 
 import { motion } from "framer-motion";
 
+import Notification from "../../assets/PhotosAssets/notifications.webp"
+
 const HostNotifications = () => {
     const navigate = useNavigate();
     const { notifications, userNotifications } = useAuthContext();
@@ -49,7 +51,6 @@ const HostNotifications = () => {
                         <img src={Notification} alt="" className="scale-[0.55] md:scale-[0.4]" />
                     </div>
                 }
-
                 <div className="flex flex-col space-y-[15px]">
                     {notifications.map((notification, index) => (
                         <div key={index} className="border-b-[2px] border-rose-700 lg:px-[20px] py-[15px] flex flex-col">

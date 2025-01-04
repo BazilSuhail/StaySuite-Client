@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { RiDeleteBinLine } from 'react-icons/ri'; 
+import { RiDeleteBinLine } from 'react-icons/ri';
 import { FaEdit } from 'react-icons/fa';
 import MyLoader from '../../assets/MyLoader';
+import noReservations from "../../assets/PhotosAssets/noReservations.webp"
 
 const HostedListings = () => {
   const navigate = useNavigate();
@@ -23,7 +24,8 @@ const HostedListings = () => {
           },
         }
       );
-      setListings(response.data.listings);
+      //console.log(response.data)
+      setListings(response.data);
     }
     catch (err) {
       console.error('Error fetching hosted listings:', err);
@@ -59,8 +61,8 @@ const HostedListings = () => {
     setShowModal(false);
   };
 
-  useEffect(() => { 
-      window.scrollTo(0, 0); 
+  useEffect(() => {
+    window.scrollTo(0, 0);
     fetchHostedListings();
   }, []);
 
@@ -69,7 +71,20 @@ const HostedListings = () => {
   }
 
   if (error) {
-    return <div className="text-red-500">{error}</div>;
+    return (
+      <div className='bg-gray-50 pt-[90px] min-h-screen pb-[65px] justify-center items-center '>
+        <div className="max-w-[950px] mx-auto px-6" >
+        <h3 className='text-[24px] text-rose-600 font-[700] text-center'>Your Property Listings</h3>
+        <div className='bg-rose-600  mt-[15px] mb-[35px] rounded-xl h-[2px]'></div>
+          <div className="flex flex-col space-y-[15px]">
+            <div className="min-h-screen w-full flex flex-col justify-center items-center mix-blend-multiply mt-[-150px]">
+              <img src={noReservations} alt="" className="scale-[0.4]" />
+              <p className='text-rose-800 font-[400] text-[15px] text-center mt-[-45px] md:mt-[-100px]'>You haven't made any listings.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -95,24 +110,24 @@ const HostedListings = () => {
                   onClick={() => handleDeleteClick(listing._id)}
                   className="absolute top-3 right-3 text-red-500 hover:text-red-700"
                 >
-                  <RiDeleteBinLine size={20}/>
+                  <RiDeleteBinLine size={20} />
                 </button>
                 <button
                   onClick={() => navigate(`/update-listing/${listing._id}`)}
                   className="absolute top-3 right-9 text-blue-500 hover:text-blue-700"
                 >
-                  <FaEdit size={20}/>
+                  <FaEdit size={20} />
                 </button>
               </div>
-              <p className="text-[14px] break-words mt-[8px] text-gray-700">{listing.summary.slice(0,150)}</p>
+              <p className="text-[14px] break-words mt-[8px] text-gray-700">{listing.summary.slice(0, 150)}</p>
               <p className="mt-2 text-[14px] text-green-700 font-medium">${listing.price} /night</p>
 
             </div>
           ))}
         </div>
 
-        {listings.length === 0 && (
-          <p className="mt-6 text-center text-gray-500">You have no hosted listings.</p>
+        {!listings && (
+          <p className="mt-[350px] text-center bg-red-500 text-gray-500">You have no hosted listings.</p>
         )}
 
         {showModal && (
