@@ -10,11 +10,13 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@kalimahapps/vue-icons": "^1.7.1",
     "@nuxt/icon": "^1.10.3",
     "@vueuse/motion": "^2.2.6",
     "axios": "^1.7.9",
     "nuxt": "^3.15.0",
     "pinia": "^2.3.0",
+    "socket.io-client": "^4.8.1",
     "vue": "latest",
     "vue-router": "latest"
   },

@@ -1,19 +1,22 @@
 <template>
-    <div class="w-full overflow-x-hidden xl:px-[160px] min-h-screen p-6 bg-white">
-  
+    <div v-if="loading" class="text-center min-h-screen mt-[250px]">
+    <span>Loading...</span>
+  </div>
+  <div v-else-if="error" class="text-center text-red-600">
+  <span>{{ error }}</span>
+</div>
+  <div v-else class="w-full overflow-x-hidden xl:px-[160px] min-h-screen p-6 bg-white">
       <h2 class="mt-[85px] mb-[20px] text-[22px] md:text-[30px] text-rose-950 font-semibold">{{ listing.name }}</h2>
   
       <Reviews v-if="showModal" :listingId="id" :ratingReviews="ratingReviews" @close="showModal = false" />
   
       <div v-if="isListingPicturesModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-        <v-motion
-          initial="{ scale: 0.7, opacity: 1, y: 500 }"
-          animate="{ scale: 1, opacity: 1, y: 0 }"
-          transition="{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }"
-          class="bg-white rounded-lg overflow-y-auto py-[25px] no-scrollbar h-[80vh] w-[95vw] px-[8px] space-y-[8px] flex flex-col md:w-[90vw] mx-4 md:mx-auto shadow-lg"
-        >
-          <button @click="isListingPicturesModalOpen = false">
-            <AiOutlineClose class="text-xl ml-auto mb-[15px] mr-[12px] text-gray-500 hover:text-gray-800" />
+        <v-motion class="bg-white rounded-lg overflow-y-auto py-[25px] no-scrollbar h-[80vh] w-[95vw] px-[8px] space-y-[8px] flex flex-col md:w-[90vw] mx-4 md:mx-auto shadow-lg" 
+          initial="{ scale: 0.7, opacity: 1, y: 500 }" 
+          animate="{ scale: 1, opacity: 1, y: 0 }" 
+          transition="duration: 0.5, ease: [0.2, 0.8, 0.2, 1]">
+          <button @click="isListingPicturesModalOpen = false"> 
+            <Icon name="mdi-close" class="text-xl ml-auto mb-[15px] mr-[12px] text-gray-500 hover:text-gray-800" />
           </button>
           <div class="h-[210px] sm:h-[350px]">
             <img :src="listing.images.coverPicture" :alt="listing.title" class="w-full rounded-xl h-full object-cover" />
@@ -52,7 +55,7 @@
   
           <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-5 border shadow-md px-[8px] md:px-[45px] py-[15px] rounded-[28px] space-y-2 md:space-y-0 md:flex-row md:items-center md:space-x-4">
             <div class="flex border-r-[2px] flex-col items-center justify-center">
-              <GiAngelWings class="text-[22px] lg:text-[30px]" />
+              <BsTrophy class="text-[22px] lg:text-[30px]" />
               <div class="mt-[5px] text-[10px] flex md:text-[15px] font-[500]">Guest <div class="ml-[4px]">Favourite</div></div>
             </div>
   
@@ -63,15 +66,9 @@
             <div class="flex flex-col items-center border-r-[2px] justify-center">
               <p class="font-semibold text-[15px] mt-[6px] md:text-[18px]">{{ ratingReviews.averageRating }}</p>
               <div class="flex">
-                <div v-for="i in Math.floor(ratingReviews.averageRating)" :key="'full-' + i">
-                  <FaStar size="15" class="text-yellow-500" />
-                </div>
-                <div v-if="ratingReviews.averageRating % 1 >= 0.5">
-                  <FaStarHalfAlt size="15" key="half" class="text-yellow-500" />
-                </div>
-                <div v-for="i in (5 - Math.floor(ratingReviews.averageRating) - (ratingReviews.averageRating % 1 >= 0.5 ? 1 : 0))" :key="'empty-' + i">
-                  <FaStar size="15" class="text-gray-300" />
-                </div>
+                <AnFilledStar v-for="index in Math.floor(ratingReviews.averageRating)" :key="'full-' + index" size="15" class="text-yellow-500" />
+                <FaRegStarHalfStroke v-if="ratingReviews.averageRating % 1 >= 0.5" size="15" class="text-yellow-500" />
+                <AnFilledStar v-for="index in 5 - Math.floor(ratingReviews.averageRating) - (ratingReviews.averageRating % 1 >= 0.5 ? 1 : 0)" :key="'empty-' + index" size="15" class="text-gray-300" />
               </div>
             </div>
   
@@ -82,12 +79,10 @@
           </div>
   
           <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-full bg-gray-600">
-              <div class="h-full w-full rounded-full bg-gray-600"></div>
-            </div>
+            <div class="w-10 h-10 rounded-full bg-gray-600"></div>
             <div>
               <p class="font-semibold text-red-700">{{ hostdetails.name }}</p>
-              <p class="text-gray-500 text-sm">{{ calculateHostTime(hostdetails.createdAt) }}</p>
+              <p class="text-gray-500 text-sm">{{ calculateHostTime() }}</p>
             </div>
           </div>
   
@@ -101,7 +96,7 @@
             </div>
   
             <div class="flex items-start space-x-2 text-[17px] mb-[32px]">
-              <FaHome class="text-gray-700 mt-[12px] text-[28px] mr-[15px]" />
+              <AkHomeAlt1 class="text-gray-700 mt-[12px] text-[28px] mr-[15px]" />
               <div>
                 <p class="font-semibold">{{ listing.bedrooms || '' }} Bed Room{{ listing.bedrooms > 1 && 's' }}</p>
                 <p class="text-gray-700">Your own {{ listing.bedrooms || '' }} bedroom{{ listing.bedrooms > 1 && 's' }} in the {{ listing.property_type }}, plus access to shared spaces.</p>
@@ -146,98 +141,127 @@
               <div class="grid grid-cols-2 px-[15px] border-b border-[#818181] pb-4 gap-4">
                 <div class="space-y-1">
                   <p class="text-xs font-semibold text-gray-600">CHECK-IN</p>
-                  <p class="text-sm font-medium text-gray-800">6/25/2025</p>
+                  <p class="text-sm font-medium text-gray-800">Flexible</p>
                 </div>
-                <div class="space-y-1">
-                  <p class="text-xs font-semibold text-gray-600">CHECKOUT</p>
-                  <p class="text-sm font-medium text-gray-800">7/4/2025</p>
-                </div>
-              </div>
-              <div class="px-4">
-                <button class="w-full py-3 text-white bg-red-600 rounded-md mt-6">Book Now</button>
-              </div>
-            </div>
-          </div>
   
-          <div>
-            <h3 class="font-semibold text-lg">Customer service</h3>
-            <p class="text-sm text-gray-600">Need help with your reservation? Reach out to us anytime.</p>
+                <div class="space-y-1">
+                  <p class="text-xs font-semibold text-gray-600">CHECK-OUT</p>
+                  <p class="text-sm font-medium text-gray-800">Flexible</p>
+                </div>
+              </div>
+  
+              <button @click="handleBooking" class="w-full py-3 mt-3 text-center bg-rose-700 text-white text-[18px] rounded-lg">Reserve</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </template>
   
-<script setup>
-import { ref, onMounted } from 'vue';
+ 
+  <script>
+import { ref, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useAuthStore } from '@/store/auth'; 
+import Reviews from '@/components/Reviews.vue';
+import AddRating from '@/components/AddRating.vue';
+import FavoriteButton from '@/components/FavoriteButton.vue';
+import { AnFilledStar, BsTrophy, FaRegStarHalfStroke, AkHomeAlt1, FaToilet, FaMedal, FaDoorOpen } from '@kalimahapps/vue-icons';
 import axios from 'axios';
-import { useAuthContext } from '~/composables/auth';
-import ListingDetailsLoader from '~/components/ListingDetailsLoader.vue';
-import Reviews from '~/components/ListingRating/Reviews.vue';
-import AddRating from '~/components/ListingRating/AddRating.vue';
+import { isLoggedIn } from '../../../composables/isLoggedIn.js';
 
-const route = useRoute();
-const router = useRouter();
-const { id } = route.params;
+export default {
+  name: 'ListingDetails',
+  components: {
+    Reviews,
+    AddRating,
+    FavoriteButton,
+  },
+  setup() {
+    const route = useRoute();
+    const router = useRouter();
+    const authStore = useAuthStore();
+    const { id } = route.params;
 
-const listing = ref(null);
-const hostdetails = ref(null);
-const isInitiallyFavorited = ref(true);
-const loading = ref(true);
-const error = ref(null);
-const ratingerror = ref(null);
-const ratingReviews = ref([]);
-const userLoginStatus = ref(null);
+    const listing = ref(null);
+    const userLoginStatus = ref(null);
+    const hostdetails = ref(null);
+    const isInitiallyFavorited = ref(true);
+    const loading = ref(true);
+    const error = ref(null);
+    const ratingerror = ref(null);
+    const showModal = ref(false);
+    const isListingPicturesModalOpen = ref(false);
+    const ratingReviews = ref([]);
 
-const isLoggedIn = () => {
-  const token = localStorage.getItem('token');
-  if (!token) return false;
+    const fetchReviewCountAndRating = async () => {
+      try {
+        //const response = await useAxios(`/air-bnb/listing-rating/rating-review-count/${id}`);
+        const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/listing-rating/rating-review-count/${id}`);
+        ratingReviews.value = response.data;
+      } catch (err) {
+        ratingerror.value = 'Failed to fetch reviews. Please try again.';
+        console.error('Error fetching reviews:', err.response?.data || err.message);
+      }
+    };
 
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    return payload.exp * 1000 >= Date.now();
-  } catch (err) {
-    console.warn('Invalid token structure');
-    return false;
-  }
-};
+    const fetchListingDetails = async () => {
+      try {
+        const token = userLoginStatus.value ? localStorage.getItem('token') : null;
+        //const response = await useAxios(`/air-bnb/home/${userLoginStatus.value ? 'listings' : 'listing-details'}/${id}`);
+       const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/home/${userLoginStatus.value ? 'listings' : 'listing-details'}/${id}`, {
+       headers: token ? { Authorization: `Bearer ${token}` } : {},
+     });
 
-const fetch_Review_count_and_rating = async () => {
-  try {
-    loading.value = true;
-    const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/air-bnb/listing-rating/rating-review-count/${id}`);
-    ratingReviews.value = response.data;
-  } catch (err) {
-    ratingerror.value = 'Failed to fetch reviews. Please try again.';
-    console.error('Error fetching reviews:', err.response?.data || err.message);
-  }
-};
+        console.log(response.data.listing)
 
-const fetchListingDetails = async () => {
-  try {
-    const token = userLoginStatus.value ? localStorage.getItem('token') : null;
-    const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/air-bnb/home/${userLoginStatus.value ? 'listings' : 'listing-details'}/${id}`, {
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
+        listing.value = response.data.listing;
+        isInitiallyFavorited.value = response.data.isLiked;
+        hostdetails.value = response.data.hostDetails;
+        loading.value = false;
+      } catch (err) {
+        error.value = 'Failed to fetch listing details';
+        loading.value = false;
+        console.error('Error fetching listing details:', err);
+      }
+    };
+
+    onMounted(() => {
+      window.scrollTo(0, 0);
+      //const status = authStore.user;
+      userLoginStatus.value = isLoggedIn();
+      fetchReviewCountAndRating();
     });
-    listing.value = response.data.listing;
-    hostdetails.value = response.data.hostDetails;
-    isInitiallyFavorited.value = response.data.isLiked;
-    loading.value = false;
-  } catch (err) {
-    console.error(err);
-    error.value = 'Failed to fetch listing details';
-    loading.value = false;
-  }
-};
 
-const handleBooking = (listingId) => {
-  router.push({ name: 'booking', params: { hostId: listing.value.hostID, listingId } });
-};
+    watch(userLoginStatus, () => {
+      if (userLoginStatus.value !== null) {
+        fetchListingDetails();
+      }
+    });
 
-onMounted(() => {
-  userLoginStatus.value = isLoggedIn();
-  fetch_Review_count_and_rating();
-  fetchListingDetails();
-});
+    const calculateHostTime = () => {
+      const time = Math.floor(Math.random() * 3) + 1;
+      return time === 1 ? `Hosted for ${time} year` : `Hosted for ${time} years`;
+    };
+
+    const handleBooking = () => {
+      router.push({ name: 'Booking', params: { id } });
+    };
+
+    return {
+      listing,
+      userLoginStatus,
+      hostdetails,
+      isInitiallyFavorited,
+      loading,
+      error,
+      ratingerror,
+      showModal,
+      isListingPicturesModalOpen,
+      ratingReviews,
+      calculateHostTime,
+      handleBooking,
+    };
+  },
+};
 </script>
