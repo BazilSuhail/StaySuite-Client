@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen mt-[85px] md:mt-[95px]">
+  <div class="min-h-screen mt-[85px] md:mt-[95px]"> 
     <!-- Category Selection -->
     <CategoryList
       :selectedCategory="category"
@@ -84,6 +84,9 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import CategoryList from '@/components/CategoryList.vue'; 
+import FavoriteButton from '../components/FavoriteButton.vue';
+import AddRating from '../components/AddRating.vue';
+import Reviews from '../components/Reviews.vue';
 
 const router = useRouter();
 
