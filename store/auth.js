@@ -4,6 +4,8 @@ import { io } from 'socket.io-client';
 import { ref } from 'vue';
 
 export const useAuthStore = defineStore('auth', () => {
+  const isInitialized = ref(false); // Track initialization state
+
   // State variables
   const user = ref(null);
   const userRole = ref(null);
@@ -35,7 +37,7 @@ export const useAuthStore = defineStore('auth', () => {
   const fetchUserData = async (token) => {
     try {
       const response = await axios.get(
-        `${useRuntimeConfig().public.apiBaseUrl}/air-bnb/profile/user-info`,
+        `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/profile/user-info`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -54,7 +56,7 @@ export const useAuthStore = defineStore('auth', () => {
   const fetchUserNotifications = async (token) => {
     try {
       const response = await axios.get(
-        `${useRuntimeConfig().public.apiBaseUrl}/air-bnb/profile/notifications`,
+        `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/profile/notifications`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -74,7 +76,7 @@ export const useAuthStore = defineStore('auth', () => {
     const payload = JSON.parse(atob(token.split('.')[1]));
     const userId = payload.id;
 
-    socket.value = io(useRuntimeConfig().public.apiBaseUrl, {
+    socket.value = io(import.meta.env.VITE_REACT_APP_API_BASE_URL, {
       auth: { token, userId },
     });
 
@@ -95,14 +97,18 @@ export const useAuthStore = defineStore('auth', () => {
 
   // Login function
   const login = async (token) => {
-    localStorage.setItem('token', token);
-    await fetchUserData(token);
-    connectSocket(token);
+    if (import.meta.client) {
+      localStorage.setItem('token', token);
+      await fetchUserData(token);
+      connectSocket(token);
+    }
   };
 
   // Logout function
   const logout = () => {
-    localStorage.removeItem('token');
+    if (import.meta.client) {
+      localStorage.removeItem('token');
+    }
     user.value = null;
     userRole.value = null;
     notifications.value = [];
@@ -132,6 +138,10 @@ export const useAuthStore = defineStore('auth', () => {
 
   // Initialize logic for token validation on page load
   const initialize = () => {
+    if (!import.meta.client) return; // Prevent execution on the server
+    if (isInitialized.value) return; // Avoid re-initialization
+    isInitialized.value = true;
+console.log("Sdd")
     const token = localStorage.getItem('token');
     if (token) {
       const isValid = validateToken(token);
@@ -148,6 +158,8 @@ export const useAuthStore = defineStore('auth', () => {
   };
 
   return {
+    isInitialized,
+    initialize,
     user,
     userRole,
     loading,
@@ -161,6 +173,5 @@ export const useAuthStore = defineStore('auth', () => {
     showToast,
     closeToast,
     setSearchFilters: (filters) => (searchFilters.value = filters),
-    initialize,
   };
 });

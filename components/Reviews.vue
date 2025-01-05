@@ -13,7 +13,8 @@
             }">
             <div class="flex justify-between items-center border-b p-4">
                 <h2 class="text-lg font-semibold">Guest Reviews</h2>
-                <button @click="onClose">
+                <button @click="
+                ">
                     <Icon name="fa-solid:times" class="text-xl text-gray-500 hover:text-gray-800" />
                 </button>
             </div>

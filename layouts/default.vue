@@ -1,13 +1,21 @@
-<template>
-    <div>
-        
-        <div>
-            <slot />
-        </div>
-    </div>
-</template>
+<script setup>
+import { useAuthStore } from '../store/auth';
+import Navbar from '../components/Navbar.vue';
+import { onMounted } from 'vue';
 
-<script setup lang="ts">
-import Navbar from '@/components/Navbar.vue';
+const authStore = useAuthStore();
 
+// Ensure initialization happens only on client-side
+onMounted(() => {
+  authStore.initialize();
+});
 </script>
+
+<template>
+  <div>
+    <Navbar />
+    <div>
+      <slot />
+    </div>
+  </div>
+</template>

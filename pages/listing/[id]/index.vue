@@ -233,7 +233,7 @@ import AddRating from '@/components/AddRating.vue';
 import FavoriteButton from '@/components/FavoriteButton.vue';
 //import { AnFilledStar, FaRegStarHalfStroke, AkHomeAlt1, FaToilet, FaMedal, FaDoorOpen, BsTrophyFill } from '@kalimahapps/vue-icons';
 import axios from 'axios';
-import { isLoggedIn } from '../../../store/isLoggedIn.js';
+import { isLoggedIn } from '../../../composables/isLoggedIn.js';
 
 export default {
   name: 'ListingDetails',
@@ -297,10 +297,6 @@ export default {
         console.error('Error fetching listing details:', err);
       }
     };
-    const navigatetoSignIn = (id) => {
-      router.push('authentication//signIn');
-    };
-
 
     onMounted(() => {
       window.scrollTo(0, 0);

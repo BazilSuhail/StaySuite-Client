@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/icon',
     '@vueuse/motion/nuxt',
+    '@pinia/nuxt'
   ],
   devtools: { enabled: false },
   css: [
@@ -13,8 +14,5 @@ export default defineNuxtConfig({
       tailwindcss: {},
       autoprefixer: {},
     },
-  },
-  plugins: [
-    '~/plugins/pinia.js', // Include Pinia plugin
-  ],
+  }, 
 });

@@ -132,7 +132,7 @@
   
       login(response.data.token);
       showToast('Login successful! Navigating to profile.');
-      router.push('/profile');
+      router.push('/authentication/profile');
     } catch (error) {
       loading.value = false;
       showToast('Login failed, No Account Found 😢');
