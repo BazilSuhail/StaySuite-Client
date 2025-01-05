@@ -2,16 +2,19 @@
     <div v-if="error" class="text-center text-red-500 mt-10">{{ error }}</div>
 
     <div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-        <div
-            class="bg-white rounded-lg overflow-y-auto no-scrollbar lg:overflow-y-hidden h-[90vh] w-full max-w-4xl mx-4 md:mx-auto shadow-lg"
+        <div class="bg-white rounded-lg overflow-y-auto no-scrollbar lg:overflow-y-hidden h-[90vh] w-full max-w-4xl mx-4 md:mx-auto shadow-lg"
             v-motion="{
-                initial: { y: 100, opacity: 0 },
-                enter: { y: 0, opacity: 1 }
-            }" transition="duration-500 ease-in-out">
+                initial: { y: 900, opacity: 0, scale: 0 },
+                enter: { y: 0, opacity: 1, scale: 1 },
+                transition:{
+                    duration: 2500,
+                    easing: 'easeInOutCubic' 
+                }
+            }">
             <div class="flex justify-between items-center border-b p-4">
                 <h2 class="text-lg font-semibold">Guest Reviews</h2>
                 <button @click="onClose">
-                    <Icon name="ai-outline-close" class="text-xl text-gray-500 hover:text-gray-800" />
+                    <Icon name="fa-solid:times" class="text-xl text-gray-500 hover:text-gray-800" />
                 </button>
             </div>
 
@@ -60,22 +63,14 @@
                                     </div>
                                     <div class="flex my-[4px] items-center">
                                         <div class="flex">
-                                            <template v-for="index in Math.floor(review.rating)"
-                                                :key="`full-${index}-${Math.random()}`">
-                                                <Icon v-for="index in Math.floor(review.rating)" :key="`full-${index}`"
-                                                    name="fa-star" size="15" class="text-yellow-500" />
-                                            </template>
-
-                                            <template v-if="review.rating % 1 >= 0.5">
-                                                <Icon name="fa-star-half-alt" size="15" class="text-yellow-500" />
-                                            </template>
-
-                                            <template
+                                            <Icon name="ant-design:star-filled"
+                                                v-for="index in Math.floor(review.rating)" :key="'full-' + index"
+                                                size="15" class="text-yellow-500" />
+                                            <Icon name="fa:star-half-alt" v-if="review.rating % 1 >= 0.5" size="15"
+                                                class="text-yellow-500" />
+                                            <Icon name="ant-design:star-filled"
                                                 v-for="index in 5 - Math.floor(review.rating) - (review.rating % 1 >= 0.5 ? 1 : 0)"
-                                                :key="`empty-${index}`">
-                                                <Icon name="fa-star" size="15" class="text-gray-300" />
-                                            </template>
-
+                                                :key="'empty-' + index" size="15" class="text-gray-300" />
                                         </div>
                                         <p class="text-sm ml-[15px] mb-[3px] text-gray-500">
                                             {{ timeSince(review.date) }}
@@ -123,7 +118,8 @@ const props = defineProps({
         required: true,
     },
 });
- 
+
+console.log("Received Listing ID:", props.ratingReviews)
 
 const reviews = ref([]);
 const currentPage = ref(1);
@@ -134,6 +130,7 @@ const error = ref('');
 const fetchReviews = async (page) => {
     try {
         loading.value = true;
+        console.log(props.listingId)
         const response = await axios.get(
             `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/listing-rating/get-reviews/${props.listingId}`,
             { params: { page, limit: 5 } }

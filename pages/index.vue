@@ -83,10 +83,7 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
-import CategoryList from '@/components/CategoryList.vue'; 
-import FavoriteButton from '../components/FavoriteButton.vue';
-import AddRating from '../components/AddRating.vue';
-import Reviews from '../components/Reviews.vue';
+import CategoryList from '@/components/CategoryList.vue';  
 
 const router = useRouter();
 

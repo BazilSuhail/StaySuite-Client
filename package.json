@@ -10,8 +10,6 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@kalimahapps/vue-icons": "^1.7.1",
-    "@nuxt/icon": "^1.10.3",
     "@vueuse/motion": "^2.2.6",
     "axios": "^1.7.9",
     "nuxt": "^3.15.0",
@@ -21,8 +19,9 @@
     "vue-router": "latest"
   },
   "devDependencies": {
-    "@iconify-json/fa": "^1.2.1",
+    "@nuxt/icon": "^1.10.3",
     "autoprefixer": "^10.4.20",
+    "nuxt-icon": "^1.0.0-beta.7",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17"
   }
