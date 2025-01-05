@@ -50,8 +50,10 @@
             </NuxtLink>
             <div @click="toggleMenu"
               class="flex items-center space-x-2 border rounded-full px-3 py-2 hover:shadow-lg transition-shadow">
-              <Icon name="material-symbols:menu" class="text-xl text-gray-500 sm:block hidden" />
-              <Icon name="icon-park:user" class="text-3xl text-gray-500" />
+              <Icon name="material-symbols:menu" class="text-[24px] text-gray-500 sm:block hidden" />
+            <div class="w-[28px] h-[28px] bg-gray-400 border-[2px] border-gray-400 flex items-end justify-center rounded-full">
+              <Icon name="fa:user" class="text-[22px] mb-[-3px] bg-white" />
+            </div>
             </div>
           </div>
         </div>
@@ -94,7 +96,7 @@
                   </NuxtLink>
                 </div>
                 <div v-else>
-                  <NuxtLink to="/favourite-listings"
+                  <NuxtLink to="/guest/favoutiteListing"
                     class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     Favourites
                   </NuxtLink>
@@ -138,7 +140,7 @@ export default {
     const userRole = ref(authStore.userRole);
     //console.log(userRole)
 
-    const notificationsCount = ref(0);
+    const notificationsCount = ref(authStore.notificationsCount);
     const isOpen = ref(false);
     const isHomePath = computed(() => route.path === '/');
     const showFilterModal = ref(false);

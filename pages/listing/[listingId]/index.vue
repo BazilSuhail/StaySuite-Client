@@ -55,7 +55,7 @@
               {{ listing.address.country || '' }}</h2>
             <p class="text-gray-600">{{ listing.bedrooms }} beds · {{ listing.bathrooms }} Shared bathroom</p>
           </div>
-          <FavoriteButton v-if="userRole === 'Guest'" :listingId="id" :isInitiallyFavorited="isInitiallyFavorited" />
+          <FavoriteButton v-if="userRole === 'Guest'" :listingId="listingId" :isInitiallyFavorited="isInitiallyFavorited" />
         </div>
 
         <div
@@ -141,7 +141,7 @@
           <p class="text-sm break-words text-gray-600">{{ listing.summary }}</p>
         </div>
 
-        <AddRating v-if="userLoginStatus" :listingId="id" />
+        <AddRating v-if="userLoginStatus" :listingId="listingId" />
       </div>
 
       <div className="space-y-4">
@@ -171,7 +171,7 @@
             </div>
           </div>
           <div>
-            <button v-if="userRole === 'Guest'" @click="handleBooking(id)"
+            <button v-if="userRole === 'Guest'" @click="handleBooking(listingId)"
               class="w-full py-2 bg-gradient-to-r from-pink-600 to-pink-800 text-white font-semibold rounded-lg">
               Reserve
             </button>
@@ -231,7 +231,6 @@ import { useAuthStore } from '@/store/auth';
 import Reviews from '@/components/Reviews.vue';
 import AddRating from '@/components/AddRating.vue';
 import FavoriteButton from '@/components/FavoriteButton.vue';
-//import { AnFilledStar, FaRegStarHalfStroke, AkHomeAlt1, FaToilet, FaMedal, FaDoorOpen, BsTrophyFill } from '@kalimahapps/vue-icons';
 import axios from 'axios';
 import { isLoggedIn } from '../../../composables/isLoggedIn.js';
 
@@ -244,9 +243,11 @@ export default {
   },
   setup() {
     const route = useRoute();
+    const listingId = route.params.listingId;
     const router = useRouter();
-    //  const authStore = useAuthStore();
-    const { id } = route.params;
+    const authStore = useAuthStore();
+    const userRole=authStore.userRole;
+    //const { listingId } = route.params;
     const listing = ref(null);
     const userLoginStatus = ref(null);
     const hostdetails = ref(null);
@@ -259,7 +260,6 @@ export default {
     const ratingReviews = ref([]);
 
     const showModal = ref(false);
-    const listingId = ref(route.params.id);
 
     // Method to handle the Reviews close event
     const handleCloseReviews = () => {
@@ -268,8 +268,8 @@ export default {
 
     const fetchReviewCountAndRating = async () => {
       try {
-        //const response = await useAxios(`/air-bnb/listing-rating/rating-review-count/${id}`);
-        const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/listing-rating/rating-review-count/${id}`);
+        //const response = await useAxios(`/air-bnb/listing-rating/rating-review-count/${listingId}`);
+        const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/listing-rating/rating-review-count/${listingId}`);
         ratingReviews.value = response.data;
       } catch (err) {
         ratingerror.value = 'Failed to fetch reviews. Please try again.';
@@ -280,8 +280,8 @@ export default {
     const fetchListingDetails = async () => {
       try {
         const token = userLoginStatus.value ? localStorage.getItem('token') : null;
-        //const response = await useAxios(`/air-bnb/home/${userLoginStatus.value ? 'listings' : 'listing-details'}/${id}`);
-        const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/home/${userLoginStatus.value ? 'listings' : 'listing-details'}/${id}`, {
+        //const response = await useAxios(`/air-bnb/home/${userLoginStatus.value ? 'listings' : 'listing-details'}/${listingId}`);
+        const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/home/${userLoginStatus.value ? 'listings' : 'listing-details'}/${listingId}`, {
           headers: token ? { Authorization: `Bearer ${token}` } : {},
         });
 
@@ -299,8 +299,7 @@ export default {
     };
 
     onMounted(() => {
-      window.scrollTo(0, 0);
-      //const status = authStore.user;
+      window.scrollTo(0, 0); 
       userLoginStatus.value = isLoggedIn();
       fetchReviewCountAndRating();
     });
@@ -317,18 +316,19 @@ export default {
     };
 
     const handleBooking = () => {
-      router.push({ name: 'Booking', params: { id } });
+      router.push({ name: 'Booking', params: { listingId } });
     };
 
     return {
       listing,
+      listingId,
+      userRole,
       userLoginStatus,
       hostdetails,
       isInitiallyFavorited,
       loading,
       error,
       ratingerror,
-      listingId,
       handleCloseReviews, // Expose the new method
       showModal,
       isListingPicturesModalOpen,

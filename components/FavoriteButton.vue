@@ -29,6 +29,7 @@
   });
   
   const isFavorited = ref(props.isInitiallyFavorited);
+  console.log(props.listingId)
   const error = ref('');
   
   const toggleFavorite = async () => {
@@ -48,8 +49,4 @@
     }
   };
   </script>
-  
-  <style scoped>
-  /* Add any necessary custom styles here */
-  </style>
-  
+   

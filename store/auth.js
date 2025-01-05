@@ -141,7 +141,7 @@ export const useAuthStore = defineStore('auth', () => {
     if (!import.meta.client) return; // Prevent execution on the server
     if (isInitialized.value) return; // Avoid re-initialization
     isInitialized.value = true;
-console.log("Sdd")
+    console.log("Sdd")
     const token = localStorage.getItem('token');
     if (token) {
       const isValid = validateToken(token);

@@ -1,8 +1,8 @@
 <template>
     <div v-if="error" class="text-center text-red-500 mt-10">{{ error }}</div>
 
-    <div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-        <div class="bg-white rounded-lg overflow-y-auto no-scrollbar lg:overflow-y-hidden h-[90vh] w-full max-w-4xl mx-4 md:mx-auto shadow-lg"
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-[15px] md:px-[35px] lg:px-[90px] xl:px-[230px]">
+        <div class="bg-white rounded-lg overflow-y-auto no-scrollbar lg:overflow-y-hidden h-[90vh] w-full mx-4 md:mx-auto shadow-lg"
             v-motion="{
                 initial: { y: 900, opacity: 0, scale: 0 },
                 enter: { y: 0, opacity: 1, scale: 1 },
@@ -13,9 +13,8 @@
             }">
             <div class="flex justify-between items-center border-b p-4">
                 <h2 class="text-lg font-semibold">Guest Reviews</h2>
-                <button @click="
-                ">
-                    <Icon name="fa-solid:times" class="text-xl text-gray-500 hover:text-gray-800" />
+                <button @click="onClose">
+                    <Icon name="fa-solid:times" class="text-xl text-gray-500 hover:text-gray-800 mr-[6px] " />
                 </button>
             </div>
 
@@ -37,7 +36,7 @@
                 </div>
 
                 <div class="lg:col-span-3 mt-[15px]">
-                    <h3 class="text-lg font-medium mb-4">{{ ratingReviews.arraySize }} Reviews</h3>
+                    <h3 class="text-lg font-medium mb-4">{{ ratingReviews.reviewCount }} Reviews</h3>
                     <div class="overflow-y-auto mb-[75px] no-scrollbar max-h-[520px]">
                         <template v-if="!loading">
                             <template v-if="reviews.length === 0">
@@ -120,7 +119,7 @@ const props = defineProps({
     },
 });
 
-console.log("Received Listing ID:", props.ratingReviews)
+//console.log("Received Listing ID:", props.ratingReviews)
 
 const reviews = ref([]);
 const currentPage = ref(1);
