@@ -27,8 +27,7 @@
                   <Icon name="fa:book" class="text-[20px]" />
                 </div>
                 <p class="font-[600] text-[16px] ml-[8px] text-rose-800">
-                  {{ booking.listing.name.length > 10 ? `${booking.listing.name.slice(0, 15)}...` : booking.listing.name
-                  }}
+                  {{ booking.listing.name.length > 10 ? `${booking.listing.name.slice(0, 15)}...` : booking.listing.name }}
                 </p>
               </div>
 
@@ -92,8 +91,8 @@
 
       <!-- Modal -->
       <div v-if="showModal && selectedBooking"
-        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg p-6 shadow-lg w-[400px] relative">
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center px-[18px] sm:px-[95px] md:px-[145px] lg:px-[280px] xl:px-0 justify-center z-50">
+        <div class="bg-white rounded-lg p-6 shadow-lg xl:w-[480px] w-full relative">
           <button @click="closeModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
             aria-label="Close Modal">
             <Icon name="fa:times" class="text-gray-500 font-[400] text-[14px]" />
@@ -108,7 +107,8 @@
           </div>
 
           <div class="space-y-2">
-            <div class="border-b-[2px] w-full border-rose-700 pb-[8px] flex justify-between items-center">
+
+            <div class="border-b-[2px] w-full border-rose-700 pb-[8px] flex sm:flex-row flex-col space-y-[5px] justify-between sm:items-center">
               <p class="text-gray-700 font-medium w-[calc(100%-105px)] overflow-hidden">
                 Name: <span class="font-normal">{{ selectedBooking.listing.name.length > 25 ?
                   `${selectedBooking.listing.name.slice(0, 25)}...` : selectedBooking.listing.name }}</span>
