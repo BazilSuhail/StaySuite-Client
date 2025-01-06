@@ -3,7 +3,8 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/icon',
     '@vueuse/motion/nuxt',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    '@samk-dev/nuxt-vcalendar',
   ],
   devtools: { enabled: false },
   css: [

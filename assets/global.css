@@ -13,9 +13,10 @@
   }
       
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 4px;
     height: 12px;
   }
+ 
   
   ::-webkit-scrollbar-track {
     background: #ffffff;
@@ -27,6 +28,23 @@
   }
   
   ::-webkit-scrollbar-thumb:hover {
+    width: 8px;
     background: #c3c3c3;
   }
   
+
+  /* Define custom blue color and its variations */
+/* Define custom shades of #ff0048ab */
+.vc-custom-pink {
+  --vc-accent-50: #f8c8d8;   /* Lightest */
+  --vc-accent-100: #f1a1b1;
+  --vc-accent-200: #e77a8a;
+  --vc-accent-300: #e15363;
+  --vc-accent-400: #d82c3c;
+  --vc-accent-500: #ff0048ab; /* Base */
+  --vc-accent-600: #e6003f;
+  --vc-accent-700: #cc0036;
+  --vc-accent-800: #b3002d;
+  --vc-accent-900: #990024;   /* Darkest */
+}
+
