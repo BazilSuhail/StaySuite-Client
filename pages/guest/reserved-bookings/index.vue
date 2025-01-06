@@ -27,7 +27,8 @@
                   <Icon name="fa:book" class="text-[20px]" />
                 </div>
                 <p class="font-[600] text-[16px] ml-[8px] text-rose-800">
-                  {{ booking.listing.name.length > 10 ? `${booking.listing.name.slice(0, 15)}...` : booking.listing.name }}
+                  {{ booking.listing.name.length > 10 ? `${booking.listing.name.slice(0, 15)}...` : booking.listing.name
+                  }}
                 </p>
               </div>
 
@@ -109,7 +110,8 @@
           <div class="space-y-2">
             <div class="border-b-[2px] w-full border-rose-700 pb-[8px] flex justify-between items-center">
               <p class="text-gray-700 font-medium w-[calc(100%-105px)] overflow-hidden">
-                Name: <span class="font-normal">{{ selectedBooking.listing.name.length > 25 ? `${selectedBooking.listing.name.slice(0, 25)}...` : selectedBooking.listing.name }}</span>
+                Name: <span class="font-normal">{{ selectedBooking.listing.name.length > 25 ?
+                  `${selectedBooking.listing.name.slice(0, 25)}...` : selectedBooking.listing.name }}</span>
               </p>
               <NuxtLink :to="`/listing/${selectedBooking.listingId}`"
                 class="w-[105px] overflow-hidden text-rose-700 hover:text-red-500 cursor-pointer flex items-center">
@@ -122,16 +124,20 @@
               Property Type: <span class="font-normal">{{ selectedBooking.listing.property_type }}</span>
             </div>
             <div class="text-gray-700  text-[14px] mt-[15px] font-medium flex items-center gap-2">
-            <div class="w-[28px] h-[28px] bg-rose-600  text-[15px] text-white flex justify-center items-center rounded-full" >
-              <Icon name="fa:calendar" />
-            </div>
-              Check-In: <span class="font-[600] text-green-700">{{ new Date(selectedBooking.checkIn).toDateString() }}</span>
+              <div
+                class="w-[28px] h-[28px] bg-rose-600  text-[15px] text-white flex justify-center items-center rounded-full">
+                <Icon name="fa:calendar" />
+              </div>
+              Check-In: <span class="font-[600] text-green-700">{{ new Date(selectedBooking.checkIn).toDateString()
+                }}</span>
             </div>
             <div class="text-gray-700 font-medium text-[14px] flex items-center gap-2">
-              <div class="w-[28px] h-[28px] text-[15px] bg-rose-600 text-white flex justify-center items-center rounded-full" >
-              <Icon name="fa:calendar" />
-            </div>
-              Check-Out: <span class="font-[600] text-red-700">{{ new Date(selectedBooking.checkOut).toDateString() }}</span>
+              <div
+                class="w-[28px] h-[28px] text-[15px] bg-rose-600 text-white flex justify-center items-center rounded-full">
+                <Icon name="fa:calendar" />
+              </div>
+              Check-Out: <span class="font-[600] text-red-700">{{ new Date(selectedBooking.checkOut).toDateString()
+                }}</span>
             </div>
           </div>
 
@@ -144,26 +150,29 @@
               Guests:
             </p>
             <ul className="list-disc list-inside ml-4 text-gray-600">
-              <li>Adults: {{selectedBooking.guests.adults}}</li>
-              <li>Children: {{selectedBooking.guests.children}}</li>
-              <li>Infants: {{selectedBooking.guests.infants}}</li>
+              <li>Adults: {{ selectedBooking.guests.adults }}</li>
+              <li>Children: {{ selectedBooking.guests.children }}</li>
+              <li>Infants: {{ selectedBooking.guests.infants }}</li>
             </ul>
           </div>
 
           <p className="text-gray-700 font-medium mt-4">
-            Total Amount: <span className="font-bold text-green-500">${{selectedBooking.totalAmount}}</span>
+            Total Amount: <span className="font-bold text-green-500">${{ selectedBooking.totalAmount }}</span>
           </p>
 
           <div v-if="selectedBooking.specialRequests">
             <p className="text-sm text-gray-500 italic mt-2">
-            Special Requests: {{selectedBooking.specialRequests}}
-          </p>
+              Special Requests: {{ selectedBooking.specialRequests }}
+            </p>
           </div>
-        
+          <button @click="finalizeBooking" className="px-4 ml-auto mt-[15px] pt-[1px] pb-[2px] text-[14px] bg-red-600 text-white rounded-lg hover:bg-red-600">
+            Finalize Booking
+          </button>
+
         </div>
- 
+
       </div>
-    </div> 
+    </div>
   </div>
 </template>
 <script>

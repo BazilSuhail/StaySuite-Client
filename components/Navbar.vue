@@ -104,7 +104,7 @@
                     class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     Reserved Bookings
                   </NuxtLink>
-                  <NuxtLink to="/reserved-bookings-history"
+                  <NuxtLink to="/guest/reservations-history"
                     class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     Past Experiences
                   </NuxtLink>
