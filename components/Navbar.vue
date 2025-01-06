@@ -92,10 +92,10 @@
                     class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     Host Listing
                   </NuxtLink>
-                  <NuxtLink to="/host-bookings" class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                  <NuxtLink to="/host/host-bookings" class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     Host Bookings
                   </NuxtLink>
-                  <NuxtLink to="/add-listing" class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                  <NuxtLink to="/host/add-listing" class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     Add Listing
                   </NuxtLink>
                 </div>
