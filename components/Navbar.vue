@@ -138,7 +138,7 @@ export default {
     const user = ref(authStore.user);
     //console.log(user)
     const userRole = ref(authStore.userRole);
-    //console.log(userRole)
+    console.log(userRole)
 
     const notificationsCount = ref(authStore.notificationsCount);
     const isOpen = ref(false);

@@ -12,7 +12,7 @@
 
     <div v-if="isListingPicturesModalOpen"
       class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <v-motion
+      <div
         class="bg-white rounded-lg overflow-y-auto py-[25px] no-scrollbar h-[80vh] w-[95vw] px-[8px] space-y-[8px] flex flex-col md:w-[90vw] mx-4 md:mx-auto shadow-lg"
         initial="{ scale: 0.7, opacity: 1, y: 500 }" animate="{ scale: 1, opacity: 1, y: 0 }"
         transition="duration: 0.5, ease: [0.2, 0.8, 0.2, 1]">
@@ -28,7 +28,7 @@
             <img :src="url" :alt="'Additional ' + (index + 1)" class="w-full rounded-xl h-full object-cover" />
           </div>
         </div>
-      </v-motion>
+      </div>
     </div>
 
     <div class="relative grid w-full overflow-hidden gap-[6px] grid-cols-5 rounded-[25px]">
@@ -76,7 +76,7 @@
             <div class="flex">
               <Icon name="ant-design:star-filled" v-for="index in Math.floor(ratingReviews.averageRating)"
                 :key="'full-' + index" size="15" class="text-yellow-500" />
-              <Icon name="fa:star-half-alt" v-if="ratingReviews.averageRating % 1 >= 0.5" size="15"
+              <Icon name="mdi:star-half" v-if="ratingReviews.averageRating % 1 >= 0.5" size="15"
                 class="text-yellow-500" />
               <Icon name="ant-design:star-filled"
                 v-for="index in 5 - Math.floor(ratingReviews.averageRating) - (ratingReviews.averageRating % 1 >= 0.5 ? 1 : 0)"
