@@ -67,7 +67,7 @@
                   Profile
                 </NuxtLink>
                 <button @click="handleLogout"
-                  class="pl-[12px] text-start text-white py-[3px] bg-rose-500 my-[8px] hover:bg-rose-200 hover:text-rose-700 rounded-lg">
+                  class="px-[12px] text-start text-white pb-[2px] bg-rose-500 my-[8px] hover:bg-rose-200 hover:text-rose-700 rounded-lg">
                   Logout
                 </button>
               </div>
@@ -100,7 +100,7 @@
                     class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     Favourites
                   </NuxtLink>
-                  <NuxtLink to="/reserved-bookings"
+                  <NuxtLink to="/guest/reserved-bookings"
                     class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     Reserved Bookings
                   </NuxtLink>

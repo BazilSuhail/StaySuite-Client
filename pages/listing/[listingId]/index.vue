@@ -55,7 +55,8 @@
               {{ listing.address.country || '' }}</h2>
             <p class="text-gray-600">{{ listing.bedrooms }} beds · {{ listing.bathrooms }} Shared bathroom</p>
           </div>
-          <FavoriteButton v-if="userRole === 'Guest'" :listingId="listingId" :isInitiallyFavorited="isInitiallyFavorited" />
+          <FavoriteButton v-if="userRole === 'Guest'" :listingId="listingId"
+            :isInitiallyFavorited="isInitiallyFavorited" />
         </div>
 
         <div
@@ -73,9 +74,10 @@
           <div class="flex flex-col items-center border-r-[2px] justify-center">
             <p class="font-semibold text-[15px] mt-[6px] md:text-[18px]">{{ ratingReviews.averageRating }}</p>
             <div class="flex">
-              <Icon name="ant-design:star-filled" v-for="index in Math.floor(ratingReviews.averageRating)" :key="'full-' + index" size="15"
+              <Icon name="ant-design:star-filled" v-for="index in Math.floor(ratingReviews.averageRating)"
+                :key="'full-' + index" size="15" class="text-yellow-500" />
+              <Icon name="fa:star-half-alt" v-if="ratingReviews.averageRating % 1 >= 0.5" size="15"
                 class="text-yellow-500" />
-              <Icon name="fa:star-half-alt" v-if="ratingReviews.averageRating % 1 >= 0.5" size="15" class="text-yellow-500" />
               <Icon name="ant-design:star-filled"
                 v-for="index in 5 - Math.floor(ratingReviews.averageRating) - (ratingReviews.averageRating % 1 >= 0.5 ? 1 : 0)"
                 :key="'empty-' + index" size="15" class="text-gray-300" />
@@ -246,9 +248,10 @@ export default {
     const listingId = route.params.listingId;
     const router = useRouter();
     const authStore = useAuthStore();
-    const userRole=authStore.userRole;
+    const userRole = authStore.userRole;
     //const { listingId } = route.params;
     const listing = ref(null);
+    const hostListingId = ref(null);
     const userLoginStatus = ref(null);
     const hostdetails = ref(null);
     const isInitiallyFavorited = ref(true);
@@ -285,10 +288,12 @@ export default {
           headers: token ? { Authorization: `Bearer ${token}` } : {},
         });
 
-        //console.log(response.data.listing)
         listing.value = response.data.listing;
         isInitiallyFavorited.value = response.data.isLiked;
         hostdetails.value = response.data.hostDetails;
+        hostListingId.value = response.data.listing.hostID.toString();
+        //console.log(response.data.listing.hostID)
+        //console.log(response.data.listing.category)
         loading.value = false;
       }
       catch (err) {
@@ -299,7 +304,7 @@ export default {
     };
 
     onMounted(() => {
-      window.scrollTo(0, 0); 
+      window.scrollTo(0, 0);
       userLoginStatus.value = isLoggedIn();
       fetchReviewCountAndRating();
     });
@@ -316,7 +321,7 @@ export default {
     };
 
     const handleBooking = () => {
-      router.push({ name: 'Booking', params: { listingId } });
+      router.push(`/guest/make-booking/${hostListingId.value}/${listingId}`); 
     };
 
     return {
