@@ -39,7 +39,7 @@
                             </div>
                             <button @click="handleDeleteClick(listing._id)"
                                 class="absolute top-3 right-3 text-red-500 hover:text-red-700">
-                                <Icon name="fa:trash-alt" class="text-red-500 hover:text-red-700" />
+                                <Icon name="ic:baseline-delete-outline" class="text-[21px] bg-red-700 hover:text-red-300" />
                             </button>
                             <button @click="navigateToEdit(listing._id)"
                                 class="absolute top-3 right-9 text-blue-500 hover:text-blue-700">
@@ -140,7 +140,7 @@ const handleDeleteCancel = () => {
 };
 
 const navigateToEdit = (listingId) => {
-    router.push(`/update-listing/${listingId}`);
+    router.push(`/host/host-listings/${listingId}`);
 };
 
 onMounted(() => {
