@@ -42,10 +42,10 @@
             <NuxtLink v-if="user" :to="userRole === 'Guest' ? '/notifications/guest' : '/notifications/host'"
               class="hidden md:inline-flex items-center space-x-2 hover:text-black">
               <Icon name="ic:baseline-notifications"
-                :class="`text-[28px] bg-gray-500 ${userNotifications === 0 ? '' : ' mr-[-20px]'}`" />
-              <div v-if="userNotifications !== 0"
-                class="text-[12px] font-[600] rounded-full w-[20px] h-[20px] text-white text-center bg-rose-600 mt-[-20px]">
-                {{ userNotifications }}
+                :class="`text-[28px] bg-gray-500 ${notificationsCount === 0 ? '' : ' mr-[-20px]'}`" />
+              <div v-if="notificationsCount > 0"
+                class="absolute text-[12px] font-[600] rounded-full w-[22px] h-[22px] ml-[20px] text-white text-center bg-rose-800 border-[2px] border-white mt-[-10px]">
+                {{ notificationsCount }}
               </div>
             </NuxtLink>
             <div @click="toggleMenu"
@@ -68,7 +68,7 @@
                   class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                   Profile
                 </NuxtLink>
-                <button @click="handleLogout"
+                <button @click="handleLogout()"
                   class="px-[12px] text-start text-white pb-[2px] bg-rose-500 my-[8px] hover:bg-rose-200 hover:text-rose-700 rounded-lg">
                   Logout
                 </button>
@@ -88,7 +88,8 @@
 
               <div v-if="user">
                 <div v-if="userRole === 'Host'">
-                  <NuxtLink to="/host/host-listings" class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                  <NuxtLink to="/host/host-listings"
+                    class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     Host Listing
                   </NuxtLink>
                   <NuxtLink to="/host-bookings" class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
@@ -154,7 +155,7 @@
                 class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                 Bookings History
               </NuxtLink>
-              <NuxtLink to="/guest//reserved-bookings" @click="toggleMenu"
+              <NuxtLink to="/guest/reserved-bookings" @click="toggleMenu"
                 class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                 Reserved Bookings
               </NuxtLink>
@@ -164,11 +165,7 @@
           <NuxtLink to="/privacy-policy" @click="toggleMenu"
             class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
             Privacy Policy
-          </NuxtLink>
-          <NuxtLink to="/accessibility" @click="toggleMenu"
-            class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-            Accessibility
-          </NuxtLink>
+          </NuxtLink> 
 
           <div class="w-full bg-gray-200 h-[2px] my-2"></div>
 
@@ -196,34 +193,43 @@
       </div>
 
       <div
-        :class="`fixed bottom-0 left-0 w-full bg-white shadow-lg flex justify-between py-2 transition-transform duration-300 ${getNavbarTranslateClasses} ${getNavbarClasses} ${user ? 'px-[40px]' : 'px-[110px]'}`">
+        :class="`fixed bottom-0 left-0 w-full bg-white shadow-lg flex justify-between py-2 transition-transform duration-300 px-[40px] ${getNavbarTranslateClasses} ${getNavbarClasses} '}`">
         <NuxtLink to="/" :class="`flex flex-col items-center ${isActive('/') ? 'text-rose-600' : 'text-gray-400'}`">
-          <Icon name="fa:home" class="mb-[6px]" size="22" />
+          <Icon name="fa6-solid:house-chimney" class="mb-[6px] text-[24px]" />
           <span class="text-xs">Home</span>
         </NuxtLink>
 
         <div v-if="user">
-          <div v-if="userRole === 'Host'">
+          <div v-if="userRole === 'Host'" class="flex items-center">
             <NuxtLink to="/host/host-bookings"
-              :class="`flex flex-col items-center ${isActive('/host-bookings') ? 'text-rose-600' : 'text-gray-400'}`">
-              <Icon name="io:bookmarks-outline" class="mb-[6px]" size="22" />
+              :class="`flex flex-col items-center ${isActive('/host/host-bookings') ? 'text-rose-600' : 'text-gray-400'}`">
+              <Icon name="fa6-solid:clipboard-question" class="mb-[6px] text-[24px]" />
               <span class="text-xs">Bookly</span>
             </NuxtLink>
-            <NuxtLink to="/host/host-listing"
-              :class="`flex flex-col items-center ${isActive('/host-listing') ? 'text-rose-600' : 'text-gray-400'}`">
-              <Icon name="md:assessment" class="scale-[1.2] mb-[6px]" size="22" />
+          </div>
+
+          <div v-else>
+            <NuxtLink to="/guest/favouriteListing"
+              :class="`flex flex-col items-center ${isActive('/guest/favourite-listings') ? 'text-rose-600' : 'text-gray-400'}`">
+              <Icon name="fa6-solid:heart" class="mb-[6px] text-[24px]" />
+              <span class="text-xs">Favourites</span>
+            </NuxtLink>
+          </div>
+        </div>
+
+        <div v-if="user">
+          <div v-if="userRole === 'Host'">
+            <NuxtLink to="/host/host-listings"
+              :class="`flex flex-col items-center ${isActive('/host/host-listings') ? 'text-rose-600' : 'text-gray-400'}`">
+              <Icon name="fa6-solid:chalkboard-user" class="mb-[7px] text-[24px]" />
               <span class="text-xs">Dashboard</span>
             </NuxtLink>
           </div>
+
           <div v-else>
-            <NuxtLink to="/guest/favouriteListing"
-              :class="`flex flex-col items-center ${isActive('/favourite-listings') ? 'text-rose-600' : 'text-gray-400'}`">
-              <Icon name="fa:heart" class="mb-[6px]" size="22" />
-              <span class="text-xs">Favourites</span>
-            </NuxtLink>
             <NuxtLink to="/guest/reserved-bookings"
-              :class="`flex flex-col items-center ${isActive('/reserved-bookings') ? 'text-rose-600' : 'text-gray-400'}`">
-              <Icon name="fa:bed" class="scale-[1.2] mb-[7px]" size="21" />
+              :class="`flex flex-col items-center ${isActive('/guest/reserved-bookings') ? 'text-rose-600' : 'text-gray-400'}`">
+              <Icon name="fa6-solid:bed" class="mb-[7px] text-[24px]" />
               <span class="text-xs">MyBookings</span>
             </NuxtLink>
           </div>
@@ -231,12 +237,12 @@
 
         <div v-if="user">
           <NuxtLink :to="userRole === 'Guest' ? '/notifications/guest' : '/notifications/host'"
-            :class="`relative flex flex-col items-center ${isActive('/notifications') ? 'text-rose-600' : 'text-gray-400'}`">
-            <Icon name="fa:bell" class="mb-[6px] text-[25px]" />
+            :class="`relative flex flex-col items-center ${isActive('/notifications/host') ? 'text-rose-600' : 'text-gray-400'}`">
+            <Icon name="fa6-solid:bell" class="mb-[5px] text-[26px]" />
 
-            <div v-if="userNotifications !== 0"
+            <div v-if="notificationsCount.length !== 0"
               class="absolute text-[12px] font-[600] rounded-full w-[22px] h-[22px] ml-[20px] text-white text-center bg-rose-800 border-[2px] border-white mt-[-10px]">
-              {{ userNotifications }}
+              {{ notificationsCount.length }}
             </div>
 
             <span class="text-xs">Alerts</span>
@@ -245,15 +251,15 @@
         <div v-else>
           <NuxtLink to="/authentication/signUp"
             :class="`flex flex-col items-center ${isActive('/signUp') ? 'text-rose-600' : 'text-gray-400'}`">
-            <Icon name="fa:bell" class="mb-[6px] text-[25px]" />
+            <Icon name="fa6-solid:bell" class="mb-[7px] text-[24px]" />
             <span class="text-xs">Alerts</span>
           </NuxtLink>
         </div>
 
         <div>
           <NuxtLink :to="user ? '/authentication/profile' : '/authentication/signIn'"
-            :class="`flex flex-col items-center ${isActive(user ? '/profile' : '/signIn') ? 'text-rose-600' : 'text-gray-400'}`">
-            <Icon :name="user ? 'fa:user' : 'fa:sign-in'" class="mb-[6px] text-[20px]" />
+            :class="`flex flex-col items-center ${isActive(user ? '/authentication/profile' : '/authentication/signIn') ? 'text-rose-600' : 'text-gray-400'}`">
+            <Icon :name="user ? 'fa6-solid:user-large' : 'fa6-solid:user-large'" class="mb-[6px] text-[24px]" />
             <span class="text-xs">{{ user ? 'Profile' : 'JoinUs' }}</span>
           </NuxtLink>
         </div>
@@ -269,10 +275,12 @@ import { useAuthStore } from "../store/auth.js"
 export default {
   setup() {
     const userStore = useAuthStore();
+    console.log("count is " + userStore.notificationsCount)
     return {
       user: userStore.user,
       userRole: userStore.userRole,
-      userNotifications: userStore.userNotifications
+      notificationsCount: userStore.notificationsCount,
+      logout: userStore.logout,
     };
   },
   computed: {
@@ -316,9 +324,10 @@ export default {
       return this.$route.path === route;
     },
     handleLogout() {
-      this.$store.dispatch('auth/logout'); // Vuex logout action
-      this.toggleMenu();
-      this.$router.push('/signin');
+      //localStorage.removeItem('token');
+      this.logout();
+      toggleMenu();
+      navigate('/authentication/signIn');
     },
     handleScroll() {
       if (window.scrollY > 50) {

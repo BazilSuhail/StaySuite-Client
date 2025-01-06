@@ -7,7 +7,11 @@
             </div>
             <div class="h-[2px] bg-rose-300 rounded-lg my-[15px] mb-[35px]"></div>
 
-            <div v-if="userNotifications.length === 0 && notifications.length === 0"
+
+            <div v-if="isLoading" class="flex justify-center items-center">
+                <p>Loading...</p>
+            </div>
+            <div v-else-if="userNotifications.length === 0 && notifications.length === 0"
                 class="min-h-screen w-full flex justify-center items-center mix-blend-multiply mt-[-250px]">
                 <img src="/assets/notifications.webp" alt="" class="scale-[0.55] md:scale-[0.4]" />
             </div>
@@ -17,8 +21,8 @@
                     class="border-b-[2px] border-rose-700 lg:px-[20px] py-[15px] flex flex-col">
                     <div class="flex items-center">
                         <div
-                            class="w-[32px] h-[32px] md:w-[38px] md:h-[38px] rounded-full flex items-center justify-center text-[28px] bg-rose-800 text-rose-50">
-                            <Icon name="fa:calendar" />
+                            class="w-[32px] h-[32px] md:w-[38px] md:h-[38px] rounded-full flex items-center justify-center text-[23px] bg-rose-800 text-rose-50">
+                            <Icon name="ic:outline-bookmark-add" />
                         </div>
                         <h3 class="text-[16px] ml-[12px] text-rose-600 font-[500]">
                             New Booking Created at Your Property In
@@ -42,8 +46,8 @@
                     class="bg-rose-50 rounded-[25px] lg:px-[20px] py-[15px] flex flex-col">
                     <div class="flex items-center">
                         <div
-                            class="w-[32px] h-[32px] md:w-[38px] md:h-[38px] rounded-full flex items-center justify-center text-[28px] bg-rose-100 text-rose-600">
-                            <Icon name="fa:calendar" />
+                            class="w-[32px] h-[32px] md:w-[38px] md:h-[38px] rounded-full flex items-center justify-center text-[22px] bg-rose-200 text-rose-600">
+                            <Icon name="ic:baseline-collections-bookmark" />
                         </div>
                         <h3 class="text-[16px] ml-[12px] text-rose-400 font-[500]">
                             Booking Created at Your Property In
@@ -54,7 +58,8 @@
                         </h3>
                     </div>
                     <p class="ml-[49px] text-rose-800">
-                        <span class="text-rose-400 text-[16px] font-[600]">Special Requests: </span>{{ notification.details }}
+                        <span class="text-rose-400 text-[16px] font-[600]">Special Requests: </span>{{
+                        notification.details }}
                     </p>
                     <button @click="fetchBookingDetails(notification.bookingId)"
                         class="ml-[48px] text-rose-700 underline underline-offset-2 font-[500] mt-[4px] text-start">
@@ -67,13 +72,13 @@
         <div v-if="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div class="bg-white rounded-lg p-6 shadow-lg lg:w-[600px] w-[400px] relative">
                 <button @click="closeModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
-                    <Icon name="fa:times" class="text-2xl" />
+                    <Icon name="ic:outline-close" class="text-2xl" />
                 </button>
 
                 <div class="flex justify-center items-center font-semibold mb-4 text-center text-gray-800">
                     <p
                         class="w-[38px] h-[38px] rounded-full flex items-center justify-center text-[28px] text-rose-100 bg-rose-600">
-                        <Icon name="tb:brand-booking" class="text-xl" />
+                        <Icon name="ic:baseline-collections-bookmark" class="text-xl" />
                     </p>
                     <p class="ml-[10px] text-rose-600 text-[25px]">Booking Details</p>
                 </div>
@@ -83,16 +88,16 @@
                         <p class="text-gray-700 font-medium">
                             Name: <span class="font-normal">{{ bookingDetails.listing.name || 'No title found' }}</span>
                         </p>
-                        <NuxtLink to="" 
+                        <NuxtLink :to="`/listing/${bookingDetails.listing._id}`"
                             class="text-rose-700 hover:text-red-500 cursor-pointer flex items-center">
                             See Listings
                             <Icon name="lucide:arrow-right" class="ml-[4px] text-[17px] mt-[2px]" />
                         </NuxtLink>
                     </div>
                     <p class="text-gray-700 mb-[15px] font-medium">
-                        Property Type: <span class="font-normal">{{ bookingDetails.listing.property_type || ''}}</span>
+                        Property Type: <span class="font-normal">{{ bookingDetails.listing.property_type || '' }}</span>
                     </p>
-                    <p class="text-gray-700 mt-[15px] font-medium flex items-center gap-2">
+                    <p class="text-gray-700 text-[14px] mt-[15px] font-medium flex items-center gap-2">
                         <label
                             class="w-[30px] h-[30px] text-[18px] bg-rose-600 flex justify-center items-center rounded-full text-white">
                             <Icon name="fa:calendar" class="text-[16px]" />
@@ -100,7 +105,7 @@
                         Check-In: <span class="font-[600] text-green-700">{{ new
                             Date(bookingDetails.booking.checkIn).toDateString() }}</span>
                     </p>
-                    <p class="text-gray-700 font-medium flex items-center gap-2">
+                    <p class="text-gray-700 text-[14px] font-medium flex items-center gap-2">
                         <label
                             class="w-[30px] h-[30px] text-[18px] bg-rose-600 flex justify-center items-center rounded-full text-white">
                             <Icon name="fa:calendar" class="text-[16px]" />
@@ -130,8 +135,8 @@
                         }}</span>
                 </p>
 
-                <p v-if="bookingDetails.specialRequests" class="text-sm text-gray-500 italic mt-2">
-                    Special Requests: {{ bookingDetails.booking.specialRequests || 'sd' }}
+                <p class="text-sm text-gray-500 italic mt-2">
+                    Special Requests: {{ bookingDetails.booking.specialRequests || 'No requests made ...' }}
                 </p>
             </div>
         </div>
@@ -153,8 +158,8 @@ export default {
         };
     },
     setup() {
-      const { notifications, userNotifications } = useAuthStore(); 
-      return { notifications, userNotifications };
+        const { notifications, userNotifications } = useAuthStore();
+        return { notifications, userNotifications };
     },
     methods: {
         async fetchBookingDetails(bookingId) {
@@ -180,7 +185,3 @@ export default {
     },
 };
 </script>
-
-<style>
-/* Add any custom styles */
-</style>

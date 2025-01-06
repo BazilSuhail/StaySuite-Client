@@ -89,6 +89,7 @@ export const useAuthStore = defineStore('auth', () => {
       notifications.value.push(data);
       showToast(data.message);
       notificationsCount.value += 1;
+      console.log(notificationsCount.value);
     });
 
     socket.value.on('disconnect', () => {
@@ -140,8 +141,8 @@ export const useAuthStore = defineStore('auth', () => {
   // Initialize logic for token validation on page load
   const initialize = () => {
     if (!import.meta.client) return; // Prevent execution on the server
-    if (isInitialized.value) return; // Avoid re-initialization
-    isInitialized.value = true;
+    //if (isInitialized.value) return; // Avoid re-initialization
+    //isInitialized.value = true;
     //console.log("Sdd")
     const token = localStorage.getItem('token');
     if (token) {
@@ -150,10 +151,12 @@ export const useAuthStore = defineStore('auth', () => {
         fetchUserData(token);
         fetchUserNotifications(token);
         connectSocket(token);
-      } else {
+      } 
+      else {
         logout();
       }
-    } else {
+    } 
+    else {
       loading.value = false;
     }
   };
