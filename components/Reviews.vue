@@ -1,7 +1,7 @@
 <template>
     <div v-if="error" class="text-center text-red-500 mt-10">{{ error }}</div>
 
-    <div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-[15px] md:px-[35px] lg:px-[90px] xl:px-[230px]">
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-[5px] sm:px-[15px] md:px-[35px] lg:px-[90px] xl:px-[230px]">
         <div class="bg-white rounded-lg overflow-y-auto no-scrollbar lg:overflow-y-hidden h-[90vh] w-full mx-4 md:mx-auto shadow-lg"
             v-motion="{
                 initial: { y: 900, opacity: 0, scale: 0 },
@@ -14,11 +14,11 @@
             <div class="flex justify-between items-center border-b p-4">
                 <h2 class="text-lg font-semibold">Guest Reviews</h2>
                 <button @click="onClose">
-                    <Icon name="fa-solid:times" class="text-xl text-gray-500 hover:text-gray-800 mr-[6px] " />
+                    <Icon name="mdi-close" class="text-[22px] font-[600] text-gray-500 hover:text-gray-800 mr-[6px] " />
                 </button>
             </div>
 
-            <div class="grid lg:grid-cols-5 grid-cols-1 p-4">
+            <div class="grid lg:grid-cols-5 grid-cols-1 p-3 lg:p-4 ">
                 <div class="lg:col-span-2">
                     <div class="flex items-center justify-center mb-[25px]">
                         <img src="/assets/leftWing.png" alt="img1" class="w-[75px] mt-[28px]" />
@@ -37,7 +37,7 @@
 
                 <div class="lg:col-span-3 mt-[15px]">
                     <h3 class="text-lg font-medium mb-4">{{ ratingReviews.reviewCount }} Reviews</h3>
-                    <div class="overflow-y-auto mb-[75px] no-scrollbar max-h-[520px]">
+                    <div class="lg:overflow-y-auto mb-[75px] no-scrollbar max-h-[520px]">
                         <template v-if="!loading">
                             <template v-if="reviews.length === 0">
                                 <div
@@ -48,7 +48,7 @@
                             </template>
 
                             <template v-for="(review, index) in reviews" :key="index">
-                                <div class="mb-6 p-4 bg-white">
+                                <div class="mb-6 p-2 lg:p-4 bg-white">
                                     <div class="mb-[8px] flex items-center">
                                         <img :src="`/Avatars/${review.user.profilePicture}.jpg`" alt="No Profile Avatar"
                                             class="w-10 h-10 rounded-full mr-4 border border-gray-300 shadow-md" />
@@ -77,14 +77,14 @@
                                         </p>
                                     </div>
                                     <div>
-                                        <p class="mt-2 text-gray-700">{{ review.review }}</p>
+                                        <p class="mt-2 lg:text-[16px] text-[14px] text-gray-700">{{ review.review }}</p>
                                     </div>
                                 </div>
                             </template>
 
                             <div v-if="currentPage < totalPages && !loading" class="mt-6">
                                 <button @click="handleShowMore"
-                                    class="px-4 py-[6px] text-[13px] bg-rose-600 text-white rounded-md hover:bg-rose-900">
+                                    class="px-4 py-[6px] mb-[15px] text-[13px] bg-rose-600 text-white rounded-md hover:bg-rose-900">
                                     Show More
                                 </button>
                             </div>

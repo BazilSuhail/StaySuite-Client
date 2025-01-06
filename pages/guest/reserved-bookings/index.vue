@@ -116,7 +116,7 @@
               <NuxtLink :to="`/listing/${selectedBooking.listingId}`"
                 class="w-[105px] overflow-hidden text-rose-700 hover:text-red-500 cursor-pointer flex items-center">
                 See Listings
-                <Icon name="fa:arrow-right" class="pl-[8px]" />
+                <Icon name="lucide:arrow-right" class="ml-[4px] text-[17px] mt-[2px]" />
               </NuxtLink>
             </div>
 

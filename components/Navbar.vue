@@ -39,7 +39,7 @@
 
           <div class="flex items-center space-x-4">
             <span class="text-gray-700 xl:block hidden text-md">Airbnb Your Home</span>
-            <NuxtLink v-if="user" :to="userRole === 'Guest' ? '/guest_notifications' : '/host_notifications'"
+            <NuxtLink v-if="user" :to="userRole === 'Guest' ? '/notifications/guest' : '/notifications/host'"
               class="hidden md:inline-flex items-center space-x-2 hover:text-black">
               <Icon name="ic:baseline-notifications"
                 :class="`text-xl ${notificationsCount === 0 ? 'text-gray-500' : ' mr-[-20px]'}`" />
@@ -136,9 +136,9 @@ export default {
     const authStore = useAuthStore();
 
     const user = ref(authStore.user);
-    //console.log(user)
     const userRole = ref(authStore.userRole);
-    console.log(userRole)
+    //console.log(user)
+    //console.log(userRole)
 
     const notificationsCount = ref(authStore.notificationsCount);
     const isOpen = ref(false);

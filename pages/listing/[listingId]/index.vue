@@ -5,19 +5,18 @@
   <div v-else-if="error" class="text-center text-red-600">
     <span>{{ error }}</span>
   </div>
-  <div v-else class="w-full overflow-x-hidden xl:px-[160px] min-h-screen p-6 bg-white">
+  <div v-else class="w-full overflow-x-hidden px-[12px] sm:px-6 xl:px-[160px] min-h-screen  py-6 bg-white">
     <h2 class="mt-[85px] mb-[20px] text-[22px] md:text-[30px] text-rose-950 font-semibold">{{ listing.name }}</h2>
 
     <Reviews v-if="showModal" :listingId="listingId" :ratingReviews="ratingReviews" @close="handleCloseReviews" />
 
-    <div v-if="isListingPicturesModalOpen"
-      class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div v-if="isListingPicturesModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div
-        class="bg-white rounded-lg overflow-y-auto py-[25px] no-scrollbar h-[80vh] w-[95vw] px-[8px] space-y-[8px] flex flex-col md:w-[90vw] mx-4 md:mx-auto shadow-lg"
+        class="bg-white rounded-lg overflow-y-auto pb-[25px] no-scrollbar h-[80vh] w-[95vw] px-[8px] space-y-[8px] flex flex-col md:w-[90vw] mx-4 md:mx-auto shadow-lg"
         initial="{ scale: 0.7, opacity: 1, y: 500 }" animate="{ scale: 1, opacity: 1, y: 0 }"
         transition="duration: 0.5, ease: [0.2, 0.8, 0.2, 1]">
-        <button @click="isListingPicturesModalOpen = false">
-          <Icon name="mdi-close" class="text-xl ml-auto mb-[15px] mr-[12px] text-gray-500 hover:text-gray-800" />
+        <button @click="isListingPicturesModalOpen = false" class="sticky bg-white pt-[15px] top-0 flex justify-end">
+          <Icon name="mdi-close" class="text-[22px] mr-[8px] mb-[8px] text-gray-500 hover:text-gray-800" />
         </button>
         <div class="h-[210px] sm:h-[350px]">
           <img :src="listing.images.coverPicture" :alt="listing.title" class="w-full rounded-xl h-full object-cover" />

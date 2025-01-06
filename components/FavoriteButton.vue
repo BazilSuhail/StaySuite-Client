@@ -29,7 +29,7 @@
   });
   
   const isFavorited = ref(props.isInitiallyFavorited);
-  console.log(props.listingId)
+  //console.log(props.listingId)
   const error = ref('');
   
   const toggleFavorite = async () => {

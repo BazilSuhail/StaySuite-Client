@@ -12,6 +12,7 @@ export const useAuthStore = defineStore('auth', () => {
   const loading = ref(true);
   const socket = ref(null);
   const notifications = ref([]);
+  const userNotifications = ref([]);
   const notificationsCount = ref(0);
   const toast = ref({ message: '', visible: false });
   const searchFilters = ref({});
@@ -61,7 +62,7 @@ export const useAuthStore = defineStore('auth', () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      notifications.value = response.data;
+      userNotifications.value = response.data;
     } catch (error) {
       console.error('Error fetching notifications:', error);
     }
@@ -141,7 +142,7 @@ export const useAuthStore = defineStore('auth', () => {
     if (!import.meta.client) return; // Prevent execution on the server
     if (isInitialized.value) return; // Avoid re-initialization
     isInitialized.value = true;
-    console.log("Sdd")
+    //console.log("Sdd")
     const token = localStorage.getItem('token');
     if (token) {
       const isValid = validateToken(token);
@@ -164,6 +165,7 @@ export const useAuthStore = defineStore('auth', () => {
     userRole,
     loading,
     socket,
+    userNotifications,
     notifications,
     notificationsCount,
     toast,

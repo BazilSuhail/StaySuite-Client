@@ -17,11 +17,11 @@
       </div>
 
       <form @submit.prevent="handleSubmit">
-        <div class="flex items-center mb-4">
-          <label class="mr-[10px] text-xl font-semibold">Rating:</label>
-          <div>
+        <div class="flex items-center mb-2">
+          <label class="mr-[10px] text-[15px] text-rose-700 font-semibold">Give Rating:</label>
+          <div class="flex items-center justify-center">
             <Icon v-for="index in 5" :key="index" name="fa-star" :class="[
-              'cursor-pointer',
+              'cursor-pointer text-[18px]',
               index <= rating ? 'text-yellow-500' : 'text-gray-300'
             ]" @click="handleStarClick(index)" />
           </div>
@@ -29,7 +29,7 @@
 
         <div class="mb-4">
           <label for="review" class="block text-sm font-medium text-gray-700">Review:</label>
-          <textarea id="review" class="border rounded-md w-full p-2" rows="4" v-model="review"></textarea>
+          <textarea id="review" class="border-[2px] rounded-lg mt-[8px] w-full p-2" rows="4" v-model="review"></textarea>
         </div>
 
         <div class="flex justify-end">

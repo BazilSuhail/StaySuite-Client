@@ -5,38 +5,30 @@
       <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-pink-600"></div>
     </div>
 
-    <!-- Error message -->
     <div v-else-if="error" class="text-red-500 text-center">
       <p>An error occurred: {{ error }}</p>
     </div>
+
     <div v-else>
       <!-- Left Column (Booking Form) -->
       <div class="flex-1 space-y-6">
-        <!-- Booking Request Section -->
+
         <div class="border rounded-lg p-4 space-y-2 bg-gray-50">
           <h2 class="text-lg font-semibold">Request to book</h2>
           <p class="text-pink-600 flex items-center space-x-2">
-            <Icon name="fa:shield-alt" class="text-pink-600" />
+            <Icon name="fa:shield" class="text-pink-600" />
             <span>This is a rare find. Bo's place is usually booked.</span>
           </p>
         </div>
 
         <!-- Calendar Section -->
         <div class="w-full xl:px-[15px] my-calendar">
-          <VDatePicker
-  v-model="dateRange"
-  is-range
-  :disabled-dates="blockedDates"
-  :allowed-dates="(date) => {
-    return (
-      !dateRange.value.start ||
-      new Date(date) > new Date(dateRange.value.start)
-    );
-  }"
-  class="vc-custom-pink"
-/>
-
-
+          <VDatePicker v-model="dateRange" is-range :disabled-dates="blockedDates" :allowed-dates="(date) => {
+            return (
+              !dateRange.value.start ||
+              new Date(date) > new Date(dateRange.value.start)
+            );
+          }"/>
         </div>
 
         <!-- Selected Dates Section -->
@@ -78,8 +70,8 @@
           <div class="border rounded-lg p-4 space-y-2 bg-gray-50">
             <h3 class="text-lg font-semibold">Price details</h3>
             <div class="flex justify-between">
-              <p>${{ listingPrice}} x {{ calculateNights() }} nights</p>
-              <p>${{ listingPrice*calculateNights() }}</p>
+              <p>${{ listingPrice }} x {{ calculateNights() }} nights</p>
+              <p>${{ listingPrice * calculateNights() }}</p>
             </div>
             <div class="flex justify-between text-green-600">
               <p>Weekly stay discount</p>
@@ -96,7 +88,7 @@
             <hr />
             <div class="flex justify-between font-semibold">
               <p>Total (USD)</p>
-              <p>${{ computedTotalAmount.toFixed(2) }}</p> 
+              <p>${{ computedTotalAmount.toFixed(2) }}</p>
             </div>
           </div>
         </div>
@@ -121,28 +113,23 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import "./theme.css"
 import axios from 'axios';
 import { useAuthStore } from '@/store/auth.js';
 
 const { listingId, hostId } = useRoute().params;
-console.log("booking host => " + hostId);
-console.log(listingId);
 
 const router = useRouter();
 const { showToast } = useAuthStore();
 
 const listing = ref(null);
-const ratingReviews = ref({ averageRating: 4.5 });
 const listingPrice = ref(20);
 
 const dateRange = ref({ start: null, end: null });
 const guests = ref({ adults: 1, children: 0, infants: 0 });
 const specialRequests = ref('');
-const blockedDates = ref([]); 
-const cleaningFee = ref(29.16);  
+const blockedDates = ref([]);
 
 // Loading and error states
 const loading = ref(true);
@@ -154,9 +141,9 @@ const calculateNights = () => {
   const start = new Date(dateRange.value.start);
   const end = new Date(dateRange.value.end);
   const diffTime = Math.abs(end - start);
-  return Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+  return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 };
- 
+
 
 const isDateValid = computed(() => {
   return (
@@ -174,18 +161,14 @@ const fetchListingData = async () => {
     const response = await axios.get(
       `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/home/listing-details/${listingId}`
     );
-    listing.value = response.data;
-    //console.log(listing.value);
-    //console.log(response.data.listing.price)
-    listingPrice.value=response.data.listing.price
-    console.log(listingPrice.value)
+    listing.value = response.data
+    listingPrice.value = response.data.listing.price
 
-    //recalculateTotalAmount(); // Recalculate total once listing data is fetched
-  } 
+  }
   catch (err) {
     console.error('Error fetching listing data:', err);
     error.value = 'Failed to load listing data. Please try again later.';
-  } 
+  }
   finally {
     loading.value = false;
   }
@@ -195,14 +178,14 @@ const fetchBlockedDates = async () => {
   loading.value = true;
   error.value = null;
   try {
-    const response = await axios.get(
-      `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/reservation/get-reserved-bookings/${listingId}`
-    );
+    const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/reservation/get-reserved-bookings/${listingId}`);
     blockedDates.value = response.data.blockedDates.map((date) => new Date(date));
-  } catch (err) {
+  } 
+  catch (err) {
     console.error('Error fetching blocked dates:', err);
     error.value = 'Failed to load blocked dates. Please try again later.';
-  } finally {
+  } 
+  finally {
     loading.value = false;
   }
 };
@@ -210,12 +193,10 @@ const fetchBlockedDates = async () => {
 const computedTotalAmount = computed(() => {
   const nights = calculateNights();
   return (
-    listingPrice.value * nights + 29.16 + 150.00 -15.00
+    listingPrice.value * nights + 29.16 + 150.00 - 15.00
   );
 });
 
-
-// Handle booking
 const handleBooking = async () => {
   if (!isDateValid.value || !guests.value.adults) {
     alert('Please complete all fields with valid data.');
@@ -238,9 +219,9 @@ const handleBooking = async () => {
       { headers: { Authorization: `Bearer ${token}` } }
     );
 
-    showToast('Booking successful!');
-    router.push(`/confirmation/${listingId}`);
-  } catch (error) {
+    showToast('Booking successful!')
+  } 
+  catch (error) {
     console.error('Booking error:', error);
     showToast('Booking failed, please try again later.');
   }
@@ -252,10 +233,4 @@ onMounted(() => {
 });
 
 </script>
-
-<style scoped>
-/* Style customization */
-.my-calendar :deep(.vc-weekday-1, .vc-weekday-7) {
-  color: #6366f1; /* Custom color for Sundays and Saturdays */
-}
-</style>
+ 

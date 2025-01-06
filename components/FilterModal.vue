@@ -198,12 +198,9 @@ export default {
         bathrooms: bathrooms.value,
         category: category.value,
       };
-      useAuthStore().setSearchFilters(searchFilters); // Update search filters in store
-
-      // Redirect to search listing page
+      useAuthStore().setSearchFilters(searchFilters);
+      
       router.push("/listing/search-listing");
-
-      // Close the modal or dialog (if applicable)
       props.onClose();
     };
 
