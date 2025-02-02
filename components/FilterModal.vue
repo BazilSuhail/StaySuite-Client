@@ -116,7 +116,7 @@
           <button
             class="bg-rose-700 flex items-center text-white font-[600] px-[15px] py-[3px] rounded-[20px] hover:bg-rose-900 duration-200"
             @click="logValues">
-            <Icon name="search" class="text-[20px] mt-[3px] mr-[3px]" />
+            <Icon name="material-symbols:search" class="text-[20px] mt-[3px] mr-[3px]" />
             Search
           </button>
         </div>
@@ -132,8 +132,7 @@ import { useAuthStore } from "../store/auth";
 
 export default {
   props: {
-    onClose: {
-      type: Function,
+    onClose: { 
       required: true,
     },
   },
@@ -176,19 +175,7 @@ export default {
     };
 
     const logValues = () => {
-      // Log the filter values
-      /*console.log({
-        title: title.value,
-        suburb: suburb.value,
-        country: country.value,
-        minPrice: minPrice.value,
-        maxPrice: maxPrice.value,
-        beds: beds.value,
-        bathrooms: bathrooms.value,
-        category: category.value,
-      });*/
-
-      // Set the search filters in the store
+       
       const searchFilters = {
         title: title.value,
         suburb: suburb.value,

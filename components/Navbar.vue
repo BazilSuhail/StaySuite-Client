@@ -1,7 +1,7 @@
 <template>
   <header class="bg-white fixed w-full z-50 top-0">
     
-    <FiltersModal v-if="showFilterModal" @close="toggleFilterModal" />
+    <FiltersModal v-if="showFilterModal" @close="showFilterModal" />
 
     <nav class="hidden md:block">
       <div
@@ -14,7 +14,7 @@
             </NuxtLink>
           </div>
 
-          <div v-if="!isHomePath" @click="toggleFilterModal"
+          <div v-if="!isHomePath" @click="showFilterModal"
             class="hidden cursor-pointer sm:flex items-center border-[2px] xl:mr-[-165px] z-90 rounded-full py-2 px-4 shadow-md">
             <p
               class="bg-transparent flex-grow outline-none border-r-[2px] border-gray-200 px-[8px] font-[600] text-gray-700">
