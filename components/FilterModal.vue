@@ -4,6 +4,7 @@
       transition="duration-500 cubic-bezier(0.2, 0.8, 0.2, 1)"
       class="bg-white rounded-lg w-[95%] sm:w-11/12 max-w-md sm:pb-6 pb-[150px] sm:mb-0 mb-[-180px] px-6 pt-6 shadow-lg">
       <div>
+        
         <div class="flex justify-between items-center border-b pb-4">
           <h2 class="text-lg font-semibold">Filters</h2>
           <button @click="onClose()" class="text-gray-500 mt-[-15px] hover:text-black text-[28px]">&times;</button>

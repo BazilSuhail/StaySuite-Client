@@ -1,21 +1,28 @@
 <template>
-    <div class="bg-white pt-[100px] min-h-screen pb-[65px] justify-center items-center">
-      <div class="max-w-[950px] mx-auto px-6">
-        <div class="flex items-center text-rose-600">
-          <Icon name="fa:bell" size="35" class="mr-[8px]" />
-          <h3 class="text-[24px] font-[700] text-start">Notifications</h3>
-        </div>
-  
-        <div class="h-[2px] bg-rose-300 rounded-lg my-[15px] mb-[35px]"></div>
-  
+  <div class="bg-white pt-[100px] min-h-screen pb-[65px] justify-center items-center">
+    <div class="max-w-[950px] mx-auto px-6">
+      <div class="flex items-center text-rose-600">
+        <Icon name="fa:bell" size="35" class="mr-[8px]" />
+        <h3 class="text-[24px] font-[700] text-start">Notifications</h3>
+      </div>
+
+      <div class="h-[2px] bg-rose-300 rounded-lg my-[15px] mb-[35px]"></div>
+
+      <!-- Loading State -->
+      <div v-if="!notifications || !userNotifications" class="min-h-screen w-full flex justify-center items-center">
+        <p>Loading...</p>
+      </div>
+      
+      <client-only  v-else>
         <div class="flex flex-col space-y-[15px]">
-          <div
-            v-if="userNotifications.length === 0 && notifications.length === 0"
-            class="min-h-screen w-full flex justify-center items-center mix-blend-multiply mt-[-250px]"
+          <!-- No Notifications Message -->
+          <div v-show="userNotifications.length === 0 && notifications.length === 0" 
+               class="min-h-screen w-full flex justify-center items-center mix-blend-multiply mt-[-250px]"
           >
             <img src="/assets/notifications.webp" alt="No Notifications" class="scale-[0.55] md:scale-[0.4]" />
           </div>
-  
+
+          <!-- Notifications List -->
           <div
             v-for="(notification, index) in notifications"
             :key="index"
@@ -25,7 +32,7 @@
               <div
                 class="w-[32px] h-[32px] md:w-[38px] md:h-[38px] rounded-full flex items-center justify-center text-[28px] bg-rose-800 text-rose-100"
               >
-                <Icon name="fa:calendar-check" />
+                <Icon name="material-symbols-light:calendar-add-on-outline" />
               </div>
               <h3 class="text-[16px] ml-[5px] text-rose-700 font-[500]">
                 {{ notification.title }}
@@ -36,7 +43,7 @@
                 </span>
               </h3>
             </div>
-  
+
             <p class="ml-[48px] break-words">
               Your reservation for {{ notification.address }} between {{ notification.checkInOut }} has been
               <span
@@ -53,7 +60,8 @@
               See Listing
             </button>
           </div>
-  
+
+          <!-- User Notifications List -->
           <div
             v-for="(notification, index) in userNotifications"
             :key="index"
@@ -63,7 +71,7 @@
               <div
                 class="w-[32px] h-[32px] md:w-[38px] md:h-[38px] rounded-full flex items-center justify-center text-[28px] bg-rose-100 text-rose-600"
               >
-                <Icon name="fa:calendar-check" />
+                <Icon name="material-symbols-light:calendar-add-on-outline" />
               </div>
               <h3 class="text-[16px] ml-[5px] text-rose-700 font-[500]">
                 {{ notification.title }}
@@ -74,7 +82,7 @@
                 </span>
               </h3>
             </div>
-  
+
             <p class="ml-[48px] break-words text-[14px] mb-[8px] text-rose-600">
               Your reservation for {{ notification.address }} between {{ notification.checkInOut }} has been
               <span
@@ -92,62 +100,54 @@
             </button>
           </div>
         </div>
-      </div>
+      </client-only>
     </div>
-  </template>
-  
-  <script>
-  import { useRouter } from "#app";
+  </div>
+</template>
+
+<script setup>
+import { useRouter } from "#app";
 import { useAuthStore } from "../../../store/auth";
-  
-  export default {
-    data() {
-      return {
-        notifications: [],
-        userNotifications: [],
-      };
-    },
-    setup() {
-      const { notifications, userNotifications } = useAuthStore();
-      const router = useRouter();
-      return { notifications, userNotifications, router };
-    },
-    mounted() {
-      window.scrollTo(0, 0);
-    },
-    methods: {
-      goToListing(listingId) {
-        this.router.push(`/listing/${listingId}`);
-      },
-      getStatusClass(status) {
-        switch (status) {
-          case "approved":
-            return "bg-green-800";
-          case "pending":
-            return "bg-yellow-600";
-          case "rejected":
-            return "bg-red-800";
-          default:
-            return "text-gray-800";
-        }
-      },
-      getStatusTextClass(status) {
-        switch (status) {
-          case "approved":
-            return "text-green-800";
-          case "pending":
-            return "text-yellow-700";
-          case "rejected":
-            return "text-red-600";
-          default:
-            return "text-gray-800";
-        }
-      },
-    },
-  };
-  </script>
-  
-  <style scoped>
-  /* Add any additional styles here */
-  </style>
-  
+
+// Fetch notifications and userNotifications during SSR
+const { data: notifications } = await useAsyncData('notifications', () => useAuthStore().notifications);
+const { data: userNotifications } = await useAsyncData('userNotifications', () => useAuthStore().userNotifications);
+
+const router = useRouter();
+
+// Scroll to top on mount
+onMounted(() => {
+  window.scrollTo(0, 0);
+});
+
+// Methods
+const goToListing = (listingId) => {
+  router.push(`/listing/${listingId}`);
+};
+
+const getStatusClass = (status) => {
+  switch (status) {
+    case "approved":
+      return "bg-green-800";
+    case "pending":
+      return "bg-yellow-600";
+    case "rejected":
+      return "bg-red-800";
+    default:
+      return "text-gray-800";
+  }
+};
+
+const getStatusTextClass = (status) => {
+  switch (status) {
+    case "approved":
+      return "text-green-800";
+    case "pending":
+      return "text-yellow-700";
+    case "rejected":
+      return "text-red-600";
+    default:
+      return "text-gray-800";
+  }
+};
+</script>

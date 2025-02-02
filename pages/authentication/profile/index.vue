@@ -187,7 +187,7 @@
                             <li v-if="userInfo.socialLinks.linkedin"
                                 class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden bg-blue-700">
                                 <a :href="userInfo.socialLinks.linkedin" target="_blank" rel="noopener noreferrer">
-                                    <Icon name="fa:linkedin-in" class="text-[24px]" />
+                                    <Icon name="fa6-brands:linkedin-in" class="text-[24px]" />
                                 </a>
                             </li>
                         </ul>

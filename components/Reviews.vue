@@ -27,7 +27,7 @@
                     </div>
                     <div
                         class="md:scale-[1] scale-[0.8] flex items-center justify-center w-[130px] py-[2px] border border-gray-500 rounded-lg">
-                        <Icon name="gi-angel-wings" />
+                        <Icon name="material-symbols-light:published-with-changes-rounded" />
                         <span class="ml-[8px] text-[15px]">Guest favorite</span>
                     </div>
                     <p class="mt-[15px] text-[13px] text-gray-600">
