@@ -1,4 +1,4 @@
-## StaySuite's Server
+## StaySuite
 **StaySuite** is a property rental platform similar offering key features such as user authentication, booking management, saving travelling history and favurite listings for guests while enabling  host to manange listings via dashboard and seamlessly handle  reservations made on there listings. It supports secure authentication using `JWT`, real-time updates for both guests and hosts with `Socket.io`, and image uploads of listings with `Multer`. Built with `Nuxt.js` for the frontend,` Nest.js `for the backend, and `MongoDB` for data storage, the platform ensures a seamless and efficient user experience.
 
 </br>
@@ -49,45 +49,72 @@ In the project directory, you can run:
 Runs the app in the development mode. Your server will be running at port 3001, 
 Open [http://localhost:3000](http://localhost:3000) or also you can modify it in the **.env** file.
 
+---
+
+## Project Structure
+
+### Frontend
+- **Pages**: Contains all the pages (e.g., login, signup, listings, bookings).
+- **Components**: Reusable UI components (e.g., forms, modals, cards).
+- **Store**: Pinia store for state management (e.g., user his notificaitions).
+- **Plugins**: Plugin to setup Pinia Store in client enviornment only.
+- **Composables**: Reusable functions across all components (e.g., isLoggedIn (checking whether user is logged in or not) ).
+- **Assets**: Include all assets for the project (e.g. logos, 2d-illustrations).
+
+---
+
 ### Features
 
 #### User Authentication
 - **Signup Page**: A registration form for new users.
 - **Login Page**: A login form for existing users.
+- **JWT Authentication**: Secure user sessions with JSON Web Tokens stored in `localStorage`.
+- **Protected Routes**: Redirect unauthenticated users to the login page when accessing protected routes.
 
 #### Admin Panel
-- **Listings Management**: Admin can view, add, and remove property listings.
-- **Bookings Management**: Admin can view all bookings, including user and property details.
+- **Listings Management**: Admins can view, add, and remove property listings.
+- **Bookings Management**: Admins can view all bookings, including user and property details.
 
-#### Protected Routes
-- **User Profile**: User can view his information and .
-- **Admin Panel**: Accessible only to admin users.
-- **Booking history**: Guests can view there booking history.
-- **Redirection for Unauthenticated Users**: Users attempting to access protected routes are redirected to the login page.
+#### Guest Features
+- **Booking System**: Guests can submit bookings, which are saved to the backend.
+- **Booking History**: Guests can view their booking history.
+- **Favourite Listings**: Guests can save their favourite listings for quick access.
 
-#### State Management and Security
-- **JWT Storage**: JWT tokens are stored in `localStorage` for user session management.
-- **API Interception**: Used Axios interceptors or middleware to attach tokens to API requests.
-- **Frontend State Management**: Managed with `useState`, `useEffect` and `React Context`.
+#### Host Features
+- **Listings Dashboard**: Hosts can manage their listings, including adding, updating, and removing properties.
+- **Reservations Dashboard**: Hosts can view and manage reservations made on their listings.
 
-#### Booking System
-- **Booking Page**: Users can submit bookings, which are saved to the backend.
-- **Reserved Bookings for Guests Page**: Displays reserved bookings for each user.
-- **Reserved Bookings for Host Page**: Displays reserved bookings on Hosts Listings.
+#######Real-Time Updates
+- **Socket.io Integration**: Real-time updates for bookings and reservations for both guests and hosts.
 
-#### Mini Admin Panel
-- **Listings Management**: Form for adding new listings with property details and images, and list view for displaying and deleting existing listings.
-- **Bookings Management**: Admin overview of all bookings with details for each booking, including user and property information.
+#### State Management
+- **Pinia Store**: Centralized state management for efficient data handling across the app.
+
+#### Animations and Transitions
+- **VueUse Motion**: Engaging animations and smooth transitions for an enhanced user experience.
 
 #### Backend Security
-- **Role-Based Access Control**: Routes are protected based on user roles (e.g., admin).
+- **Role-Based Access Control**: Routes are protected based on user roles (e.g., admin, host, guest).
 - **JWT Middleware**: Secures routes that require authentication.
-- **Password Hashing**: Passwords are hashed using bcrypt before being saved to the database.
+- **Password Hashing**: Passwords are hashed using `bcrypt` before being saved to the database.
 
 #### Responsive Design
-- All pages and components are responsive on mobile and desktop.
+- Fully responsive design for both mobile and desktop devices.
 
 #### Styling and UX
-- Consistent design with Tailwind CSS or CSS Modules.
-- Toast notifications using framer motion are integrated.
-- User feedback for actions like login success and booking confirmation.
+- Consistent design with **Tailwind CSS**.
+- Toast notifications for user feedback (e.g., login success, booking confirmation). 
+ ---
+### Frontend
+- **Nuxt.js**: Server-side rendering and seamless routing.
+- **Pinia Store**: Centralized state management.
+- **VueUse Motion**: Animations and transitions.
+- **Tailwind CSS**: Styling and responsive design.
+- **Socket.io**: Real-time updates for bookings and reservations.
+
+### Backend
+- **Nest.js**: Robust and scalable backend framework.
+- **MongoDB**: Database for storing listings, bookings, and user data.
+- **Multer**: Handling image uploads for listings.
+- **JWT**: Secure authentication and session management.
+- **Bcrypt**: Password hashing for enhanced security.
