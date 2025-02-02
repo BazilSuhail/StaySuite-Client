@@ -1,5 +1,7 @@
 <template>
   <header class="bg-white fixed w-full z-50 top-0">
+    
+    <FiltersModal v-if="showFilterModal" @close="toggleFilterModal" />
 
     <nav class="hidden md:block">
       <div
@@ -39,25 +41,25 @@
 
           <client-only>
             <div class="flex items-center space-x-4">
-            <span class="text-gray-700 xl:block hidden text-md">Airbnb Your Home</span>
-            <NuxtLink v-if="user" :to="userRole === 'Guest' ? '/notifications/guest' : '/notifications/host'"
-              class="hidden md:inline-flex items-center space-x-2 hover:text-black">
-              <Icon name="ic:baseline-notifications"
-                :class="`text-[28px] bg-gray-500 ${notificationsCount === 0 ? '' : ' mr-[-20px]'}`" />
-              <div v-if="notificationsCount > 0"
-                class="absolute text-[12px] font-[600] rounded-full w-[22px] h-[22px] ml-[20px] text-white text-center bg-rose-800 border-[2px] border-white mt-[-10px]">
-                {{ notificationsCount }}
-              </div>
-            </NuxtLink>
-            <div @click="toggleMenu"
-              class="flex items-center space-x-2 border rounded-full px-3 py-2 hover:shadow-lg transition-shadow">
-              <Icon name="material-symbols:menu" class="text-[24px] text-gray-500 sm:block hidden" />
-              <div
-                class="w-[28px] h-[28px] bg-gray-400 border-[2px] border-gray-400 flex items-end justify-center rounded-full">
-                <Icon name="fa:user" class="text-[22px] mb-[-3px] bg-white" />
+              <span class="text-gray-700 xl:block hidden text-md">Airbnb Your Home</span>
+              <NuxtLink v-if="user" :to="userRole === 'Guest' ? '/notifications/guest' : '/notifications/host'"
+                class="hidden md:inline-flex items-center space-x-2 hover:text-black">
+                <Icon name="ic:baseline-notifications"
+                  :class="`text-[28px] bg-gray-500 ${notificationsCount === 0 ? '' : ' mr-[-20px]'}`" />
+                <div v-if="notificationsCount > 0"
+                  class="absolute text-[12px] font-[600] rounded-full w-[22px] h-[22px] ml-[20px] text-white text-center bg-rose-800 border-[2px] border-white mt-[-10px]">
+                  {{ notificationsCount }}
+                </div>
+              </NuxtLink>
+              <div @click="toggleMenu"
+                class="flex items-center space-x-2 border rounded-full px-3 py-2 hover:shadow-lg transition-shadow">
+                <Icon name="material-symbols:menu" class="text-[24px] text-gray-500 sm:block hidden" />
+                <div
+                  class="w-[28px] h-[28px] bg-gray-400 border-[2px] border-gray-400 flex items-end justify-center rounded-full">
+                  <Icon name="fa:user" class="text-[22px] mb-[-3px] bg-white" />
+                </div>
               </div>
             </div>
-          </div>
           </client-only>
         </div>
 
@@ -74,8 +76,8 @@
                   class="px-[12px] text-start text-white pb-[2px] bg-rose-500 my-[8px] hover:bg-rose-200 hover:text-rose-700 rounded-lg">
                   Logout
                 </button>
-                
-              <div class="w-full bg-gray-200 h-[2px] my-2"></div>
+
+                <div class="w-full bg-gray-200 h-[2px] my-2"></div>
               </div>
               <div v-else>
                 <NuxtLink to="/authentication/signUp"

@@ -2,9 +2,9 @@
   <div class="bg-white pt-[100px] min-h-screen pb-[65px] justify-center items-center">
     <div class="max-w-[950px] mx-auto px-6">
       <div class="flex items-center text-rose-600">
-        <Icon name="fa:bell" size="35" class="mr-[8px]" />
-        <h3 class="text-[24px] font-[700] text-start">Notifications</h3>
-      </div>
+                <Icon name="fa:bell" class="mr-[8px] text-[20px] mt-[3px] sm:text-[22px]" />
+                <h3 class="text-[20px] sm:text-[22px] font-[700] text-start">Notifications</h3>
+            </div>
 
       <div class="h-[2px] bg-rose-300 rounded-lg my-[15px] mb-[35px]"></div>
 
@@ -69,7 +69,7 @@
           >
             <div class="flex items-center">
               <div
-                class="w-[32px] h-[32px] md:w-[38px] md:h-[38px] rounded-full flex items-center justify-center text-[28px] bg-rose-100 text-rose-600"
+                class="w-[32px] h-[32px] md:w-[38px] md:h-[38px] rounded-full flex items-center justify-center text-[28px] bg-rose-300 text-white"
               >
                 <Icon name="material-symbols-light:calendar-add-on-outline" />
               </div>
