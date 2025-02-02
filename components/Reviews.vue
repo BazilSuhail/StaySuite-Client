@@ -1,15 +1,21 @@
 <template>
     <div v-if="error" class="text-center text-red-500 mt-10">{{ error }}</div>
 
-    <div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-[5px] sm:px-[15px] md:px-[35px] lg:px-[90px] xl:px-[230px]">
+    <div
+        class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-[5px] sm:px-[15px] md:px-[35px] lg:px-[90px] xl:px-[230px]">
         <div class="bg-white rounded-lg overflow-y-auto no-scrollbar lg:overflow-y-hidden h-[90vh] w-full mx-4 md:mx-auto shadow-lg"
             v-motion="{
                 initial: { y: 900, opacity: 0, scale: 0 },
-                enter: { y: 0, opacity: 1, scale: 1 },
-                transition:{
-                    duration: 2500,
-                    easing: 'easeInOutCubic' 
-                }
+                enter: {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    transition: {
+                        type: 'tween',
+                        duration: 400,
+                        ease: 'easeOut',
+                    },
+                },
             }">
             <div class="flex justify-between items-center border-b p-4">
                 <h2 class="text-lg font-semibold">Guest Reviews</h2>
@@ -118,8 +124,6 @@ const props = defineProps({
         required: true,
     },
 });
-
-//console.log("Received Listing ID:", props.ratingReviews)
 
 const reviews = ref([]);
 const currentPage = ref(1);

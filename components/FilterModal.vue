@@ -1,25 +1,33 @@
 <template>
   <div class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-[999]">
-    <v-motion :initial="{ opacity: 0, y: 500 }" :enter="{ opacity: 1, y: 0 }"
-      transition="duration-500 cubic-bezier(0.2, 0.8, 0.2, 1)"
-      class="bg-white rounded-lg w-[95%] sm:w-11/12 max-w-md sm:pb-6 pb-[150px] sm:mb-0 mb-[-180px] px-6 pt-6 shadow-lg">
-      <div>
-        
+    <div class="bg-white rounded-lg w-[95%] sm:w-11/12 max-w-[550px] sm:pb-6 pb-[150px] sm:mb-[-100px] mb-[-180px] px-6 pt-6 shadow-lg"
+      v-motion="{
+        initial: { y: 900 },
+        enter: {
+          y: 0,
+          transition: {
+            type: 'tween',
+            duration: 500,
+            ease: 'easeInOut',
+          },
+        },
+      }"> 
         <div class="flex justify-between items-center border-b pb-4">
           <h2 class="text-lg font-semibold">Filters</h2>
-          <button @click="onClose()" class="text-gray-500 mt-[-15px] hover:text-black text-[28px]">&times;</button>
+          <button @click="closeModal" class="text-gray-500 mt-[-15px] hover:text-black text-[28px]">&times;</button>
         </div>
 
         <div class="mt-4">
-          <div class="mb-[10px] pl-[6px] flex items-center border-[2px] border-gray-300 py-[4px] rounded-[15px]">
-            <input type="text" placeholder="Search by title" v-model="title" class="outline-none text-[14px]" />
+          <div class="mb-[10px] pl-[6px] flex items-center border-[2px] border-gray-300 py-[4px] rounded-[12px]">
+            <input type="text" placeholder="Search by title" v-model="title"
+              class="outline-none pl-[5px] text-[14px] w-full" />
           </div>
 
           <div class="mb-6 grid grid-cols-2 gap-2">
             <input type="text" placeholder="Enter Country Name" v-model="country"
-              class="px-2 py-[4px] text-[13px] outline-none border-[2px] border-gray-300 rounded-[15px]" />
+              class="pl-[10px] pr-2 py-[4px] text-[13px] outline-none border-[2px] border-gray-300 rounded-[12px]" />
             <input type="text" placeholder="Enter Suburb of Country (optional*)" v-model="suburb"
-              class="px-2 py-[4px] text-[13px] outline-none border-[2px] border-gray-300 rounded-[15px]" />
+              class="pl-[10px] pr-2 py-[4px] text-[13px] outline-none border-[2px] border-gray-300 rounded-[12px]" />
           </div>
 
           <div class="mb-[65px] md:mb-[45px]">
@@ -53,13 +61,16 @@
             <div class="flex justify-between items-center mt-2">
               <span>Beds</span>
               <div class="flex items-center">
-                <button class="p-[6px] border rounded-full shadow-md text-gray-700 hover:text-black"
+                <button
+                  class="w-[25px] h-[25px] text-[19px] border rounded-full shadow-md text-gray-700 hover:text-black"
                   @click="beds = Math.max(0, beds - 1)">
-                  -
+                  <p class="mt-[-4px]">-</p>
                 </button>
                 <span class="px-4">{{ beds }}</span>
-                <button class="p-[6px] border rounded-full shadow-md text-gray-700 hover:text-black" @click="beds++">
-                  +
+                <button
+                  class="w-[25px] h-[25px] text-[19px] border rounded-full shadow-md text-gray-700 hover:text-black"
+                  @click="beds++">
+                  <p class="mt-[-4px]">+</p>
                 </button>
               </div>
             </div>
@@ -67,14 +78,16 @@
             <div class="flex justify-between items-center mt-2">
               <span>Bathrooms</span>
               <div class="flex items-center">
-                <button class="p-[6px] border rounded-full shadow-md text-gray-700 hover:text-black"
+                <button
+                  class="w-[25px] h-[25px] text-[19px] border rounded-full shadow-md text-gray-700 hover:text-black"
                   @click="bathrooms = Math.max(0, bathrooms - 1)">
-                  <Icon name="minus-circle" />
+                  <p class="mt-[-4px]">-</p>
                 </button>
                 <span class="px-4">{{ bathrooms }}</span>
-                <button class="p-[6px] border rounded-full shadow-md text-gray-700 hover:text-black"
+                <button
+                  class="w-[25px] h-[25px] text-[19px] pt-[-15px] border rounded-full shadow-md text-gray-700 hover:text-black"
                   @click="bathrooms++">
-                  <Icon name="plus-circle" />
+                  <p class="mt-[-4px]">+</p>
                 </button>
               </div>
             </div>
@@ -98,7 +111,9 @@
                 class="text-[28px] ml-auto text-gray-700 hover:text-gray-400">
                 <Icon name="close-circle" />
               </button>
-              <h3 class="text-xl sm:mt-[-20px] font-semibold text-center text-rose-600 mb-4">Select Category</h3>
+
+              <h3 class="text-[14px] scale-x-[0.8] sm:mt-[-20px] font-[600] text-center text-rose-600 mb-4">Select
+                Category</h3>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div v-for="category in categories" :key="category.name"
                   class="flex items-center px-4 py-[4px] border rounded-lg shadow-md cursor-pointer hover:bg-rose-100"
@@ -111,17 +126,17 @@
           </div>
         </div>
 
-        <div class="flex justify-between items-center mt-6">
+        <div class="flex justify-between items-center mt-6 mb-[18px]">
           <button class="text-gray-700 underline hover:text-black" @click="resetFilters">Clear all</button>
           <button
             class="bg-rose-700 flex items-center text-white font-[600] px-[15px] py-[3px] rounded-[20px] hover:bg-rose-900 duration-200"
             @click="logValues">
-            <Icon name="material-symbols:search" class="text-[20px] mt-[3px] mr-[3px]" />
-            Search
+            <Icon name="material-symbols:search" class="text-[17px] mt-[3px] mr-[3px]" />
+            <span class="text-[14px]">Search</span>
           </button>
         </div>
-      </div>
-    </v-motion>
+    
+    </div>
   </div>
 </template>
 
@@ -132,19 +147,19 @@ import { useAuthStore } from "../store/auth";
 
 export default {
   props: {
-    onClose: { 
+    onClose: {
       required: true,
     },
   },
-  setup(props) {
+  setup(props, { emit }) {
     const router = useRouter();
     const title = ref("");
     const suburb = ref("");
     const country = ref("");
     const minPrice = ref(20);
     const maxPrice = ref(250);
-    const beds = ref("Any");
-    const bathrooms = ref("Any");
+    const beds = ref(0);
+    const bathrooms = ref(0);
     const category = ref("Apartment");
     const isCategoryModalOpen = ref(false);
     const heights = ref([]);
@@ -153,7 +168,9 @@ export default {
       { name: "Apartment", icon: "home" },
       { name: "Villa", icon: "villa" },
     ];
-
+    const toggleClose = () => {
+      emit("update:onClose", !props.onClose); // Emit an event to toggle the onClose value
+    };
     onMounted(() => {
       heights.value = Array.from({ length: 50 }, () => Math.floor(Math.random() * (80 - 10 + 1)) + 10);
     });
@@ -175,7 +192,7 @@ export default {
     };
 
     const logValues = () => {
-       
+
       const searchFilters = {
         title: title.value,
         suburb: suburb.value,
@@ -186,10 +203,16 @@ export default {
         bathrooms: bathrooms.value,
         category: category.value,
       };
+      console.log(searchFilters)
       useAuthStore().setSearchFilters(searchFilters);
-      
+
       router.push("/listing/search-listing");
-      props.onClose();
+      toggleClose()
+      
+    };
+
+    const closeModal = () => {
+      toggleClose()
     };
 
     const isInRange = (index) => {
@@ -212,6 +235,7 @@ export default {
       handleCategoryClick,
       resetFilters,
       logValues,
+      closeModal,
       isInRange,
     };
   },

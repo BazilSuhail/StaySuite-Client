@@ -26,7 +26,7 @@ Nuxt.js powers the application with its server-side rendering and seamless routi
 
 ---
 - Check out the latest demo of Project [StaySuite-Site](https://collabora8r.vercel.app/). 
-- Find the Client Repository of this Project Here [StaySuite-Client](https://github.com/BazilSuhail/StaySuite-Server). 
+- Find the Client Repository of this Project Here [StaySuite-Server](https://github.com/BazilSuhail/StaySuite-Server). 
 ---
 
 ### Run Locally

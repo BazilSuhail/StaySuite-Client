@@ -1,7 +1,7 @@
 <template>
   <header class="bg-white fixed w-full z-50 top-0">
     
-    <FiltersModal v-if="showFilterModal" @close="showFilterModal" />
+    <FiltersModal v-if="isFiltersModalOpen" v-model:onClose="isFiltersModalOpen" />
 
     <nav class="hidden md:block">
       <div
@@ -14,7 +14,7 @@
             </NuxtLink>
           </div>
 
-          <div v-if="!isHomePath" @click="showFilterModal"
+          <div v-if="!isHomePath" @click="isFiltersModalOpen"
             class="hidden cursor-pointer sm:flex items-center border-[2px] xl:mr-[-165px] z-90 rounded-full py-2 px-4 shadow-md">
             <p
               class="bg-transparent flex-grow outline-none border-r-[2px] border-gray-200 px-[8px] font-[600] text-gray-700">
@@ -30,9 +30,9 @@
             <Icon name="ic:baseline-search" class="bg-red-500 text-white rounded-full p-[5.5px] ml-[6px] text-[28px]" />
           </div>
           <div v-else class="cursor-pointer flex items-center xl:mr-[-165px]">
-            <NuxtLink to="/" class="block py-2 text-gray-500 font-[600] hover:text-gray-800">
+            <div @click="isFiltersModalOpen = true" class="block py-2 text-gray-500 font-[600] hover:text-gray-800">
               Stays
-            </NuxtLink>
+            </div>
             <NuxtLink to="/authentication/signIn"
               class="pl-[12px] block py-2 text-gray-500 font-[600] hover:text-gray-800">
               Experiences
@@ -129,7 +129,7 @@
 
     <nav class="md:hidden block">
       <div class="flex z-[999] items-center py-[10px] px-[18px] w-screen">
-        <div @click="showFilterModal = true"
+        <div @click="isFiltersModalOpen = true"
           class="border-[2px] w-[85%] border-gray-300 rounded-[25px] flex items-center py-[5px] px-3">
           <Icon name="fa:search" class="text-gray-700 mr-5" size="25" />
           <div class="flex-1 text-[14px] text-gray-500">
@@ -289,9 +289,11 @@ export default {
     FiltersModal
   },
   setup() {
+    const isFiltersModalOpen = ref(false);
     const userStore = useAuthStore();
     //console.log("count is " + userStore.notificationsCount)
     return {
+      isFiltersModalOpen,
       user: userStore.user,
       userRole: userStore.userRole,
       notificationsCount: userStore.notificationsCount,
@@ -323,7 +325,7 @@ export default {
       scrollPosition: 0,
       isScrollingUp: true,
       prevScrollPosition: 0,
-      showFilterModal: false,
+      //showFilterModal: false,
     };
   },
   watch: {
@@ -362,7 +364,7 @@ export default {
       this.scrollPosition = currentScrollPos;
     },
     closeFilterModal() {
-      this.showFilterModal = false;
+      this.isFiltersModalOpen = false;
     },
   },
   mounted() {
