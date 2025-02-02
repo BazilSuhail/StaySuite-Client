@@ -295,7 +295,7 @@ import FiltersModal from '@/components/FilterModal.vue';
 export default {
   setup() {
     const userStore = useAuthStore();
-    console.log("count is " + userStore.notificationsCount)
+    //console.log("count is " + userStore.notificationsCount)
     return {
       user: userStore.user,
       userRole: userStore.userRole,
