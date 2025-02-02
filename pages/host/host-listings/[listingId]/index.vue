@@ -1,5 +1,6 @@
 <template>
   <!-- Loader -->
+
   <div v-if="isLoading" class="flex items-center justify-center h-screen">
     <div class="loader border-t-4 border-blue-500 rounded-full w-16 h-16 animate-spin"></div>
   </div>
@@ -185,15 +186,18 @@
                   class="w-[250px] md:w-[150px] h-[160px] md:h-[100px] object-cover rounded-md" />
               </div>
             </div>
-
+ 
             <!-- Preview of Additional Pictures -->
-            <div class="grid grid-cols-1 md:grid-cols-3">
-              <div v-for="(url, index) in formData.images.additionalPictures" :key="index" v-if="url" class="mb-4">
-                <label class="block text-gray-600 mb-1">Property Image {{ index + 1 }}'s Preview</label>
-                <img :src="url" alt="Connection Error"
-                  class="w-[250px] md:w-[150px] h-[160px] md:h-[100px] object-cover rounded-md" />
-              </div>
-            </div>
+<div class="grid grid-cols-1 md:grid-cols-3">
+  <template v-if="formData.images && formData.images.additionalPictures && formData.images.additionalPictures.length">
+    <div v-for="(url, index) in formData.images.additionalPictures" :key="index" class="mb-4">
+      <label class="block text-gray-600 mb-1">Property Image {{ index + 1 }}'s Preview</label>
+      <img :src="url" alt="Connection Error"
+        class="w-[250px] md:w-[150px] h-[160px] md:h-[100px] object-cover rounded-md" />
+    </div>
+  </template>
+</div>
+
           </aside>
         </div>
 
@@ -207,6 +211,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -217,7 +222,7 @@ export default {
     const route = useRoute();
     const router = useRouter();
     const isModalOpen = ref(false);
-    const isLoading = ref(true); // Add a loading state
+    const isLoading = ref(true);
     const formData = ref({
       name: '',
       summary: '',
@@ -229,6 +234,9 @@ export default {
       address: { street: '', suburb: '', country: '' },
       amenities: [],
       category: '',
+      images: {
+    additionalPictures: [], // Ensures an empty array exists
+  },
     });
 
     const fetchListingDetails = async () => {
@@ -240,11 +248,13 @@ export default {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        console.log(data.listing);
+        //console.log(data.listing);
         Object.assign(formData.value, data.listing);
-      } catch (error) {
+      } 
+      catch (error) {
         console.error('Error fetching listing:', error);
-      } finally {
+      } 
+      finally {
         isLoading.value = false; // Stop the loader once data is fetched
       }
     };
@@ -269,14 +279,15 @@ export default {
         );
         alert('Listing updated successfully!');
         router.push('/host/host-listings');
-      } catch (error) {
+      } 
+      catch (error) {
         console.error('Error updating listing:', error);
       }
     };
 
     onMounted(fetchListingDetails);
-
     return { formData, isModalOpen, isLoading, addAmenity, removeAmenity, handleSubmit };
   },
+
 };
 </script>

@@ -2,8 +2,8 @@
     <div class="bg-gray-50 pt-[100px] min-h-screen pb-[65px] justify-center items-center">
         <div class="max-w-[950px] mx-auto px-6">
             <div class="flex items-center text-rose-600">
-                <Icon name="fa:bell" class="mr-[8px]" />
-                <h3 class="text-[24px] font-[700] text-start">Notifications</h3>
+                <Icon name="fa:bell" class="mr-[8px] text-[20px] mt-[3px] sm:text-[22px]" />
+                <h3 class="text-[20px] sm:text-[24px] font-[700] text-start">Notifications</h3>
             </div>
             <div class="h-[2px] bg-rose-300 rounded-lg my-[15px] mb-[35px]"></div>
 
@@ -69,31 +69,33 @@
             </div>
         </div>
 
-        <div v-if="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div class="bg-white rounded-lg p-6 shadow-lg lg:w-[600px] w-[400px] relative">
-                <button @click="closeModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
-                    <Icon name="ic:outline-close" class="text-2xl" />
+        <div v-if="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center px-[15px] z-50">
+            <div class="bg-white rounded-lg p-6 shadow-lg lg:w-[600px] sm:w-[450px] w-[100%] relative">
+                <button @click="closeModal" class="absolute top-4 right-4 scale-x-[1.3] text-gray-500 hover:text-gray-700">
+                    X
                 </button>
 
                 <div class="flex justify-center items-center font-semibold mb-4 text-center text-gray-800">
                     <p
-                        class="w-[38px] h-[38px] rounded-full flex items-center justify-center text-[28px] text-rose-100 bg-rose-600">
-                        <Icon name="ic:baseline-collections-bookmark" class="text-xl" />
+                        class="w-[34px] h-[34px] rounded-full flex items-center justify-center text-[28px] text-rose-100 bg-rose-600">
+                        <Icon name="ic:baseline-collections-bookmark" class="text-[17px]" />
                     </p>
-                    <p class="ml-[10px] text-rose-600 text-[25px]">Booking Details</p>
+                    <p class="ml-[10px] text-rose-600 text-[22px]">Booking Details</p>
                 </div>
 
                 <div class="space-y-2">
                     <div class="border-b-[2px] border-rose-700 pb-[8px] flex justify-between items-center">
-                        <p class="text-gray-700 font-medium">
-                            Name: <span class="font-normal">{{ bookingDetails.listing.name || 'No title found' }}</span>
+                        <p class="text-gray-500 text-[12px] font-medium">
+                            Name: <span class="md:text-[15px] text-[13px] text-gray-700">{{ bookingDetails.listing.name || 'No title found' }}</span>
                         </p>
+
                         <NuxtLink :to="`/listing/${bookingDetails.listing._id}`"
-                            class="text-rose-700 hover:text-red-500 cursor-pointer flex items-center">
+                            class="text-rose-700 md:text-[15px] text-[13px] font-[600] hover:text-red-500 cursor-pointer flex items-center">
                             See Listings
                             <Icon name="lucide:arrow-right" class="ml-[4px] text-[17px] mt-[2px]" />
                         </NuxtLink>
                     </div>
+
                     <p class="text-gray-700 mb-[15px] font-medium">
                         Property Type: <span class="font-normal">{{ bookingDetails.listing.property_type || '' }}</span>
                     </p>
@@ -146,7 +148,6 @@
 <script>
 import axios from "axios";
 import { useAuthStore } from "../../../store/auth";
-import { defineNuxtLink } from "nuxt/app";
 
 export default {
     data() {
@@ -155,6 +156,7 @@ export default {
             userNotifications: [],
             isModalOpen: false,
             bookingDetails: null,
+            isLoading: true, // Add this line
         };
     },
     setup() {
@@ -179,9 +181,22 @@ export default {
         navigateTo(path) {
             this.$router.push(path);
         },
+        async fetchNotifications() {
+            this.isLoading = true;
+            try {
+                // Simulate an API call or fetch notifications here
+                await new Promise(resolve => setTimeout(resolve, 1000)); // Simulating a delay
+            } catch (error) {
+                console.error("Error fetching notifications", error);
+            } finally {
+                this.isLoading = false;
+            }
+        }
     },
     mounted() {
         window.scrollTo(0, 0);
+        this.fetchNotifications(); // Ensure this runs to update isLoading
     },
 };
+
 </script>
