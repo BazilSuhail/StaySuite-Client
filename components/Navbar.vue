@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-white fixed w-full z-50 top-0"> 
+  <header class="bg-white fixed w-full z-50 top-0">
 
     <nav class="hidden md:block">
       <div
@@ -37,29 +37,28 @@
             </NuxtLink>
           </div>
 
-          <div class="flex items-center space-x-4">
-  <span class="text-gray-700 xl:block hidden text-md">Airbnb Your Home</span>
-  <client-only>
-    <NuxtLink v-if="user" :to="userRole === 'Guest' ? '/notifications/guest' : '/notifications/host'"
-      class="hidden md:inline-flex items-center space-x-2 hover:text-black">
-      <Icon name="ic:baseline-notifications"
-        :class="`text-[28px] bg-gray-500 ${notificationsCount === 0 ? '' : ' mr-[-20px]'}`" />
-      <div v-if="notificationsCount > 0"
-        class="absolute text-[12px] font-[600] rounded-full w-[22px] h-[22px] ml-[20px] text-white text-center bg-rose-800 border-[2px] border-white mt-[-10px]">
-        {{ notificationsCount }}
-      </div>
-    </NuxtLink>
-  </client-only>
-  
-  <div @click="toggleMenu"
-    class="flex items-center space-x-2 border rounded-full px-3 py-2 hover:shadow-lg transition-shadow">
-    <Icon name="material-symbols:menu" class="text-[24px] text-gray-500 sm:block hidden" />
-    <div
-      class="w-[28px] h-[28px] bg-gray-400 border-[2px] border-gray-400 flex items-end justify-center rounded-full">
-      <Icon name="fa:user" class="text-[22px] mb-[-3px] bg-white" />
-    </div>
-  </div>
-</div>
+          <client-only>
+            <div class="flex items-center space-x-4">
+            <span class="text-gray-700 xl:block hidden text-md">Airbnb Your Home</span>
+            <NuxtLink v-if="user" :to="userRole === 'Guest' ? '/notifications/guest' : '/notifications/host'"
+              class="hidden md:inline-flex items-center space-x-2 hover:text-black">
+              <Icon name="ic:baseline-notifications"
+                :class="`text-[28px] bg-gray-500 ${notificationsCount === 0 ? '' : ' mr-[-20px]'}`" />
+              <div v-if="notificationsCount > 0"
+                class="absolute text-[12px] font-[600] rounded-full w-[22px] h-[22px] ml-[20px] text-white text-center bg-rose-800 border-[2px] border-white mt-[-10px]">
+                {{ notificationsCount }}
+              </div>
+            </NuxtLink>
+            <div @click="toggleMenu"
+              class="flex items-center space-x-2 border rounded-full px-3 py-2 hover:shadow-lg transition-shadow">
+              <Icon name="material-symbols:menu" class="text-[24px] text-gray-500 sm:block hidden" />
+              <div
+                class="w-[28px] h-[28px] bg-gray-400 border-[2px] border-gray-400 flex items-end justify-center rounded-full">
+                <Icon name="fa:user" class="text-[22px] mb-[-3px] bg-white" />
+              </div>
+            </div>
+          </div>
+          </client-only>
         </div>
 
         <div v-if="isOpen" class="hidden md:block">
@@ -75,6 +74,8 @@
                   class="px-[12px] text-start text-white pb-[2px] bg-rose-500 my-[8px] hover:bg-rose-200 hover:text-rose-700 rounded-lg">
                   Logout
                 </button>
+                
+              <div class="w-full bg-gray-200 h-[2px] my-2"></div>
               </div>
               <div v-else>
                 <NuxtLink to="/authentication/signUp"
@@ -87,7 +88,6 @@
                 </NuxtLink>
               </div>
 
-              <div class="w-full bg-gray-200 h-[2px] my-2"></div>
 
               <div v-if="user">
                 <div v-if="userRole === 'Host'">
@@ -95,10 +95,12 @@
                     class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     Host Listing
                   </NuxtLink>
-                  <NuxtLink to="/host/host-bookings" class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                  <NuxtLink to="/host/host-bookings"
+                    class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     Host Bookings
                   </NuxtLink>
-                  <NuxtLink to="/host/add-listing" class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                  <NuxtLink to="/host/add-listing"
+                    class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
                     Add Listing
                   </NuxtLink>
                 </div>
@@ -123,9 +125,6 @@
       </div>
     </nav>
 
-    <!--
-    
-
     <nav class="md:hidden block">
       <div class="flex z-[999] items-center py-[10px] px-[18px] w-screen">
         <div @click="showFilterModal = true"
@@ -136,67 +135,69 @@
             <div class="text-[12px] text-gray-400">Anywhere · Any week · Add guests</div>
           </div>
         </div>
-        <div class="w-[15%] flex justify-center">
-          <p class="border-[2px] p-2 border-gray-500 rounded-full bg-gray-100">
-            <Icon name="fa:wrench" @click="toggleMenu" class="text-gray-500" size="20" />
-          </p>
+        <div class="w-[15%] flex pl-[15px] justify-center">
+          <div class="border-[2px] p-1 w-[45px] h-[45px] border-gray-300 rounded-full bg-gray-100">
+            <Icon name="material-symbols:list" @click="toggleMenu" class="text-gray-500 mt-[1px]" size="32" />
+          </div>
         </div>
       </div>
 
-      <div v-if="isOpen" class="sm:hidden">
-        <div class="flex flex-col z-10 bg-white rounded-lg shadow-md mt-2 p-4">
-          <div v-if="user">
-            <div v-if="userRole === 'Host'">
-              <NuxtLink to="/host/host-bookings" @click="toggleMenu"
+      <client-only>
+        <div v-if="isOpen" class="sm:hidden">
+          <div class="flex flex-col z-10 bg-white rounded-lg shadow-md mt-2 p-4">
+            <div v-if="user">
+              <div v-if="userRole === 'Host'">
+                <NuxtLink to="/host/host-bookings" @click="toggleMenu"
+                  class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                  Host Bookings
+                </NuxtLink>
+                <NuxtLink to="/host/add-listing" @click="toggleMenu"
+                  class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                  Add Listing
+                </NuxtLink>
+              </div>
+              <div v-else>
+                <NuxtLink to="/guest/reservations-history" @click="toggleMenu"
+                  class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                  Bookings History
+                </NuxtLink>
+                <NuxtLink to="/guest/reserved-bookings" @click="toggleMenu"
+                  class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+                  Reserved Bookings
+                </NuxtLink>
+              </div>
+            </div>
+
+            <NuxtLink to="/footer/privacy-policy" @click="toggleMenu"
+              class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+              Privacy Policy
+            </NuxtLink>
+
+            <div class="w-full bg-gray-200 h-[2px] my-2"></div>
+
+            <div v-if="user">
+              <NuxtLink to="/authentication/profile" @click="toggleMenu"
                 class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                Host Bookings
+                Profile
               </NuxtLink>
-              <NuxtLink to="/host/add-listing" @click="toggleMenu"
-                class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                Add Listing
-              </NuxtLink>
+              <button @click="handleLogout"
+                class="pl-[12px] text-start block py-2 text-rose-600 hover:bg-rose-400 font-[600] rounded-lg">
+                Logout
+              </button>
             </div>
             <div v-else>
-              <NuxtLink to="/guest/reservations-history" @click="toggleMenu"
+              <NuxtLink to="/authentication/signUp" @click="toggleMenu"
                 class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                Bookings History
+                Sign up
               </NuxtLink>
-              <NuxtLink to="/guest/reserved-bookings" @click="toggleMenu"
+              <NuxtLink to="/authentication/signIn" @click="toggleMenu"
                 class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-                Reserved Bookings
+                Log in
               </NuxtLink>
             </div>
           </div>
-
-          <NuxtLink to="/footer/privacy-policy" @click="toggleMenu"
-            class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-            Privacy Policy
-          </NuxtLink> 
-
-          <div class="w-full bg-gray-200 h-[2px] my-2"></div>
-
-          <div v-if="user">
-            <NuxtLink to="/authentication/profile" @click="toggleMenu"
-              class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-              Profile
-            </NuxtLink>
-            <button @click="handleLogout"
-              class="pl-[12px] text-start block py-2 text-rose-600 hover:bg-rose-400 font-[600] rounded-lg">
-              Logout
-            </button>
-          </div>
-          <div v-else>
-            <NuxtLink to="/authentication/signUp" @click="toggleMenu"
-              class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-              Sign up
-            </NuxtLink>
-            <NuxtLink to="/authentication/signIn" @click="toggleMenu"
-              class="pl-[12px] block py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-              Log in
-            </NuxtLink>
-          </div>
         </div>
-      </div>
+      </client-only>
 
       <div
         :class="`fixed bottom-0 left-0 w-full bg-white shadow-lg flex justify-between py-2 transition-transform duration-300 px-[40px] ${getNavbarTranslateClasses} ${getNavbarClasses} '}`">
@@ -205,92 +206,81 @@
           <span class="text-xs">Home</span>
         </NuxtLink>
 
-        <div v-if="user">
-          <div v-if="userRole === 'Host'" class="flex items-center">
-            <NuxtLink to="/host/host-bookings"
-              :class="`flex flex-col items-center ${isActive('/host/host-bookings') ? 'text-rose-600' : 'text-gray-400'}`">
-              <Icon name="fa6-solid:clipboard-question" class="mb-[6px] text-[24px]" />
-              <span class="text-xs">Bookly</span>
-            </NuxtLink>
+        <client-only>
+          <div v-if="user">
+            <div v-if="userRole === 'Host'" class="flex items-center">
+              <NuxtLink to="/host/host-bookings"
+                :class="`flex flex-col items-center ${isActive('/host/host-bookings') ? 'text-rose-600' : 'text-gray-400'}`">
+                <Icon name="fa6-solid:clipboard-question" class="mb-[6px] text-[24px]" />
+                <span class="text-xs">Bookly</span>
+              </NuxtLink>
+            </div>
+
+            <div v-else>
+              <NuxtLink to="/guest/favouriteListing"
+                :class="`flex flex-col items-center ${isActive('/guest/favouriteListing') ? 'text-rose-600' : 'text-gray-400'}`">
+                <Icon name="fa6-solid:heart" class="mb-[6px] text-[24px]" />
+                <span class="text-xs">Favourites</span>
+              </NuxtLink>
+            </div>
           </div>
 
+          <div v-if="user">
+            <div v-if="userRole === 'Host'">
+              <NuxtLink to="/host/host-listings"
+                :class="`flex flex-col items-center ${isActive('/host/host-listings') ? 'text-rose-600' : 'text-gray-400'}`">
+                <Icon name="fa6-solid:chalkboard-user" class="mb-[7px] text-[24px]" />
+                <span class="text-xs">Dashboard</span>
+              </NuxtLink>
+            </div>
+
+            <div v-else>
+              <NuxtLink to="/guest/reserved-bookings"
+                :class="`flex flex-col items-center ${isActive('/guest/reserved-bookings') ? 'text-rose-600' : 'text-gray-400'}`">
+                <Icon name="fa6-solid:bed" class="mb-[7px] text-[24px]" />
+                <span class="text-xs">MyBookings</span>
+              </NuxtLink>
+            </div>
+          </div>
+
+          <div v-if="user">
+            <NuxtLink :to="userRole === 'Guest' ? '/notifications/guest' : '/notifications/host'" :class="`relative flex flex-col items-center ${isActive('/notifications/host') || isActive('/notifications/guest') ? 'text-rose-600' : 'text-gray-400'
+              }`">
+              <Icon name="fa6-solid:bell" class="mb-[5px] text-[26px]" />
+
+              <div v-if="notificationsCount && notificationsCount.length > 0"
+                class="absolute text-[12px] font-[600] rounded-full w-[22px] h-[22px] ml-[20px] text-white text-center bg-rose-800 border-[2px] border-white mt-[-10px]">
+                {{ notificationsCount.length }}
+              </div>
+
+              <span class="text-xs">Alerts</span>
+            </NuxtLink>
+          </div>
           <div v-else>
-            <NuxtLink to="/guest/favouriteListing"
-              :class="`flex flex-col items-center ${isActive('/guest/favouriteListing') ? 'text-rose-600' : 'text-gray-400'}`">
-              <Icon name="fa6-solid:heart" class="mb-[6px] text-[24px]" />
-              <span class="text-xs">Favourites</span>
-            </NuxtLink>
-          </div>
-        </div>
-
-        <div v-if="user">
-          <div v-if="userRole === 'Host'">
-            <NuxtLink to="/host/host-listings"
-              :class="`flex flex-col items-center ${isActive('/host/host-listings') ? 'text-rose-600' : 'text-gray-400'}`">
-              <Icon name="fa6-solid:chalkboard-user" class="mb-[7px] text-[24px]" />
-              <span class="text-xs">Dashboard</span>
+            <NuxtLink to="/authentication/signUp" :class="`flex flex-col items-center ${isActive('/signUp') ? 'text-rose-600' : 'text-gray-400'
+              }`">
+              <Icon name="fa6-solid:bell" class="mb-[5px] text-[26px]" />
+              <span class="text-xs">Alerts</span>
             </NuxtLink>
           </div>
 
-          <div v-else>
-            <NuxtLink to="/guest/reserved-bookings"
-              :class="`flex flex-col items-center ${isActive('/guest/reserved-bookings') ? 'text-rose-600' : 'text-gray-400'}`">
-              <Icon name="fa6-solid:bed" class="mb-[7px] text-[24px]" />
-              <span class="text-xs">MyBookings</span>
+          <div>
+            <NuxtLink :to="user ? '/authentication/profile' : '/authentication/signIn'"
+              :class="`flex flex-col items-center ${isActive(user ? '/authentication/profile' : '/authentication/signIn') ? 'text-rose-600' : 'text-gray-400'}`">
+              <Icon :name="user ? 'fa6-solid:user-large' : 'fa6-solid:user-large'" class="mb-[6px] text-[24px]" />
+              <span class="text-xs">{{ user ? 'Profile' : 'JoinUs' }}</span>
             </NuxtLink>
           </div>
-        </div>
-
-        <div v-if="user">
-  <NuxtLink 
-    :to="userRole === 'Guest' ? '/notifications/guest' : '/notifications/host'"
-    :class="`relative flex flex-col items-center ${
-      isActive('/notifications/host') || isActive('/notifications/guest') ? 'text-rose-600' : 'text-gray-400'
-    }`"
-  >
-    <Icon name="fa6-solid:bell" class="mb-[5px] text-[26px]" />
-
-    <div 
-      v-if="notificationsCount && notificationsCount.length > 0" 
-      class="absolute text-[12px] font-[600] rounded-full w-[22px] h-[22px] ml-[20px] text-white text-center bg-rose-800 border-[2px] border-white mt-[-10px]"
-    >
-      {{ notificationsCount.length }}
-    </div>
-
-    <span class="text-xs">Alerts</span>
-  </NuxtLink>
-</div>
-<div v-else>
-  <NuxtLink 
-    to="/authentication/signUp"
-    :class="`flex flex-col items-center ${
-      isActive('/signUp') ? 'text-rose-600' : 'text-gray-400'
-    }`"
-  >
-    <Icon name="fa6-solid:bell" class="mb-[5px] text-[26px]" />
-    <span class="text-xs">Alerts</span>
-  </NuxtLink>
-</div>
-
-
-        <div>
-          <NuxtLink :to="user ? '/authentication/profile' : '/authentication/signIn'"
-            :class="`flex flex-col items-center ${isActive(user ? '/authentication/profile' : '/authentication/signIn') ? 'text-rose-600' : 'text-gray-400'}`">
-            <Icon :name="user ? 'fa6-solid:user-large' : 'fa6-solid:user-large'" class="mb-[6px] text-[24px]" />
-            <span class="text-xs">{{ user ? 'Profile' : 'JoinUs' }}</span>
-          </NuxtLink>
-        </div>
+        </client-only>
 
       </div>
     </nav>
-    
-    -->
   </header>
 </template>
 
 <script>
 import { useAuthStore } from "../store/auth.js"
-import FiltersModal from '@/components/FilterModal.vue';  
+import FiltersModal from '@/components/FilterModal.vue';
 
 export default {
   setup() {

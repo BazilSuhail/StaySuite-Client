@@ -97,7 +97,7 @@
                         </p>
                     </div>
                     <div class="flex flex-col mr-[25px] items-center justify-center text-gray-500">
-                        <p class="text-[18px]">{{ timeAgo }}</p>
+                        <p class="text-[18px]">{{ formattedReviewDate }}</p>
                         <p class="text-rose-700 font-[700]">On Airbnb</p>
                     </div>
                 </div>
@@ -227,6 +227,27 @@ export default {
             ],
         };
     },
+    computed: {
+    formattedReviewDate() {
+      if (!this.userInfo || !this.userInfo.createdAt) return "N/A";
+
+      const reviewDate = new Date(this.userInfo.createdAt);
+      const now = new Date();
+      const timeDiff = now - reviewDate;
+
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const months = Math.floor(days / 30);
+      const years = Math.floor(days / 365);
+
+      if (years >= 1) {
+        return `${years} year${years > 1 ? "s" : ""} ago`;
+      } else if (months >= 1) {
+        return `${months} month${months > 1 ? "s" : ""} ago`;
+      } else {
+        return `${days} day${days > 1 ? "s" : ""} ago`;
+      }
+    },
+  },
     methods: {
         async fetchUserProfile() {
             try {

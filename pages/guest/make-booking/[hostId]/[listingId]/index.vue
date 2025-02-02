@@ -17,13 +17,13 @@
           <h2 class="text-lg font-semibold">Request to book</h2>
           <p class="text-pink-600 flex items-center space-x-2">
             <Icon name="fa:shield" class="text-pink-600" />
-            <span>This is a rare find. Bo's place is usually booked.</span>
+            <span>This is a rare find, it is usually booked.</span>
           </p>
         </div>
 
         <!-- Calendar Section -->
-        <div class="w-full xl:px-[15px] my-calendar">
-          <VDatePicker v-model="dateRange" is-range :disabled-dates="blockedDates" :allowed-dates="(date) => {
+        <div class="xl:scale-y-[1.2] xl:scale-x-[1.3] w-full xl:px-[15px] my-calendar">
+          <VDatePicker v-model="dateRange" v-model.range="dateRange"  :disabled-dates="blockedDates" :allowed-dates="(date) => {
             return (
               !dateRange.value.start ||
               new Date(date) > new Date(dateRange.value.start)
@@ -144,7 +144,6 @@ const calculateNights = () => {
   return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 };
 
-
 const isDateValid = computed(() => {
   return (
     dateRange.value.start &&
@@ -153,7 +152,6 @@ const isDateValid = computed(() => {
   );
 });
 
-
 const fetchListingData = async () => {
   loading.value = true;
   error.value = null;
@@ -161,14 +159,13 @@ const fetchListingData = async () => {
     const response = await axios.get(
       `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/home/listing-details/${listingId}`
     );
-    listing.value = response.data
-    listingPrice.value = response.data.listing.price
-
-  }
+    listing.value = response.data;
+    listingPrice.value = response.data.listing.price;
+  } 
   catch (err) {
     console.error('Error fetching listing data:', err);
     error.value = 'Failed to load listing data. Please try again later.';
-  }
+  } 
   finally {
     loading.value = false;
   }
@@ -180,22 +177,25 @@ const fetchBlockedDates = async () => {
   try {
     const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/reservation/get-reserved-bookings/${listingId}`);
     blockedDates.value = response.data.blockedDates.map((date) => new Date(date));
-  } 
-  catch (err) {
+  } catch (err) {
     console.error('Error fetching blocked dates:', err);
     error.value = 'Failed to load blocked dates. Please try again later.';
-  } 
-  finally {
+  } finally {
     loading.value = false;
   }
 };
 
 const computedTotalAmount = computed(() => {
   const nights = calculateNights();
-  return (
-    listingPrice.value * nights + 29.16 + 150.00 - 15.00
-  );
+  return listingPrice.value * nights + 29.16 + 150.00 - 15.00;
 });
+
+// Reset form function
+const resetForm = () => {
+  dateRange.value = { start: null, end: null };
+  guests.value = { adults: 1, children: 0, infants: 0 };
+  specialRequests.value = '';
+};
 
 const handleBooking = async () => {
   if (!isDateValid.value || !guests.value.adults) {
@@ -219,9 +219,9 @@ const handleBooking = async () => {
       { headers: { Authorization: `Bearer ${token}` } }
     );
 
-    showToast('Booking successful!')
-  } 
-  catch (error) {
+    showToast('Booking successful!');
+    resetForm(); // Reset the form after successful booking
+  } catch (error) {
     console.error('Booking error:', error);
     showToast('Booking failed, please try again later.');
   }
@@ -231,6 +231,6 @@ onMounted(() => {
   fetchListingData();
   fetchBlockedDates();
 });
-
 </script>
+
  

@@ -67,7 +67,7 @@
 
           <p class="mt-[15px] ml-[53px] flex space-x-3 items-center text-rose-600 cursor-pointer underline"
             @click="fetchGuestDetails(booking.userID)">
-            <Icon name="fa:info-circle text-[19px]"  />
+            <Icon name="material-symbols:phone-in-talk-rounded" class="text-[19px]"  />
             <span>User Contact/Info</span>
           </p>
 
@@ -90,15 +90,16 @@
     <div v-if="showModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center  px-[18px] sm:px-[95px] md:px-[145px] lg:px-[280px] xl:px-0 z-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-full xl:w-[460px]">
       <div v-if="modalLoading" class="flex justify-center items-center">
-        <MyLoader />
+        Loading ...
       </div>
       <div v-else-if="guestDetails" class="relative">
-        <button @click="closeModal" class="absolute top-[-5px] right-4 text-gray-500 hover:text-gray-700" aria-label="Close Modal">
-          <Icon name="fa6-solid/xmark text-[18px]" />
+        <button @click="closeModal" class="absolute top-[-5px] right-0 scale-x-[1.3] text-gray-500 hover:text-gray-700" aria-label="Close Modal">
+          X
         </button>
+
         <div class="flex items-center pt-[5px] mb-4">
-          <div class="w-11 h-11 bg-gray-300 rounded-full flex-shrink-0 flex items-center justify-center">
-            <Icon name="flowbite:user-circle-solid" class="text-gray-500 text-[18px]" />
+          <div class="rounded-full flex-shrink-0 flex items-center justify-center">
+            <Icon name="flowbite:user-circle-solid" class="text-gray-500 text-[50px]" />
           </div>
           <h2 class="text-xl font-semibold ml-4">{{ guestDetails.username }}</h2>
         </div>
@@ -132,23 +133,23 @@
 
         <div class="mt-4 border-t-[2px] pt-[8px]">
           <p class="flex items-center gap-2">
-            <Icon name="ic:baseline-recommend text-[18px]" class="text-purple-500" />
+            <Icon name="material-symbols:person-celebrate" class="text-purple-500  text-[22px]" />
             <strong>Social Links:</strong>
           </p>
-          <ul class="list-none mt-3 ml-[35px] flex gap-[8px]">
-            <li v-if="guestDetails.socialLinks?.facebook" class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden bg-blue-700">
+          <ul class="list-none mt-3 flex gap-[8px]">
+            <li v-if="guestDetails.socialLinks?.facebook" class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden bg-blue-600">
               <NuxtLink :to="guestDetails.socialLinks.facebook" target="_blank" rel="noopener noreferrer">
-                <Icon name="ic:outline-facebook text-[18px]" />
+                <Icon name="fa:facebook" class="text-[16px] mt-[6px]" />
               </NuxtLink>
             </li>
             <li v-if="guestDetails.socialLinks?.instagram" class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden bg-pink-700">
               <NuxtLink :to="guestDetails.socialLinks.instagram" target="_blank" rel="noopener noreferrer">
-                <Icon name="/tdesign:logo-instagram text-[18px]" />
+                <Icon name="fa:instagram" class="text-[16px] mt-[6px]" />
               </NuxtLink>
             </li>
             <li v-if="guestDetails.socialLinks?.linkedin" class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden bg-blue-700">
               <NuxtLink :to="guestDetails.socialLinks.linkedin" target="_blank" rel="noopener noreferrer">
-                <Icon name="flowbite:linkedin-solid text-[18px]" />
+                <Icon name="fa6-brands:linkedin-in" class="text-[16px] mt-[6px]" />
               </NuxtLink>
             </li>
           </ul>
@@ -156,7 +157,7 @@
       </div>
       <div v-else class="relative">
         <button @click="closeModal" class="absolute top-[-5px] right-4 text-gray-500 hover:text-gray-700" aria-label="Close Modal">
-          <Icon name="fa6-solid/xmark text-[18px]" />
+          <Icon name="fa6-solid/xmar" class="text-[18px]" />
         </button>
         <p>No details available.</p>
       </div>
@@ -164,6 +165,7 @@
   </div>
   </div>
 </template>
+
 <script>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';

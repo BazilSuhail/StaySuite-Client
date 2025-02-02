@@ -93,9 +93,9 @@
       <div v-if="showModal && selectedBooking"
         class="fixed inset-0 bg-black bg-opacity-50 flex items-center px-[18px] sm:px-[95px] md:px-[145px] lg:px-[280px] xl:px-0 justify-center z-50">
         <div class="bg-white rounded-lg p-6 shadow-lg xl:w-[480px] w-full relative">
-          <button @click="closeModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+          <button @click="closeModal" class="absolute top-4 right-5 text-gray-500 scale-x-[1.4] text-[18px] font-[600] hover:text-gray-700"
             aria-label="Close Modal">
-            <Icon name="fa:times" class="text-gray-500 font-[400] text-[14px]" />
+            X
           </button>
 
           <div class="flex justify-center items-center font-semibold mb-4 text-center text-gray-800">
