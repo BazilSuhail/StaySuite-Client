@@ -219,9 +219,10 @@ const handleBooking = async () => {
       { headers: { Authorization: `Bearer ${token}` } }
     );
 
-    showToast('Booking successful!');
-    resetForm(); // Reset the form after successful booking
-  } catch (error) {
+    showToast('Booking successful!'); 
+    router.push('/guest/reserved-bookings')
+  } 
+  catch (error) {
     console.error('Booking error:', error);
     showToast('Booking failed, please try again later.');
   }

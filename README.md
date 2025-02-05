@@ -60,6 +60,7 @@ Open [http://localhost:3000](http://localhost:3000) or also you can modify it in
 - **Plugins**: Plugin to setup Pinia Store in client enviornment only.
 - **Composables**: Reusable functions across all components (e.g., isLoggedIn (checking whether user is logged in or not) ).
 - **Assets**: Include all assets for the project (e.g. logos, 2d-illustrations).
+- **Layputs**: Layout file for the Project (e.g. allowing component to be stacked together across the website).
 
 ---
 
@@ -84,7 +85,7 @@ Open [http://localhost:3000](http://localhost:3000) or also you can modify it in
 - **Listings Dashboard**: Hosts can manage their listings, including adding, updating, and removing properties.
 - **Reservations Dashboard**: Hosts can view and manage reservations made on their listings.
 
-#######Real-Time Updates
+#### Real-Time Updates
 - **Socket.io Integration**: Real-time updates for bookings and reservations for both guests and hosts.
 
 #### State Management

@@ -92,7 +92,20 @@
       <!-- Modal -->
       <div v-if="showModal && selectedBooking"
         class="fixed inset-0 bg-black bg-opacity-50 flex items-center px-[18px] sm:px-[95px] md:px-[145px] lg:px-[280px] xl:px-0 justify-center z-50">
-        <div class="bg-white rounded-lg p-6 shadow-lg xl:w-[480px] w-full relative">
+        <div class="bg-white rounded-lg p-6 shadow-lg xl:w-[480px] w-full relative"
+        v-motion="{
+                initial: { y: 900, opacity: 0, scale: 0 },
+                enter: {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    transition: {
+                        type: 'tween',
+                        duration: 400,
+                        ease: 'easeOut',
+                    },
+                },
+            }">
           <button @click="closeModal" class="absolute top-4 right-5 text-gray-500 scale-x-[1.4] text-[18px] font-[600] hover:text-gray-700"
             aria-label="Close Modal">
             X

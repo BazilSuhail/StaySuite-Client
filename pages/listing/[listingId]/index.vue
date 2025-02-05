@@ -180,10 +180,10 @@
               <div class="w-full py-2 bg-rose-300 text-center text-rose-100 cursor-pointer font-semibold rounded-lg">
                 Reserve
               </div>
-              <p @click="navigatetoSignIn()"
-                class="text-rose-700 underline font-[500] text-[14px] text-center mt-[8px]">
+              <NuxtLink to="/authentication/signIn"
+                class="text-rose-700 underline font-[500]  text-[14px] text-center mt-[8px]">
                 Login as a Guest To Reserve a booking
-              </p>
+              </NuxtLink>
             </div>
           </div>
 
