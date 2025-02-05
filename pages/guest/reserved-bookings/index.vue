@@ -27,7 +27,8 @@
                   <Icon name="fa:book" class="text-[20px]" />
                 </div>
                 <p class="font-[600] text-[16px] ml-[8px] text-rose-800">
-                  {{ booking.listing.name.length > 10 ? `${booking.listing.name.slice(0, 15)}...` : booking.listing.name }}
+                  {{ booking.listing.name.length > 10 ? `${booking.listing.name.slice(0, 15)}...` : booking.listing.name
+                  }}
                 </p>
               </div>
 
@@ -92,21 +93,22 @@
       <!-- Modal -->
       <div v-if="showModal && selectedBooking"
         class="fixed inset-0 bg-black bg-opacity-50 flex items-center px-[18px] sm:px-[95px] md:px-[145px] lg:px-[280px] xl:px-0 justify-center z-50">
-        <div class="bg-white rounded-lg p-6 shadow-lg xl:w-[480px] w-full relative"
+        <div class="bg-white rounded-lg p-6 shadow-lg xl:w-[480px] w-full relative" 
         v-motion="{
-                initial: { y: 900, opacity: 0, scale: 0 },
-                enter: {
-                    y: 0,
-                    opacity: 1,
-                    scale: 1,
-                    transition: {
-                        type: 'tween',
-                        duration: 400,
-                        ease: 'easeOut',
-                    },
-                },
-            }">
-          <button @click="closeModal" class="absolute top-4 right-5 text-gray-500 scale-x-[1.4] text-[18px] font-[600] hover:text-gray-700"
+          initial: { y: 900, opacity: 0, scale: 0 },
+          enter: {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            transition: {
+              type: 'tween',
+              duration: 400,
+              ease: 'easeOut',
+            },
+          },
+        }">
+          <button @click="closeModal"
+            class="absolute top-4 right-5 text-gray-500 scale-x-[1.4] text-[18px] font-[600] hover:text-gray-700"
             aria-label="Close Modal">
             X
           </button>
@@ -121,7 +123,8 @@
 
           <div class="space-y-2">
 
-            <div class="border-b-[2px] w-full border-rose-700 pb-[8px] flex sm:flex-row flex-col space-y-[5px] justify-between sm:items-center">
+            <div
+              class="border-b-[2px] w-full border-rose-700 pb-[8px] flex sm:flex-row flex-col space-y-[5px] justify-between sm:items-center">
               <p class="text-gray-700 font-medium w-[calc(100%-105px)] overflow-hidden">
                 Name: <span class="font-normal">{{ selectedBooking.listing.name.length > 25 ?
                   `${selectedBooking.listing.name.slice(0, 25)}...` : selectedBooking.listing.name }}</span>
@@ -180,12 +183,11 @@
           </div>
 
           <div v-if="selectedBooking.status === 'approved' && new Date(selectedBooking.checkOut) < new Date()">
-  <button @click="finalizeBooking" class="px-4 ml-auto mt-[15px] pt-[1px] pb-[2px] text-[14px] bg-red-600 text-white rounded-lg hover:bg-red-600">
-    Finalize Booking
-  </button>
-</div>
-  
-
+            <button @click="finalizeBooking"
+              class="px-4 ml-auto mt-[15px] pt-[1px] pb-[2px] text-[14px] bg-red-600 text-white rounded-lg hover:bg-red-600">
+              Finalize Booking
+            </button>
+          </div>
         </div>
 
       </div>
@@ -211,16 +213,12 @@ export default {
   methods: {
 
     isCheckoutAfterToday(checkOutDate) {
-    const today = new Date();
-    // Set the time to 00:00:00 so we only compare the date part
-    today.setHours(0, 0, 0, 0);
-    
-    const checkOut = new Date(checkOutDate);
-    checkOut.setHours(0, 0, 0, 0); // Normalize the checkout date to exclude time part
-console.log(checkOut)
-console.log(today)
-    return checkOut < today; // Returns true if checkOut is later than today
-  },
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const checkOut = new Date(checkOutDate);
+      checkOut.setHours(0, 0, 0, 0);
+      return checkOut < today;
+    },
 
     async fetchBookings() {
       try {

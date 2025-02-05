@@ -88,11 +88,25 @@
     <!-- Guest Details Modal -->
    
     <div v-if="showModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center  px-[18px] sm:px-[95px] md:px-[145px] lg:px-[280px] xl:px-0 z-50">
-    <div class="bg-white rounded-lg shadow-lg p-6 w-full xl:w-[460px]">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full xl:w-[460px]"
+    v-motion="{
+          initial: { y: 900, opacity: 0, scale: 0 },
+          enter: {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            transition: {
+              type: 'tween',
+              duration: 400,
+              ease: 'easeOut',
+            },
+          },
+        }">
       <div v-if="modalLoading" class="flex justify-center items-center">
         Loading ...
       </div>
-      <div v-else-if="guestDetails" class="relative">
+      <div v-else-if="guestDetails"
+       class="relative">
         <button @click="closeModal" class="absolute top-[-5px] right-0 scale-x-[1.3] text-gray-500 hover:text-gray-700" aria-label="Close Modal">
           X
         </button>
