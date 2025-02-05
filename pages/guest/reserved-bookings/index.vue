@@ -20,7 +20,7 @@
 
         <div v-else>
           <div class="flex flex-col space-y-[15px]">
-            <div v-for="booking in bookings" :key="booking._id"
+            <div v-for="booking in bookings.slice().reverse()" :key="booking._id"
               class="bg-white rounded-xl flex md:flex-row flex-col justify-between border py-4 px-6 md:px-[45px] lg:px-[55px] hover:bg-gray-100 hover:border-[2px] hover:border-gray-300 transition duration-300 ease-in-out">
               <div class="md:border-b-0 border-b-[2px] border-rose-600 pb-[12px] md:pb-0 flex items-center">
                 <div class="w-[40px] h-[40px] rounded-full flex items-center justify-center text-rose-100 bg-rose-600">
@@ -178,9 +178,13 @@
               Special Requests: {{ selectedBooking.specialRequests }}
             </p>
           </div>
-          <button @click="finalizeBooking" className="px-4 ml-auto mt-[15px] pt-[1px] pb-[2px] text-[14px] bg-red-600 text-white rounded-lg hover:bg-red-600">
-            Finalize Booking
-          </button>
+
+          <div v-if="selectedBooking.status === 'approved' && new Date(selectedBooking.checkOut) < new Date()">
+  <button @click="finalizeBooking" class="px-4 ml-auto mt-[15px] pt-[1px] pb-[2px] text-[14px] bg-red-600 text-white rounded-lg hover:bg-red-600">
+    Finalize Booking
+  </button>
+</div>
+  
 
         </div>
 
@@ -205,6 +209,19 @@ export default {
     this.fetchBookings();
   },
   methods: {
+
+    isCheckoutAfterToday(checkOutDate) {
+    const today = new Date();
+    // Set the time to 00:00:00 so we only compare the date part
+    today.setHours(0, 0, 0, 0);
+    
+    const checkOut = new Date(checkOutDate);
+    checkOut.setHours(0, 0, 0, 0); // Normalize the checkout date to exclude time part
+console.log(checkOut)
+console.log(today)
+    return checkOut < today; // Returns true if checkOut is later than today
+  },
+
     async fetchBookings() {
       try {
         const token = localStorage.getItem('token');
