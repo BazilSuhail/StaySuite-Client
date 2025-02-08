@@ -14,7 +14,7 @@
             </NuxtLink>
           </div>
 
-          <div v-if="!isHomePath" @click="isFiltersModalOpen"
+          <div v-if="!isHomePath" @click="isFiltersModalOpen = true"
             class="hidden cursor-pointer sm:flex items-center border-[2px] xl:mr-[-165px] z-90 rounded-full py-2 px-4 shadow-md">
             <p
               class="bg-transparent flex-grow outline-none border-r-[2px] border-gray-200 px-[8px] font-[600] text-gray-700">
@@ -281,6 +281,7 @@
 </template>
 
 <script>
+import { storeToRefs } from "pinia";
 import { useAuthStore } from "../store/auth.js"
 import FiltersModal from '@/components/FilterModal.vue';
 
@@ -291,11 +292,12 @@ export default {
   setup() {
     const isFiltersModalOpen = ref(false);
     const userStore = useAuthStore();
+    const userStored = storeToRefs(userStore);
     //console.log("count is " + userStore.notificationsCount)
     return {
       isFiltersModalOpen,
-      user: userStore.user,
-      userRole: userStore.userRole,
+      user: userStored.user,
+      userRole: userStored.userRole,
       notificationsCount: userStore.notificationsCount,
       logout: userStore.logout,
     };
