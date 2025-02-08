@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-white fixed w-full z-50 top-0">
+  <header class="bg-white fixed w-full pb-[10px] z-50 top-0">
     
     <FiltersModal v-if="isFiltersModalOpen" v-model:onClose="isFiltersModalOpen" />
 
@@ -40,8 +40,8 @@
           </div>
 
           <client-only>
-            <div class="flex items-center space-x-4">
-              <span class="text-gray-700 xl:block hidden text-md">Airbnb Your Home</span>
+            <div class="flex items-center space-x-4  z-[900]">
+              <span class="text-gray-400 font-[600] xl:block hidden text-md">StaySuite Your Home</span>
               <NuxtLink v-if="user" :to="userRole === 'Guest' ? '/notifications/guest' : '/notifications/host'"
                 class="hidden md:inline-flex items-center space-x-2 hover:text-black">
                 <Icon name="ic:baseline-notifications"
@@ -65,7 +65,19 @@
 
         <div v-if="isOpen" class="hidden md:block">
           <div @click="toggleMenu"
-            class="flex flex-col absolute right-0 mr-[75px] w-[250px] bg-white rounded-lg border shadow-xl mt-5 p-4">
+            class="flex flex-col absolute z-[800] right-0 mr-[75px] w-[250px] bg-white rounded-lg border shadow-xl mt-5 p-4"
+            v-motion="{
+                initial: { y: -500, opacity: 0 },
+                enter: {
+                    y: 0,
+                    opacity: 1, 
+                    transition: {
+                        type: 'tween',
+                        duration: 400,
+                        ease: 'easeOut',
+                    },
+                },
+            }">
             <div>
               <div v-if="user">
                 <NuxtLink to="/authentication/profile"

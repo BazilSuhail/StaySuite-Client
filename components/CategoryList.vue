@@ -1,5 +1,5 @@
 <template>
-    <div class='flex overflow-x-hidden pt-4 xl:w-[88vw] lg:px-[30px] xl:px-0 px-[15px] mx-auto relative'>
+    <div class='flex overflow-x-hidden xl:w-[88vw] lg:px-[30px] xl:px-0 px-[15px] mx-auto relative'>
         <div class="flex bg-white overflow-x-auto gap-x-[35px] py-4 no-scrollbar relative">
             <div v-for="(category, index) in categories" :key="index" @click="selectCategory(category.name)"
                 :class="['flex cursor-pointer flex-col justify-center items-center hover:text-gray-700 font-[600] transition duration-200',

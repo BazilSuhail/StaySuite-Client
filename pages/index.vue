@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen mt-[85px] md:mt-[95px]"> 
+  <div class="min-h-screen mt-[75px] md:mt-[85px]"> 
     <!-- Category Selection -->
     <CategoryList
       :selectedCategory="category"
@@ -12,7 +12,7 @@
     </div>
     <div
       v-else
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 pt-4 xl:px-[75px] pb-[45px] px-4"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 xl:px-[75px] pb-[45px] px-4"
     >
       <div
         v-for="listing in listings"
@@ -136,7 +136,3 @@ onMounted(() => {
   fetchListings(currentPage.value, category.value);
 });
 </script>
-
-<style scoped>
-/* Add styles if necessary */
-</style>
