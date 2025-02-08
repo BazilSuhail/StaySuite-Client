@@ -23,10 +23,10 @@
             <div v-for="booking in bookings.slice().reverse()" :key="booking._id"
               class="bg-white rounded-xl flex md:flex-row flex-col justify-between border py-4 px-6 md:px-[45px] lg:px-[55px] hover:bg-gray-100 hover:border-[2px] hover:border-gray-300 transition duration-300 ease-in-out">
               <div class="md:border-b-0 border-b-[2px] border-rose-600 pb-[12px] md:pb-0 flex items-center">
-                <div class="w-[40px] h-[40px] rounded-full flex items-center justify-center text-rose-100 bg-rose-600">
-                  <Icon name="fa:book" class="text-[20px]" />
+                <div class="w-[32px] h-[32px] md:w-[40px] md:h-[40px] rounded-full flex items-center justify-center text-rose-100 bg-rose-600">
+                  <Icon name="fa:book" class="text-[15px] md:text-[20px]" />
                 </div>
-                <p class="font-[600] text-[16px] ml-[8px] text-rose-800">
+                <p class="font-[600] text-[18px] md:text-[16px] ml-[8px] text-rose-800">
                   {{ booking.listing.name.length > 10 ? `${booking.listing.name.slice(0, 15)}...` : booking.listing.name
                   }}
                 </p>
@@ -46,13 +46,13 @@
 
               <div class="md:hidden justify-between mt-[15px] flex items-center">
                 <div class="flex flex-col md:items-center justify-center">
-                  <p class="text-[13px] font-[600] text-gray-500">Check-In</p>
-                  <p class="font-[600] text-[14px] text-rose-800">{{ new Date(booking.checkIn).toDateString() }}</p>
+                  <p class="text-[12px] font-[600] text-gray-500">Check-In</p>
+                  <p class="font-[600] text-[13px] text-rose-800">{{ new Date(booking.checkIn).toDateString() }}</p>
                 </div>
 
                 <div class="ml-[20px] xl:ml-[50px] flex flex-col md:items-center justify-center">
-                  <p class="text-[13px] font-[600] text-gray-500">Check Out</p>
-                  <p class="font-[600] text-[14px] text-rose-800">{{ new Date(booking.checkOut).toDateString() }}</p>
+                  <p class="text-[12px] font-[600] text-gray-500">Check Out</p>
+                  <p class="font-[600] text-[13px] text-rose-800">{{ new Date(booking.checkOut).toDateString() }}</p>
                 </div>
               </div>
 
@@ -74,14 +74,14 @@
 
               <div class="md:hidden mt-[15px] flex justify-between items-center">
                 <div class="flex flex-col">
-                  <p class="text-[16px] font-[600] text-gray-500">Status</p>
+                  <p class="text-[10px] font-[600] text-gray-500">Status</p>
                   <p
-                    :class="['font-[600] px-[12px] py-[2px] mt-[5px] text-white rounded-[30px] text-[12px]', booking.status === 'approved' ? 'bg-green-800' : booking.status === 'pending' ? 'bg-yellow-600' : booking.status === 'confirmed' ? 'bg-blue-800' : booking.status === 'rejected' ? 'bg-red-800' : booking.status === 'completed' ? 'text-gray-800' : '']">
+                    :class="['font-[600] px-[12px] pb-[1px] mt-[3px] text-white rounded-[30px] text-[9px]', booking.status === 'approved' ? 'bg-green-800' : booking.status === 'pending' ? 'bg-yellow-600' : booking.status === 'confirmed' ? 'bg-blue-800' : booking.status === 'rejected' ? 'bg-red-800' : booking.status === 'completed' ? 'text-gray-800' : '']">
                     {{ booking.status }}
                   </p>
                 </div>
                 <button @click="openModal(booking)"
-                  class="mt-[15px] bg-gradient-to-r from-rose-600 to-rose-900 hover:bg-rose-600 text-white rounded-[18px] px-[15px] py-[8px] text-[13px]">
+                  class="mt-[10px] bg-gradient-to-r from-rose-600 to-rose-900 hover:bg-rose-600 text-white rounded-[18px] px-[15px] py-[3px] text-[11px]">
                   View Details
                 </button>
               </div>
@@ -173,7 +173,7 @@
           </div>
 
           <p className="text-gray-700 font-medium mt-4">
-            Total Amount: <span className="font-bold text-green-500">${{ selectedBooking.totalAmount }}</span>
+            Total Amount: <span className="font-bold text-green-500">${{ selectedBooking.totalAmount.toFixed(2) }}</span>
           </p>
 
           <div v-if="selectedBooking.specialRequests">

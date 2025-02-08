@@ -5,16 +5,31 @@
   <div v-else-if="error" class="text-center text-red-600">
     <span>{{ error }}</span>
   </div>
-  <div v-else class="w-full overflow-x-hidden px-[12px] sm:px-6 xl:px-[160px] min-h-screen  py-6 bg-white">
-    <h2 class="mt-[85px] mb-[20px] text-[22px] md:text-[30px] text-rose-950 font-semibold">{{ listing.name }}</h2>
+  <div v-else class="w-full overflow-x-hidden px-[18px] sm:px-6 xl:px-[160px] min-h-screen pb-[80px] lg:py-6 bg-white">
+
+    <div class="mt-[85px] mb-[10px] flex items-center">
+      <Icon name="fa6-brands:font-awesome" class="md:text-[22px] text-[16px] md:mr-[12px] mr-[5px] text-gray-400" /> 
+      <div class="md:text-[24px] text-[18px] font-semibold">{{ listing.name }}</div>
+    </div>
 
     <Reviews v-if="showModal" :listingId="listingId" :ratingReviews="ratingReviews" @close="handleCloseReviews" />
 
     <div v-if="isListingPicturesModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div
         class="bg-white rounded-lg overflow-y-auto pb-[25px] no-scrollbar h-[80vh] w-[95vw] px-[8px] space-y-[8px] flex flex-col md:w-[90vw] mx-4 md:mx-auto shadow-lg"
-        initial="{ scale: 0.7, opacity: 1, y: 500 }" animate="{ scale: 1, opacity: 1, y: 0 }"
-        transition="duration: 0.5, ease: [0.2, 0.8, 0.2, 1]">
+        v-motion="{
+          initial: { y: 900, opacity: 0, scale: 0 },
+          enter: {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            transition: {
+              type: 'tween',
+              duration: 400,
+              ease: 'easeOut',
+            },
+          },
+        }">
         <button @click="isListingPicturesModalOpen = false" class="sticky bg-white pt-[15px] top-0 flex justify-end">
           <Icon name="mdi-close" class="text-[22px] mr-[8px] mb-[8px] text-gray-500 hover:text-gray-800" />
         </button>
@@ -30,7 +45,7 @@
       </div>
     </div>
 
-    <div class="relative grid w-full overflow-hidden gap-[6px] grid-cols-5 rounded-[25px]">
+    <div class="relative grid w-full overflow-hidden gap-[6px] grid-cols-5 rounded-[12px] lg:rounded-[18px]">
       <button @click="isListingPicturesModalOpen = true"
         class="lg:hidden absolute top-[10px] right-[15px] px-[12px] rounded-2xl bg-white text-black">See Photos</button>
 
@@ -46,11 +61,11 @@
       </div>
     </div>
 
-    <div class="mt-[15px] mx-auto md:p-4 space-y-6 md:space-y-8 lg:grid lg:grid-cols-3 lg:gap-6 lg:space-y-0">
+    <div class="mt-[15px] mx-auto md:p-2 space-y-6 md:space-y-8 lg:grid lg:grid-cols-3 lg:gap-6 lg:space-y-0">
       <div class="lg:col-span-2 space-y-4">
         <div class="flex md:flex-row flex-col md:justify-between md:items-center space-y-4">
           <div>
-            <h2 class="text-2xl font-semibold">{{ listing.property_type || '' }} In {{ listing.address.suburb || '' }},
+            <h2 class="text-[18px] lg:text-2xl font-semibold">{{ listing.property_type || '' }} In {{ listing.address.suburb || '' }},
               {{ listing.address.country || '' }}</h2>
             <p class="text-gray-600">{{ listing.bedrooms }} beds · {{ listing.bathrooms }} Shared bathroom</p>
           </div>
@@ -59,7 +74,7 @@
         </div>
 
         <div
-          class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-5 border shadow-md px-[8px] md:px-[45px] py-[15px] rounded-[28px] space-y-2 md:space-y-0 md:flex-row md:items-center md:space-x-4">
+          class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-5 border shadow-md px-[8px] md:px-[45px] py-[15px] rounded-[20px] space-y-2 md:space-y-0 md:flex-row md:items-center md:space-x-4">
           <div class="flex border-r-[2px] flex-col items-center justify-center">
             <Icon name="bi:trophy-fill" class="text-[22px] lg:text-[30px]" />
             <div class="mt-[5px] text-[10px] flex md:text-[15px] font-[500]">Guest <div class="ml-[4px]">Favourite</div>
@@ -85,7 +100,7 @@
 
           <button @click="showModal = true" class="flex flex-col items-center justify-center">
             <span class="text-[20px] md:text-[24px] text-rose-700 font-[600]">{{ ratingReviews.reviewCount }}</span>
-            <span class="text-rose-900 mt-[-8px] text-[14px] md:text-[19px] underline">Review</span>
+            <span class="text-rose-800 mt-[-8px] font-[600] text-[14px] md:text-[15px] underline">Review{{ ratingReviews.reviewCount === 1 ? "" : "s" }}</span>
           </button>
         </div>
 
@@ -176,12 +191,12 @@
               class="w-full py-2 bg-gradient-to-r from-pink-600 to-pink-800 text-white font-semibold rounded-lg">
               Reserve
             </button>
-            <div v-else>
+            <div v-else class="w-full flex flex-col">
               <div class="w-full py-2 bg-rose-300 text-center text-rose-100 cursor-pointer font-semibold rounded-lg">
                 Reserve
               </div>
               <NuxtLink to="/authentication/signIn"
-                class="text-rose-700 underline font-[500]  text-[14px] text-center mt-[8px]">
+                class="text-rose-700 underline font-[500] w-full text-[14px] text-center mt-[8px]">
                 Login as a Guest To Reserve a booking
               </NuxtLink>
             </div>

@@ -1,11 +1,11 @@
 <template>
-  <header class="bg-white fixed w-full md:pb-[10px] z-50 top-0">
+  <header class="bg-white fixed w-full  z-50 top-0">
 
     <FiltersModal v-if="isFiltersModalOpen" v-model:onClose="isFiltersModalOpen" />
 
     <nav class="hidden md:block">
       <div
-        :class="`${isHomePath ? 'border-white pt-4' : 'border-b-[3px] border-gray-100 py-4'} mx-auto px-4 sm:px-6 md:px-[15px] lg:px-[35px] xl:px-[75px]`">
+        :class="`${isHomePath ? 'border-white pt-4' : 'border-b-[3px] border-gray-100 py-4'} md:pb-[10px] mx-auto px-4 sm:px-6 md:px-[15px] lg:px-[35px] xl:px-[75px]`">
         <div class="flex justify-between items-center">
           <div class="flex items-center">
             <img src="/logo.svg" alt="" class="w-[32px] mr-[5px] h-[27px] mt-[2px]" />

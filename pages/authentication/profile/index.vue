@@ -1,5 +1,5 @@
 <template>
-    <main v-if="loading" class="text-center min-h-screen  mt-[250px]">
+    <main v-if="loading" class="text-center min-h-screen pt-[250px]">
         <span>Loading...</span>
     </main>
     <main v-else-if="error" class="text-center text-red-600">
@@ -166,7 +166,7 @@
                     <h3 class="text-[17px] font-semibold underline underline-offset-2 mb-[4px]">Ask Me In:</h3>
                     <div class="list-disc list-inside space-y-2">
                         <p v-for="(language, index) in userInfo.languages" :key="index"
-                            class="inline-block px-[15px] text-[13px] sm:text-sm mr-[4px] bg-gray-600 text-white rounded-[25px]">
+                            class="inline-block px-[15px] text-[12px] pb-[1px] mr-[4px] bg-gray-600 text-white rounded-[25px]">
                             {{ language }}
                         </p>
                         <p v-if="!userInfo.languages || userInfo.languages.length === 0" class="text-gray-500">No
@@ -176,31 +176,31 @@
                     <h3 class="text-[17px] mt-[25px] mb-[8px] underline underline-offset-2 font-semibold">Interests</h3>
                     <div class="list-disc list-inside space-y-2">
                         <p v-for="(interest, index) in userInfo.interests" :key="index"
-                            class="inline-block px-[15px] text-[13px] sm:text-sm  mr-[4px] bg-gray-200 text-gray-600 rounded-[25px]">
+                            class="inline-block px-[15px] font-[600] text-[13px] pb-[1px] mr-[4px] bg-gray-200 text-gray-600 rounded-[25px]">
                             {{ interest }}
                         </p>
                         <p v-if="!userInfo.interests || userInfo.interests.length === 0" class="text-gray-500">No
                             interests added.</p>
                     </div>
-                    <div class="flex mt-[15px] items-center">
-                        <p class="text-rose-900 font-[500] mr-[15px]">Found Me at:</p>
-                        <ul v-if="userInfo.socialLinks" class="list-none mt-3 ml-[35px] flex gap-[8px]">
+                    <div class="flex mt-[18px] items-center">
+                        <p class="text-rose-900 font-[500]">Found Me at:</p>
+                        <ul v-if="userInfo.socialLinks" class="list-none mt-[4px] ml-[35px] flex gap-[8px]">
                             <li v-if="userInfo.socialLinks.facebook"
-                                class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden pt-[3px] bg-blue-700">
+                                class="w-[28px] h-[28px] rounded-full text-white flex items-center justify-center overflow-hidden pt-[1px]  bg-blue-700">
                                 <NuxtLink :to="userInfo.socialLinks.facebook" target="_blank" rel="noopener noreferrer">
-                                    <Icon name="fa:facebook" class="text-[16px]" />
+                                    <Icon name="fa:facebook" class="text-[14px]" />
                                 </NuxtLink>
                             </li>
                             <li v-if="userInfo.socialLinks.instagram"
-                                class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden pt-[3px] bg-pink-700">
+                                class="w-[28px] h-[28px] rounded-full text-white flex items-center justify-center overflow-hidden pt-[1px]  bg-pink-700">
                                 <a :href="userInfo.socialLinks.instagram" target="_blank" rel="noopener noreferrer">
-                                    <Icon name="fa:instagram" class="text-[16px]" />
+                                    <Icon name="fa:instagram" class="text-[14px]" />
                                 </a>
                             </li>
                             <li v-if="userInfo.socialLinks.linkedin"
-                                class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden pt-[3px] bg-blue-700">
+                                class="w-[28px] h-[28px] rounded-full text-white flex items-center justify-center overflow-hidden pt-[1px] pl-[1px]  bg-blue-700">
                                 <a :href="userInfo.socialLinks.linkedin" target="_blank" rel="noopener noreferrer">
-                                    <Icon name="fa6-brands:linkedin-in" class="text-[16px]" />
+                                    <Icon name="fa6-brands:linkedin-in" class="text-[14px]" />
                                 </a>
                             </li>
                         </ul>

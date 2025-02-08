@@ -3,10 +3,10 @@
     loading
   </div>
 
-  <div v-else class="bg-gray-100 pt-[85px] lg:pt-[115px] px-6 min-h-screen justify-center items-center">
+  <div v-else class="bg-gray-100 pt-[85px] lg:pt-[115px] px-4 lg:px-6 min-h-screen justify-center items-center">
     <div class="max-w-[1350px] mx-auto">
       <h3 class="text-[18px] md:text-[24px] mb-[15px] text-rose-600 font-[700]">
-        Applied Bookings For Your Properties:
+        Applied Bookings On Your Properties:
       </h3>
       <div class="h-[2.5px] bg-rose-600 mb-[35px] lg:mb-[55px]"></div>
 
@@ -25,17 +25,17 @@
           <div
             class="flex px-4 pt-3 bg-rose-700 items-center md:mb-0 mb-[15px] space-x-2 pb-[8px] border-b-[2px] border-rose-700">
             <div
-              class="w-[32px] h-[32px] md:w-[38px] md:h-[38px] rounded-full flex items-center justify-center text-[28px] bg-rose-100 text-rose-600">
-              <Icon name="fa:calendar" />
+              class="w-[28px] h-[28px] md:w-[28px] md:h-[28px] rounded-full flex items-center justify-center text-[28px] bg-rose-50 text-rose-600">
+              <Icon name="fa:calendar" class="text-[15px]"/>
             </div>
-            <div class="flex w-[85%] pb-[4px] justify-between items-center">
-              <div class="font-[600] text-[15px] md:text-[20px] text-rose-50">
+            <div class="flex w-[95%] pb-[4px] justify-between items-center">
+              <div class="font-[600] text-[14px] md:text-[18px] text-rose-50">
                 <p>{{ booking.listingDetails.name.slice(0, 20) || 'N/A' }}</p>
               </div>
               <NuxtLink :to="`/listing/${booking.listingId}`"
-                class="text-rose-50 w-[110px] text-[15px] hover:text-red-300 hover:underline cursor-pointer flex items-center">
+                class="text-rose-50 w-[110px] text-[14px] hover:text-red-300 hover:underline cursor-pointer flex items-center">
                 See Listings
-                <Icon name="fa:arrow-right" class="pl-[5px] mt-[2px]" />
+                <Icon name="lucide:arrow-right" class="ml-[5px] scale-x-[1.2] text-[17px] mt-[2px]" />
               </NuxtLink>
             </div>
           </div>
@@ -58,8 +58,9 @@
             </div>
             <div class="flex mt-[8px] items-center space-x-2">
               <Icon name="flowbite:adjustments-vertical-outline" class="text-rose-800 text-[18px]" />
-              <p class="text-[15px] font-[600] text-gray-500">Status</p>
-              <p :class="`${getStatusClass(booking.status)} text-[10px] sm:text-[12px] font-[600] px-[8px] rounded-[15px] pt-[1px] pb-[2px] text-white` ">
+              <p class="text-[14px] font-[600] text-gray-500">Status</p>
+              <p
+                :class="`${getStatusClass(booking.status)} text-[10px] font-[600] px-[12px] rounded-[15px] pt-[1px] pb-[2px] text-white`">
                 {{ booking.status }}
               </p>
             </div>
@@ -67,7 +68,7 @@
 
           <p class="mt-[15px] ml-[53px] flex space-x-3 items-center text-rose-600 cursor-pointer underline"
             @click="fetchGuestDetails(booking.userID)">
-            <Icon name="material-symbols:phone-in-talk-rounded" class="text-[19px]"  />
+            <Icon name="material-symbols:phone-in-talk-rounded" class="text-[19px]" />
             <span>User Contact/Info</span>
           </p>
 
@@ -86,97 +87,106 @@
     </div>
 
     <!-- Guest Details Modal -->
-   
-    <div v-if="showModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center  px-[18px] sm:px-[95px] md:px-[145px] lg:px-[280px] xl:px-0 z-50">
-    <div class="bg-white rounded-lg shadow-lg p-6 w-full xl:w-[460px]"
-    v-motion="{
-          initial: { y: 900, opacity: 0, scale: 0 },
-          enter: {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            transition: {
-              type: 'tween',
-              duration: 400,
-              ease: 'easeOut',
-            },
+
+    <div v-if="showModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center  px-[18px] sm:px-[95px] md:px-[145px] lg:px-[280px] xl:px-0 z-50">
+      <div class="bg-white rounded-lg shadow-lg p-6 w-full xl:w-[460px]" v-motion="{
+        initial: { y: 900, opacity: 0, scale: 0 },
+        enter: {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          transition: {
+            type: 'tween',
+            duration: 400,
+            ease: 'easeOut',
           },
-        }">
-      <div v-if="modalLoading" class="flex justify-center items-center">
-        Loading ...
-      </div>
-      <div v-else-if="guestDetails"
-       class="relative">
-        <button @click="closeModal" class="absolute top-[-5px] right-0 scale-x-[1.3] text-gray-500 hover:text-gray-700" aria-label="Close Modal">
-          X
-        </button>
+        },
+      }">
+        <div v-if="modalLoading" class="flex justify-center items-center">
+          Loading ...
+        </div>
+        <div v-else-if="guestDetails" class="relative">
+          <button @click="showModal = false"
+            class="absolute top-[-5px] right-0 scale-x-[1.4] text-gray-500 hover:text-gray-700"
+            aria-label="Close Modal">
+            X
+          </button>
 
-        <div class="flex items-center pt-[5px] mb-4">
-          <div class="rounded-full flex-shrink-0 flex items-center justify-center">
-            <Icon name="flowbite:user-circle-solid" class="text-gray-500 text-[50px]" />
+          <div class="flex items-center pt-[5px] mb-4">
+            <div class="rounded-full flex-shrink-0 flex items-center justify-center">
+              <Icon name="flowbite:user-circle-solid" class="text-gray-500 text-[50px]" />
+            </div>
+            <h2 class="text-xl font-semibold ml-4">{{ guestDetails.username }}</h2>
           </div>
-          <h2 class="text-xl font-semibold ml-4">{{ guestDetails.username }}</h2>
-        </div>
 
-        <div class="space-y-[13px]">
-          <p class="flex items-center gap-2">
-            <label class="w-[34px] h-[34px] rounded-full flex items-center justify-center text-[17px] text-rose-100 bg-rose-600">
-              <Icon name="ic:twotone-mark-email-unread" />
-            </label>
-            {{ guestDetails.email }}
-          </p>
-          <p class="flex items-center text-[14px] gap-2">
-            <label class="w-[34px] h-[34px] rounded-full flex items-center justify-center text-[17px] text-rose-100 bg-rose-600">
-              <Icon name="ic:twotone-mark-email-unread" />
-            </label>
-            {{ guestDetails.phoneNumber || `No Phone number added by ${guestDetails.username}` }}
-          </p>
-          <p class="flex items-center gap-2">
-            <label class="w-[34px] h-[34px] rounded-full flex items-center justify-center text-[17px] text-rose-100 bg-rose-600">
-              <Icon name="ic:baseline-edit-location-alt" />
-            </label>
-            <strong>Lives In:</strong> {{ guestDetails.location.city }}, {{ guestDetails.location.country }}
-          </p>
-          <p class="flex items-center gap-2">
-            <label class="w-[34px] h-[34px] rounded-full flex items-center justify-center text-[17px] text-rose-100 bg-rose-600">
-              <Icon name="ic:baseline-contact-page" />
-            </label>
-            <strong>Bio:</strong> {{ guestDetails.bio }}
-          </p>
-        </div>
+          <div class="space-y-[13px]">
+            <p class="flex items-center gap-2">
+              <label
+                class="w-[34px] h-[34px] rounded-full flex items-center justify-center text-[17px] text-rose-100 bg-rose-600">
+                <Icon name="ic:twotone-mark-email-unread" />
+              </label>
+              {{ guestDetails.email }}
+            </p>
+            <p class="flex items-center text-[14px] gap-2">
+              <label
+                class="w-[34px] h-[34px] rounded-full flex items-center justify-center text-[17px] text-rose-100 bg-rose-600">
+                <Icon name="ic:twotone-mark-email-unread" />
+              </label>
+              {{ guestDetails.phoneNumber || `No Phone number added by ${guestDetails.username}` }}
+            </p>
+            <p class="flex items-center gap-2">
+              <label
+                class="w-[34px] h-[34px] rounded-full flex items-center justify-center text-[17px] text-rose-100 bg-rose-600">
+                <Icon name="ic:baseline-edit-location-alt" />
+              </label>
+              <strong>Lives In:</strong> {{ guestDetails.location.city }}, {{ guestDetails.location.country }}
+            </p>
+            <p class="flex items-center gap-2">
+              <label
+                class="w-[34px] h-[34px] rounded-full flex items-center justify-center text-[17px] text-rose-100 bg-rose-600">
+                <Icon name="ic:baseline-contact-page" />
+              </label>
+              <strong>Bio:</strong> {{ guestDetails.bio }}
+            </p>
+          </div>
 
-        <div class="mt-4 border-t-[2px] pt-[8px]">
-          <p class="flex items-center gap-2">
-            <Icon name="material-symbols:person-celebrate" class="text-purple-500  text-[22px]" />
-            <strong>Social Links:</strong>
-          </p>
-          <ul class="list-none mt-3 flex gap-[8px]">
-            <li v-if="guestDetails.socialLinks?.facebook" class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden bg-blue-600">
-              <NuxtLink :to="guestDetails.socialLinks.facebook" target="_blank" rel="noopener noreferrer">
-                <Icon name="fa:facebook" class="text-[16px] mt-[6px]" />
-              </NuxtLink>
-            </li>
-            <li v-if="guestDetails.socialLinks?.instagram" class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden bg-pink-700">
-              <NuxtLink :to="guestDetails.socialLinks.instagram" target="_blank" rel="noopener noreferrer">
-                <Icon name="fa:instagram" class="text-[16px] mt-[6px]" />
-              </NuxtLink>
-            </li>
-            <li v-if="guestDetails.socialLinks?.linkedin" class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden bg-blue-700">
-              <NuxtLink :to="guestDetails.socialLinks.linkedin" target="_blank" rel="noopener noreferrer">
-                <Icon name="fa6-brands:linkedin-in" class="text-[16px] mt-[6px]" />
-              </NuxtLink>
-            </li>
-          </ul>
+          <div class="mt-4 border-t-[2px] pt-[8px]">
+            <p class="flex items-center gap-2">
+              <Icon name="material-symbols:person-celebrate" class="text-purple-500  text-[22px]" />
+              <strong>Social Links:</strong>
+            </p>
+            <ul class="list-none mt-3 flex gap-[8px]">
+              <li v-if="guestDetails.socialLinks?.facebook"
+                class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden bg-blue-600">
+                <NuxtLink :to="guestDetails.socialLinks.facebook" target="_blank" rel="noopener noreferrer">
+                  <Icon name="fa:facebook" class="text-[16px] mt-[6px]" />
+                </NuxtLink>
+              </li>
+              <li v-if="guestDetails.socialLinks?.instagram"
+                class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden bg-pink-700">
+                <NuxtLink :to="guestDetails.socialLinks.instagram" target="_blank" rel="noopener noreferrer">
+                  <Icon name="fa:instagram" class="text-[16px] mt-[6px]" />
+                </NuxtLink>
+              </li>
+              <li v-if="guestDetails.socialLinks?.linkedin"
+                class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden bg-blue-700">
+                <NuxtLink :to="guestDetails.socialLinks.linkedin" target="_blank" rel="noopener noreferrer">
+                  <Icon name="fa6-brands:linkedin-in" class="text-[16px] mt-[6px]" />
+                </NuxtLink>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <div v-else class="relative">
-        <button @click="closeModal" class="absolute top-[-5px] right-4 text-gray-500 hover:text-gray-700" aria-label="Close Modal">
-          <Icon name="fa6-solid/xmar" class="text-[18px]" />
-        </button>
-        <p>No details available.</p>
+        <div v-else class="relative">
+          <button @click="closeModal" class="absolute top-[-5px] right-4 text-gray-500 hover:text-gray-700"
+            aria-label="Close Modal">
+            <Icon name="fa6-solid/xmar" class="text-[18px]" />
+          </button>
+          <p>No details available.</p>
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
-  <div class="bg-gray-100 pt-[115px] p-6 min-h-screen justify-center items-center">
+  <div class="bg-gray-100 pt-[90px] md:pt-[115px] p-6 min-h-screen justify-center items-center">
     <div class="max-w-[1150px] mx-auto">
-      <h3 class="text-[24px] mb-[15px] text-rose-600 font-[700]">Visited Places</h3>
-      <div class="h-[2.5px] bg-rose-600 mb-[35px] lg:mb-[55px]"></div>
+      <h3 class="text-[20px] md:text-[24px] mb-[15px] text-rose-600 font-[650]">Visited Places</h3>
+      <div class="h-[2px] md:h-[2.5px] bg-rose-600 mb-[25px] lg:mb-[55px]"></div>
 
       <!-- Display loading or error states -->
       <div v-if="loading" class="flex justify-center items-center">
@@ -21,33 +21,34 @@
       <!-- Show bookings -->
       <div v-else class="grid gap-6 mx-auto sm:grid-cols-2 lg:grid-cols-3">
         <div v-for="booking in bookings" :key="booking._id" @click="goToListing(booking.listingId)"
-          class="overflow-hidden mx-auto w-full px-[8px] cursor-pointer bg-white border rounded-xl hover:shadow-md transition duration-200">
+          class="overflow-hidden mx-auto w-full cursor-pointer bg-white border rounded-xl hover:shadow-md transition duration-200">
           <img :src="booking.listingImage || 'https://via.placeholder.com/300'" alt="Booking" loading="lazy"
-            class="m-2 h-[220px] w-[95%]" />
-          <h2 class="font-semibold ml-[10px] text-lg">
+            class="h-[220px] w-full" />
+          <h2 class="font-semibold ml-[18px] mt-[4px] text-[15px] md:text-[18px]">
             {{ booking.listingSuburb.substring(0, 8) }}, {{ booking.listingCountry.substring(0, 8) }}
           </h2>
-          <div class="ml-[53px] md:mt-[15px]">
+          <div class="h-[2px] bg-gray-200 mx-auto w-[90%] mt-[5px]"></div>
+          <div class="ml-[53px] mx-[8px] pb-[15px] flex flex-col space-y-[4px] md:mt-[10px]">
             <div class="flex items-center space-x-2">
               <!-- Using Font Awesome Icon with Nuxt Icon -->
-              <Icon name="fa:calendar" class="text-rose-800" />
-              <p class="text-[13px] font-[600] text-gray-500">Check-In</p>
-              <p class="font-[600] text-[14px] text-green-700">{{ new Date(booking.checkIn).toDateString() }}</p>
+              <Icon name="fa:calendar" class="text-rose-800 text-[14px]" />
+              <p class="text-[12px] font-[600] text-gray-500">Check-In</p>
+              <p class="font-[600] text-[13px] text-green-700">{{ new Date(booking.checkIn).toDateString() }}</p>
             </div>
             <div class="flex items-center space-x-2">
-              <Icon name="fa:calendar" class="text-rose-800" />
-              <p class="text-[13px] font-[600] text-gray-500">Check-Out</p>
-              <p class="font-[600] text-[14px] text-rose-800">{{ new Date(booking.checkOut).toDateString() }}</p>
+              <Icon name="fa:calendar" class="text-rose-800 text-[14px]" />
+              <p class="text-[12px] font-[600] text-gray-500">Check-Out</p>
+              <p class="font-[600] text-[13px] text-rose-800">{{ new Date(booking.checkOut).toDateString() }}</p>
             </div>
             <div class="flex items-center space-x-2">
-              <Icon name="fa:user" class="text-rose-800" />
-              <p class="text-[13px] font-[600] text-gray-500">Guests:</p>
+              <Icon name="fa:user" class="text-rose-800 text-[14px]" />
+              <p class="text-[12px] font-[600] text-gray-500">Guests:</p>
               <p class="font-[600] text-[13px] text-rose-800">{{ booking.guests.adults + booking.guests.children +
                 booking.guests.infants }}</p>
             </div>
             <div class="flex mb-[8px] items-center space-x-2">
-              <Icon name="fa:user" class="text-rose-800" />
-              <p class="text-[13px] font-[600] text-gray-500">Total Bill:</p>
+              <Icon name="fa:user" class="text-rose-800 text-[14px]" />
+              <p class="text-[12px] font-[600] text-gray-500">Total Bill:</p>
               <p class="font-[600] text-[13px] text-rose-800">{{ booking.totalAmount || '100' }}</p>
             </div>
           </div>
