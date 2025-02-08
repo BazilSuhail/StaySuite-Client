@@ -7,8 +7,9 @@
     />
 
     <!-- Listings -->
-    <div v-if="loading" class="text-center mt-8">
-      <p>Loading...</p>
+    <div v-if="loading" class="text-center mt-4">
+      <ListingsLoader/>
+      <ListingsLoader/>
     </div>
     <div
       v-else
@@ -84,6 +85,7 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import CategoryList from '@/components/CategoryList.vue';   
+import ListingsLoader from '@/components/Loaders/ListingsLoader.vue';
 
 const router = useRouter();
 

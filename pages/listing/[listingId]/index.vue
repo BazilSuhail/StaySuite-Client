@@ -1,6 +1,6 @@
 <template>
-  <div v-if="loading" class="text-center min-h-screen mt-[250px]">
-    <span>Loading...</span>
+  <div v-if="loading">
+    <LisitngDetailsLoader />
   </div>
   <div v-else-if="error" class="text-center text-red-600">
     <span>{{ error }}</span>
@@ -248,13 +248,16 @@ import Reviews from '@/components/Reviews.vue';
 import AddRating from '@/components/AddRating.vue';
 import FavoriteButton from '@/components/FavoriteButton.vue';
 import axios from 'axios';
-import { isLoggedIn } from '../../../composables/isLoggedIn.js';
+import { isLoggedIn } from '../../../composables/isLoggedIn.js'; 
+import LisitngDetailsLoader from '@/components/Loaders/LisitngDetailsLoader.vue';
+
 
 export default {
   name: 'ListingDetails',
   components: {
     Reviews,
     AddRating,
+    LisitngDetailsLoader,
     FavoriteButton,
   },
   setup() {
