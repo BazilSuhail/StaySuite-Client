@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-gray-50 pt-[120px] min-h-screen pb-[65px] justify-center items-center">
+  <div class="bg-gray-50 pt-[80px] md:pt-[120px] min-h-screen pb-[65px] justify-center items-center">
     <div class="max-w-[950px] mx-auto px-6">
-      <h3 class="text-[24px] text-rose-600 font-[700] text-start">My Reserved bookings</h3>
+      <h3 class="text-[20px] md:text-[24px] text-rose-600 font-[700] text-start">My Reserved bookings</h3>
       <div class="h-[2px] bg-rose-300 rounded-lg my-[15px] mb-[35px]"></div>
 
       <div v-if="loading">

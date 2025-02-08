@@ -1,11 +1,11 @@
 <template>
-    <main v-if="loading" class="text-center min-h-screen mt-[250px]">
+    <main v-if="loading" class="text-center min-h-screen  mt-[250px]">
         <span>Loading...</span>
     </main>
     <main v-else-if="error" class="text-center text-red-600">
         <span>{{ error }}</span>
     </main>
-    <main v-else className='px-6 min-h-screen bg-gray-100 pt-[110px] lg:pt-[150px]'>
+    <main v-else className='px-6 sm:pb-0 pb-[70px] min-h-screen bg-gray-100 pt-[110px] lg:pt-[150px]'>
         <div v-if="isEditing" class="lg:flex lg:space-x-8 lg:items-start max-w-5xl mx-auto">
             <!-- Left Section -->
             <div class="lg:w-1/3 mb-6 lg:mb-0">
@@ -56,7 +56,7 @@
             <div class="lg:flex-1">
                 <div class="bg-white p-6 rounded-[22px] border">
                     <div class="flex items-center justify-between mb-8">
-                        <h3 class="text-[28px] font-semibold">About Bazil</h3>
+                        <h3 class="text-[20px] font-semibold">About {{ userInfo.fullName.split(" ")[0] }}</h3>
                         <button @click="handleSubmit"
                             class="text-sm font-medium border-[2px] text-gray-50 bg-gray-800 px-2 py-[4px] rounded-lg">
                             Done
@@ -90,15 +90,24 @@
                     <div class="flex flex-col items-center justify-center">
                         <img :src="`/avatars/${selectedAvatar || userInfo.profilePicture}.jpg`" alt="Profile Avatar"
                             class="w-24 h-24 rounded-full border border-gray-300 shadow-md" />
-                        <h2 class="text-[25px] font-semibold">{{ userInfo.username }}</h2>
+                        <div class="sm:block hidden">
+                            <h2 class="text-[25px] font-semibold">{{ userInfo.username }}</h2>
                         <p
                             class="bg-gray-500 text-gray-100 text-center py-[1px] mt-[8px] text-[13px] rounded-[35px] w-[70px]">
                             {{ userInfo.role }}
                         </p>
+                        </div>
                     </div>
                     <div class="flex flex-col mr-[25px] items-center justify-center text-gray-500">
-                        <p class="text-[18px]">{{ formattedReviewDate }}</p>
-                        <p class="text-rose-700 font-[700]">On Airbnb</p>
+                        <div class="sm:hidden flex items-center">
+                            <h2 class="text-[25px] font-semibold">{{ userInfo.username }}</h2>
+                            <p
+                                class="bg-gray-500 ml-[15px] text-gray-100 text-center pb-[1px] text-[12px] rounded-[35px] w-[65px]">
+                                {{ userInfo.role }}
+                            </p>
+                        </div>
+                        <p class="text-[15px] sm:text-[18px]">{{ formattedReviewDate }}</p>
+                        <p class="text-rose-700 sm:text-[15px] text-[13px] font-[700]">On Airbnb</p>
                     </div>
                 </div>
 
@@ -132,12 +141,16 @@
             <!-- Right Section -->
             <div class="lg:flex-1">
                 <div class="bg-white p-6 rounded-[22px] border">
-                    <div class="flex items-center justify-between mb-8">
-                        <h3 class="text-[28px] font-semibold">About {{ userInfo.username }}</h3>
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-[22px] sm:text-[24px] font-[600]"><span
+                                class="text-gray-500 text-[16px] sm:text-[18px]">About</span> {{
+                                    userInfo.fullName.split(" ")[0] }}</h3>
                         <button @click="toggleEditing"
-                            class="text-sm font-medium border-[2px] border-gray-700 text-gray-800 px-2 py-[4px] rounded-lg">Edit
+                            class="text-[13px] font-medium border-[2px] border-gray-700 text-gray-800 px-2 pb-[2px] rounded-lg">Edit
                             profile</button>
                     </div>
+
+                    <div class="h-[3px] bg-gray-200 w-full mb-[15px]"></div>
 
                     <p><span class="font-[700] mr-[4px]">Fullname:</span> {{ userInfo.fullName }}</p>
                     <p><span class="font-[700] mr-[4px]">Email:</span> {{ userInfo.email }}</p>
@@ -150,20 +163,20 @@
                 </div>
 
                 <div class="mt-8 bg-white p-6 rounded-[22px] border">
-                    <h3 class="text-[20px] font-semibold">Ask Me In</h3>
+                    <h3 class="text-[17px] font-semibold underline underline-offset-2 mb-[4px]">Ask Me In:</h3>
                     <div class="list-disc list-inside space-y-2">
                         <p v-for="(language, index) in userInfo.languages" :key="index"
-                            class="inline-block px-[15px] text-sm mr-[4px] bg-gray-600 text-white rounded-[25px]">
+                            class="inline-block px-[15px] text-[13px] sm:text-sm mr-[4px] bg-gray-600 text-white rounded-[25px]">
                             {{ language }}
                         </p>
                         <p v-if="!userInfo.languages || userInfo.languages.length === 0" class="text-gray-500">No
                             languages available.</p>
                     </div>
 
-                    <h3 class="text-[20px] mt-[35px] font-semibold">Interests</h3>
+                    <h3 class="text-[17px] mt-[25px] mb-[8px] underline underline-offset-2 font-semibold">Interests</h3>
                     <div class="list-disc list-inside space-y-2">
                         <p v-for="(interest, index) in userInfo.interests" :key="index"
-                            class="inline-block px-[15px] text-sm mr-[4px] bg-gray-200 text-gray-600 rounded-[25px]">
+                            class="inline-block px-[15px] text-[13px] sm:text-sm  mr-[4px] bg-gray-200 text-gray-600 rounded-[25px]">
                             {{ interest }}
                         </p>
                         <p v-if="!userInfo.interests || userInfo.interests.length === 0" class="text-gray-500">No
@@ -173,21 +186,21 @@
                         <p class="text-rose-900 font-[500] mr-[15px]">Found Me at:</p>
                         <ul v-if="userInfo.socialLinks" class="list-none mt-3 ml-[35px] flex gap-[8px]">
                             <li v-if="userInfo.socialLinks.facebook"
-                                class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden bg-blue-700">
-                                <a :href="userInfo.socialLinks.facebook" target="_blank" rel="noopener noreferrer">
-                                    <Icon name="fa:facebook" class="text-[24px]" />
-                                </a>
+                                class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden pt-[3px] bg-blue-700">
+                                <NuxtLink :to="userInfo.socialLinks.facebook" target="_blank" rel="noopener noreferrer">
+                                    <Icon name="fa:facebook" class="text-[16px]" />
+                                </NuxtLink>
                             </li>
                             <li v-if="userInfo.socialLinks.instagram"
-                                class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden bg-pink-700">
+                                class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden pt-[3px] bg-pink-700">
                                 <a :href="userInfo.socialLinks.instagram" target="_blank" rel="noopener noreferrer">
-                                    <Icon name="fa:instagram" class="text-[24px]" />
+                                    <Icon name="fa:instagram" class="text-[16px]" />
                                 </a>
                             </li>
                             <li v-if="userInfo.socialLinks.linkedin"
-                                class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden bg-blue-700">
+                                class="w-[30px] h-[30px] rounded-full text-white flex items-center justify-center overflow-hidden pt-[3px] bg-blue-700">
                                 <a :href="userInfo.socialLinks.linkedin" target="_blank" rel="noopener noreferrer">
-                                    <Icon name="fa6-brands:linkedin-in" class="text-[24px]" />
+                                    <Icon name="fa6-brands:linkedin-in" class="text-[16px]" />
                                 </a>
                             </li>
                         </ul>
@@ -228,26 +241,26 @@ export default {
         };
     },
     computed: {
-    formattedReviewDate() {
-      if (!this.userInfo || !this.userInfo.createdAt) return "N/A";
+        formattedReviewDate() {
+            if (!this.userInfo || !this.userInfo.createdAt) return "N/A";
 
-      const reviewDate = new Date(this.userInfo.createdAt);
-      const now = new Date();
-      const timeDiff = now - reviewDate;
+            const reviewDate = new Date(this.userInfo.createdAt);
+            const now = new Date();
+            const timeDiff = now - reviewDate;
 
-      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-      const months = Math.floor(days / 30);
-      const years = Math.floor(days / 365);
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const months = Math.floor(days / 30);
+            const years = Math.floor(days / 365);
 
-      if (years >= 1) {
-        return `${years} year${years > 1 ? "s" : ""} ago`;
-      } else if (months >= 1) {
-        return `${months} month${months > 1 ? "s" : ""} ago`;
-      } else {
-        return `${days} day${days > 1 ? "s" : ""} ago`;
-      }
+            if (years >= 1) {
+                return `${years} year${years > 1 ? "s" : ""} ago`;
+            } else if (months >= 1) {
+                return `${months} month${months > 1 ? "s" : ""} ago`;
+            } else {
+                return `${days} day${days > 1 ? "s" : ""} ago`;
+            }
+        },
     },
-  },
     methods: {
         async fetchUserProfile() {
             try {

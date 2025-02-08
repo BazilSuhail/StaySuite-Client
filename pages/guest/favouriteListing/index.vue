@@ -1,8 +1,8 @@
 <template>
-    <div class="bg-gray-100 pt-[115px] p-6 min-h-screen justify-center items-center">
+    <div class="bg-gray-100 pt-[90px] md:pt-[120px] p-6 min-h-screen justify-center items-center">
       <div class="max-w-[1150px] mx-auto">
-        <h3 class="text-[24px] mb-[15px] text-rose-600 font-[700]">Favourite Listings</h3>
-        <div class="h-[2.5px] bg-rose-600 mb-[35px] lg:mb-[55px]"></div>
+        <h3 class="text-[20px] sm:text-[24px] mb-[15px] text-rose-600 font-[700]">Favourite Listings</h3>
+        <div class="h-[2px] md:h-[2.5px] bg-rose-600 mb-[35px] lg:mb-[55px]"></div>
   
         <div v-if="error" class="flex flex-col justify-center items-center mix-blend-multiply">
           <img src="/assets/noFavourites.webp" alt="No Favourites" class="scale-[0.6] md:scale-[0.7] opacity-70" />
@@ -15,13 +15,13 @@
               v-for="listing in listings"
               :key="listing._id"
               @click="navigateToListing(listing._id)"
-              class="overflow-hidden mx-auto w-[330px] sm:w-full cursor-pointer bg-white border rounded-xl hover:shadow-md transition duration-200"
+              class="overflow-hidden w-full cursor-pointer bg-white border rounded-xl hover:shadow-md transition duration-200"
             >
               <img
                 :src="listing.images.coverPicture || 'https://via.placeholder.com/300'"
                 :alt="listing.name"
                 loading="lazy"
-                class="m-2 h-[220px] w-[95%]"
+                class="h-[220px] sm:h-[280px] md:h-[220px] w-[100%]"
               />
               <div class="p-4">
                 <h2 class="font-semibold text-lg">{{ listing.name }}</h2>

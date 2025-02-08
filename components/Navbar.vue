@@ -1,6 +1,6 @@
 <template>
-  <header class="bg-white fixed w-full pb-[10px] z-50 top-0">
-    
+  <header class="bg-white fixed w-full md:pb-[10px] z-50 top-0">
+
     <FiltersModal v-if="isFiltersModalOpen" v-model:onClose="isFiltersModalOpen" />
 
     <nav class="hidden md:block">
@@ -67,16 +67,16 @@
           <div @click="toggleMenu"
             class="flex flex-col absolute z-[800] right-0 mr-[75px] w-[250px] bg-white rounded-lg border shadow-xl mt-5 p-4"
             v-motion="{
-                initial: { y: -500, opacity: 0 },
-                enter: {
-                    y: 0,
-                    opacity: 1, 
-                    transition: {
-                        type: 'tween',
-                        duration: 400,
-                        ease: 'easeOut',
-                    },
+              initial: { y: -500, opacity: 0 },
+              enter: {
+                y: 0,
+                opacity: 1,
+                transition: {
+                  type: 'tween',
+                  duration: 400,
+                  ease: 'easeOut',
                 },
+              },
             }">
             <div>
               <div v-if="user">
@@ -140,7 +140,7 @@
     </nav>
 
     <nav class="md:hidden block">
-      <div class="flex z-[999] items-center py-[10px] px-[18px] w-screen">
+      <div class="flex z-[900] items-center py-[10px] px-[18px] w-screen">
         <div @click="isFiltersModalOpen = true"
           class="border-[2px] w-[85%] border-gray-300 rounded-[25px] flex items-center py-[5px] px-3">
           <Icon name="fa:search" class="text-gray-700 mr-5" size="25" />
@@ -157,8 +157,20 @@
       </div>
 
       <client-only>
-        <div v-if="isOpen" class="sm:hidden">
-          <div class="flex flex-col z-10 bg-white rounded-lg shadow-md mt-2 p-4">
+        <div v-if="isOpen" class="sm:hidden ">
+          <div class="flex flex-col bg-white rounded-lg shadow-md mt-2 p-4"
+           v-motion="{
+            initial: { x: -500, opacity: 0 },
+            enter: {
+              x: 0,
+              opacity: 1,
+              transition: {
+                type: 'tween',
+                duration: 400,
+                ease: 'easeOut',
+              },
+            },
+          }">
             <div v-if="user">
               <div v-if="userRole === 'Host'">
                 <NuxtLink to="/host/host-bookings" @click="toggleMenu"
@@ -297,7 +309,7 @@ import { storeToRefs } from "pinia";
 import { useAuthStore } from "../store/auth.js"
 import FiltersModal from '@/components/FilterModal.vue';
 import { useRouter } from "vue-router";
- 
+
 
 export default {
   components: {
