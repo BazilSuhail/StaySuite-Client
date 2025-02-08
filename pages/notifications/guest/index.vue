@@ -105,18 +105,23 @@
   </div>
 </template>
 
-<script setup>
-import { useRouter } from "#app";
+<script setup> 
 import { useAuthStore } from "../../../store/auth";
 
-// Fetch notifications and userNotifications during SSR
-const { data: notifications } = await useAsyncData('notifications', () => useAuthStore().notifications);
-const { data: userNotifications } = await useAsyncData('userNotifications', () => useAuthStore().userNotifications);
+import { ref, onMounted,computed } from 'vue';
+import { useRouter } from 'vue-router';
 
+// Access authentication store
+const authStore = useAuthStore();
 const router = useRouter();
 
-// Scroll to top on mount
-onMounted(() => {
+// Make notifications reactive
+const notifications = computed(() => authStore.notifications);
+const userNotifications = computed(() => authStore.userNotifications);
+
+// Fetch notifications on page load
+onMounted(async () => {
+  await authStore.initialize(); // Ensures token validation and data fetch
   window.scrollTo(0, 0);
 });
 

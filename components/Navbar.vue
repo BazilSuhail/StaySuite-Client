@@ -10,7 +10,7 @@
           <div class="flex items-center">
             <img src="/logo.svg" alt="" class="w-[32px] mr-[5px] h-[27px] mt-[2px]" />
             <NuxtLink to="/" class="text-[24px] font-[780] text-red-500">
-              airbnb
+              StaySuite
             </NuxtLink>
           </div>
 
@@ -284,6 +284,8 @@
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "../store/auth.js"
 import FiltersModal from '@/components/FilterModal.vue';
+import { useRouter } from "vue-router";
+ 
 
 export default {
   components: {
@@ -293,8 +295,10 @@ export default {
     const isFiltersModalOpen = ref(false);
     const userStore = useAuthStore();
     const userStored = storeToRefs(userStore);
+    const router = useRouter();
     //console.log("count is " + userStore.notificationsCount)
     return {
+      router,
       isFiltersModalOpen,
       user: userStored.user,
       userRole: userStored.userRole,
@@ -345,8 +349,9 @@ export default {
     handleLogout() {
       //localStorage.removeItem('token');
       this.logout();
-      toggleMenu();
-      navigate('/authentication/signIn');
+      //toggleMenu();
+      this.isOpen = false;
+      this.router.push('/authentication/signIn');
     },
     handleScroll() {
       if (window.scrollY > 50) {
