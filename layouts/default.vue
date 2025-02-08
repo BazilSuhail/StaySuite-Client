@@ -2,6 +2,7 @@
 import { useAuthStore } from '../store/auth';
 import Navbar from '../components/Navbar.vue';
 import { onMounted } from 'vue';
+import Footer from '../components/Footer.vue';
 
 const authStore = useAuthStore();
 
@@ -17,5 +18,7 @@ onMounted(() => {
     <div>
       <slot />
     </div>
+    <Footer />
+
   </div>
 </template>
