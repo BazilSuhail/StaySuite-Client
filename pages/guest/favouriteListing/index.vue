@@ -1,6 +1,7 @@
 <template>
     <div class="bg-gray-100 pt-[90px] md:pt-[120px] p-6 min-h-screen justify-center items-center">
       <div class="max-w-[1150px] mx-auto">
+        <Icons name="material-symbols-light:bookmark-check-sharp" class="text-rose-600 "/>
         <h3 class="text-[20px] sm:text-[24px] mb-[15px] text-rose-600 font-[700]">Favourite Listings</h3>
         <div class="h-[2px] md:h-[2.5px] bg-rose-600 mb-[35px] lg:mb-[55px]"></div>
   

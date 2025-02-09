@@ -245,7 +245,7 @@
             <div v-else>
               <NuxtLink to="/guest/favouriteListing"
                 :class="`flex flex-col items-center ${isActive('/guest/favouriteListing') ? 'text-rose-600' : 'text-gray-400'}`">
-                <Icon name="fa6-solid:heart" class="mb-[6px] text-[24px]" />
+                <Icon name="material-symbols-light:bookmark-check-sharp" class="mb-[1px] scale-[1.2] text-[28px]" />
                 <span class="text-xs">Favourites</span>
               </NuxtLink>
             </div>
@@ -255,7 +255,7 @@
             <div v-if="userRole === 'Host'">
               <NuxtLink to="/host/host-listings"
                 :class="`flex flex-col items-center ${isActive('/host/host-listings') ? 'text-rose-600' : 'text-gray-400'}`">
-                <Icon name="fa6-solid:chalkboard-user" class="mb-[7px] text-[24px]" />
+                <Icon name="material-symbols-light:dashboard-rounded" class="mb-[7px] scale-[1.3] text-[24px]" />
                 <span class="text-xs">Dashboard</span>
               </NuxtLink>
             </div>
@@ -263,8 +263,8 @@
             <div v-else>
               <NuxtLink to="/guest/reserved-bookings"
                 :class="`flex flex-col items-center ${isActive('/guest/reserved-bookings') ? 'text-rose-600' : 'text-gray-400'}`">
-                <Icon name="fa6-solid:bed" class="mb-[7px] text-[24px]" />
-                <span class="text-xs">MyBookings</span>
+                <Icon name="material-symbols-light:add-photo-alternate" class="mb-[7px] scale-[1.34] text-[24px]" />
+                <span class="text-xs">Bookings</span>
               </NuxtLink>
             </div>
           </div>
@@ -283,17 +283,17 @@
             </NuxtLink>
           </div>
           <div v-else>
-            <NuxtLink to="/authentication/signUp" :class="`flex flex-col items-center ${isActive('/signUp') ? 'text-rose-600' : 'text-gray-400'
+            <NuxtLink to="/authentication/signUp" :class="`flex flex-col items-center ${isActive('/authentication/signUp') ? 'text-rose-600' : 'text-gray-400'
               }`">
-              <Icon name="fa6-solid:bell" class="mb-[5px] text-[26px]" />
-              <span class="text-xs">Alerts</span>
+              <Icon name="fa6-solid:user-large" class="mb-[5px] text-[24px]" />
+              <span class="text-xs">Register</span>
             </NuxtLink>
           </div>
 
           <div>
             <NuxtLink :to="user ? '/authentication/profile' : '/authentication/signIn'"
               :class="`flex flex-col items-center ${isActive(user ? '/authentication/profile' : '/authentication/signIn') ? 'text-rose-600' : 'text-gray-400'}`">
-              <Icon :name="user ? 'fa6-solid:user-large' : 'fa6-solid:user-large'" class="mb-[6px] text-[24px]" />
+              <Icon :name="user ? 'fa6-solid:user-large' : 'material-symbols-light:how-to-reg-rounded'" :class="user ? 'mb-[6px] text-[24px]' : 'mb-[6px] text-[24px] scale-[1.7]'" />
               <span class="text-xs">{{ user ? 'Profile' : 'JoinUs' }}</span>
             </NuxtLink>
           </div>
