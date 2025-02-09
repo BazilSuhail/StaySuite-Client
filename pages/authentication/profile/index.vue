@@ -91,7 +91,7 @@
                         <img :src="`/avatars/${selectedAvatar || userInfo.profilePicture}.jpg`" alt="Profile Avatar"
                             class="w-24 h-24 rounded-full border border-gray-300 shadow-md" />
                         <div class="sm:block hidden">
-                            <h2 class="text-[25px] font-semibold">{{ userInfo.username }}</h2>
+                            <h2 class="text-[25px] font-semibold">{{ userInfo.username.split(" ")[0] }}</h2>
                             <p
                                 class="bg-gray-500 text-gray-100 text-center py-[1px] mt-[8px] text-[13px] rounded-[35px] w-[70px]">
                                 {{ userInfo.role }}
@@ -100,7 +100,7 @@
                     </div>
                     <div class="flex flex-col mr-[25px] items-center justify-center text-gray-500">
                         <div class="sm:hidden flex items-center">
-                            <h2 class="text-[25px] font-semibold">{{ userInfo.username }}</h2>
+                            <h2 class="text-[25px] font-semibold">{{ userInfo.username.split(" ")[0] }}</h2>
                             <p
                                 class="bg-gray-500 ml-[15px] text-gray-100 text-center pb-[1px] text-[12px] rounded-[35px] w-[65px]">
                                 {{ userInfo.role }}

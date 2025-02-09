@@ -9,7 +9,7 @@
 
 
             <div v-if="isLoading" class="flex justify-center items-center">
-                <Loader/>
+                <Loader />
             </div>
             <div v-else-if="userNotifications.length === 0 && notifications.length === 0"
                 class="min-h-screen w-full flex justify-center items-center mix-blend-multiply mt-[-250px]">
@@ -34,7 +34,7 @@
                     </div>
                     <p class="ml-[49px]">
                         <span class="text-rose-500 text-[16px] font-[700]">Special Requests: </span>{{
-                        notification.details }}
+                            notification.details }}
                     </p>
                     <button @click="fetchBookingDetails(notification.bookingId)"
                         class="ml-[48px] text-rose-700 underline underline-offset-2 font-[500] mt-[4px] text-start">
@@ -59,7 +59,7 @@
                     </div>
                     <p class="ml-[49px] text-rose-800">
                         <span class="text-rose-400 text-[16px] font-[600]">Special Requests: </span>{{
-                        notification.details }}
+                            notification.details }}
                     </p>
                     <button @click="fetchBookingDetails(notification.bookingId)"
                         class="ml-[48px] text-rose-700 underline underline-offset-2 font-[500] mt-[4px] text-start">
@@ -69,9 +69,24 @@
             </div>
         </div>
 
-        <div v-if="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center px-[15px] z-50">
-            <div class="bg-white rounded-lg p-6 shadow-lg lg:w-[600px] sm:w-[450px] w-[100%] relative">
-                <button @click="closeModal" class="absolute top-4 right-4 scale-x-[1.3] text-gray-500 hover:text-gray-700">
+        <div v-if="isModalOpen"
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center px-[15px] z-50">
+            <div class="bg-white rounded-lg p-6 shadow-lg lg:w-[600px] sm:w-[450px] w-[100%] relative" 
+                v-motion="{
+                    initial: { y: 900, opacity: 0, scale: 0 },
+                    enter: {
+                        y: 0,
+                        opacity: 1,
+                        scale: 1,
+                        transition: {
+                            type: 'tween',
+                            duration: 400,
+                            ease: 'easeOut',
+                        },
+                    },
+                }">
+                <button @click="closeModal"
+                    class="absolute top-4 right-4 scale-x-[1.3] text-gray-500 hover:text-gray-700">
                     X
                 </button>
 
@@ -86,7 +101,8 @@
                 <div class="space-y-2">
                     <div class="border-b-[2px] border-rose-700 pb-[8px] flex justify-between items-center">
                         <p class="text-gray-500 text-[12px] font-medium">
-                            Name: <span class="md:text-[15px] text-[13px] text-gray-700">{{ bookingDetails.listing.name || 'No title found' }}</span>
+                            Name: <span class="md:text-[15px] text-[13px] text-gray-700">{{ bookingDetails.listing.name
+                                || 'No title found' }}</span>
                         </p>
 
                         <NuxtLink :to="`/listing/${bookingDetails.listing._id}`"
@@ -101,16 +117,16 @@
                     </p>
                     <p class="text-gray-700 text-[14px] mt-[15px] font-medium flex items-center gap-2">
                         <label
-                            class="w-[30px] h-[30px] text-[18px] bg-rose-600 flex justify-center items-center rounded-full text-white">
-                            <Icon name="fa:calendar" class="text-[16px]" />
+                            class="w-[25px] h-[25px] text-[18px] bg-rose-600 flex justify-center items-center rounded-full text-white">
+                            <Icon name="fa:calendar" class="text-[13px]" />
                         </label>
                         Check-In: <span class="font-[600] text-green-700">{{ new
                             Date(bookingDetails.booking.checkIn).toDateString() }}</span>
                     </p>
                     <p class="text-gray-700 text-[14px] font-medium flex items-center gap-2">
                         <label
-                            class="w-[30px] h-[30px] text-[18px] bg-rose-600 flex justify-center items-center rounded-full text-white">
-                            <Icon name="fa:calendar" class="text-[16px]" />
+                            class="w-[25px] h-[25px] text-[18px] bg-rose-600 flex justify-center items-center rounded-full text-white">
+                            <Icon name="fa:calendar" class="text-[12px]" />
                         </label>
                         Check-Out: <span class="font-[600] text-red-700">{{ new
                             Date(bookingDetails.booking.checkOut).toDateString() }}</span>
@@ -120,8 +136,8 @@
                 <div class="mt-4">
                     <p class="text-gray-700 font-medium mb-1 flex items-center gap-2">
                         <label
-                            class="w-[30px] h-[30px] text-[18px] bg-rose-600 flex justify-center items-center rounded-full text-white">
-                            <Icon name="fa:user" class="text-[19px]" />
+                            class="w-[25px] h-[25px] text-[18px] bg-rose-600 flex justify-center items-center rounded-full text-white">
+                            <Icon name="fa:user" class="text-[15px]" />
                         </label>
                         Guests:
                     </p>
@@ -133,7 +149,8 @@
                 </div>
 
                 <p class="text-gray-700 font-medium mt-4">
-                    Total Amount: <span class="font-bold text-green-500">${{ bookingDetails.booking.totalAmount || 'sd'
+                    Total Amount: <span class="font-bold text-green-500">${{
+                        bookingDetails.booking.totalAmount.toFixed(2) || ''
                         }}</span>
                 </p>
 

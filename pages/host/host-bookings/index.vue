@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loading" class="bg-gray-100 pt-[115px] p-6 min-h-screen justify-center items-center">
+  <div v-if="loading">
     <Loader/>
   </div>
 
