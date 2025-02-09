@@ -6,7 +6,7 @@
 
       <!-- Display loading or error states -->
       <div v-if="loading" class="flex justify-center items-center">
-        loader
+        <Loader/>
       </div>
 
       <div v-else-if="error || bookings.length === 0"
@@ -60,8 +60,12 @@
 
 <script>
 import axios from 'axios';
+import Loader from '@/components/Loaders/Loader.vue';
 
 export default {
+  components: {
+        Loader,
+    },
   data() {
     return {
       bookings: [],

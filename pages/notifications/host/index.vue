@@ -9,7 +9,7 @@
 
 
             <div v-if="isLoading" class="flex justify-center items-center">
-                <p>Loading...</p>
+                <Loader/>
             </div>
             <div v-else-if="userNotifications.length === 0 && notifications.length === 0"
                 class="min-h-screen w-full flex justify-center items-center mix-blend-multiply mt-[-250px]">
@@ -148,8 +148,12 @@
 <script>
 import axios from "axios";
 import { useAuthStore } from "../../../store/auth";
+import Loader from "@/components/Loaders/Loader.vue";
 
 export default {
+    components: {
+        Loader,
+    },
     data() {
         return {
             notifications: [],

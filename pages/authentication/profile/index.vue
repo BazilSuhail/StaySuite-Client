@@ -1,6 +1,6 @@
 <template>
     <main v-if="loading" class="text-center min-h-screen pt-[250px]">
-        <span>Loading...</span>
+        <Loader />
     </main>
     <main v-else-if="error" class="text-center text-red-600">
         <span>{{ error }}</span>
@@ -92,10 +92,10 @@
                             class="w-24 h-24 rounded-full border border-gray-300 shadow-md" />
                         <div class="sm:block hidden">
                             <h2 class="text-[25px] font-semibold">{{ userInfo.username }}</h2>
-                        <p
-                            class="bg-gray-500 text-gray-100 text-center py-[1px] mt-[8px] text-[13px] rounded-[35px] w-[70px]">
-                            {{ userInfo.role }}
-                        </p>
+                            <p
+                                class="bg-gray-500 text-gray-100 text-center py-[1px] mt-[8px] text-[13px] rounded-[35px] w-[70px]">
+                                {{ userInfo.role }}
+                            </p>
                         </div>
                     </div>
                     <div class="flex flex-col mr-[25px] items-center justify-center text-gray-500">
@@ -218,8 +218,12 @@
 <script>
 import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
+import Loader from '@/components/Loaders/Loader.vue';
 
 export default {
+    components: {
+        Loader,
+    },
     data() {
         return {
             userInfo: null,
@@ -227,7 +231,6 @@ export default {
             isEditing: false,
             loading: true,
             error: null,
-
             // Avatar code
             isAvatarModalOpen: false,
             selectedAvatar: null,

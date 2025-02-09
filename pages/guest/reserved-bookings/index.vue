@@ -5,9 +5,8 @@
       <div class="h-[2px] bg-rose-300 rounded-lg my-[15px] mb-[35px]"></div>
 
       <div v-if="loading">
-        loading
+        <Loader/>
       </div>
-
       <div v-else>
         <div v-if="error || bookings.length === 0"
           class="min-h-screen w-full flex flex-col justify-center items-center mix-blend-multiply mt-[-150px]">
@@ -125,7 +124,7 @@
 
             <div
               class="border-b-[2px] w-full border-rose-700 pb-[8px] flex sm:flex-row flex-col space-y-[5px] justify-between sm:items-center">
-              <p class="text-gray-700 font-medium w-[calc(100%-105px)] overflow-hidden">
+              <p class="text-gray-700 font-medium w-full sm:w-[calc(100%-105px)] overflow-hidden">
                 Name: <span class="font-normal">{{ selectedBooking.listing.name.length > 25 ?
                   `${selectedBooking.listing.name.slice(0, 25)}...` : selectedBooking.listing.name }}</span>
               </p>
@@ -196,8 +195,12 @@
 </template>
 <script>
 import axios from 'axios';
+import Loader from '@/components/Loaders/Loader.vue';
 
 export default {
+  components: {
+        Loader,
+    },
   data() {
     return {
       bookings: [],

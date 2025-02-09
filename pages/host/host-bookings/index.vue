@@ -1,6 +1,6 @@
 <template>
   <div v-if="loading" class="bg-gray-100 pt-[115px] p-6 min-h-screen justify-center items-center">
-    loading
+    <Loader/>
   </div>
 
   <div v-else class="bg-gray-100 pt-[85px] lg:pt-[115px] px-4 lg:px-6 min-h-screen justify-center items-center">
@@ -193,9 +193,13 @@
 <script>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import Loader from '@/components/Loaders/Loader.vue';
 
 export default {
   name: 'HostBookings',
+  components: {
+        Loader,
+    },
   setup() {
     const bookings = ref([]);
     const error = ref('');

@@ -1,8 +1,7 @@
 <template>
     <div>
         <div v-if="loading" class="flex justify-center items-center min-h-screen">
-
-            laoding
+<Loader/>
         </div>
 
         <div v-else-if="error" class="bg-gray-50 pt-[90px] min-h-screen pb-[65px] flex justify-center items-center">
@@ -81,6 +80,7 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+import Loader from '../../../components/Loaders/Loader.vue';
 //  import MyLoader from '~/assets/MyLoader.vue';
 //import noReservations from '~/assets/PhotosAssets/noReservations.webp';
 

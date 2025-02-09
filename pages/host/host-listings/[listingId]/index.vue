@@ -2,7 +2,7 @@
   <!-- Loader -->
 
   <div v-if="isLoading" class="flex items-center justify-center h-screen">
-    <div class="loader border-t-4 border-blue-500 rounded-full w-16 h-16 animate-spin"></div>
+    <Loader/>
   </div>
 
   <div v-else class="bg-gray-50 flex px-4 flex-col justify-center pt-[110px] xl:px-[250px] min-h-screen items-center">
@@ -166,7 +166,7 @@
               class="w-full p-2 border rounded placeholder:text-[14px]" />
           </div>
 
-         
+
 
           <!-- Image Previews -->
           <aside class="col-span-3 space-y-4 space-x-[35px]">
@@ -186,17 +186,18 @@
                   class="w-[250px] md:w-[150px] h-[160px] md:h-[100px] object-cover rounded-md" />
               </div>
             </div>
- 
+
             <!-- Preview of Additional Pictures -->
-<div class="grid grid-cols-1 md:grid-cols-3">
-  <template v-if="formData.images && formData.images.additionalPictures && formData.images.additionalPictures.length">
-    <div v-for="(url, index) in formData.images.additionalPictures" :key="index" class="mb-4">
-      <label class="block text-gray-600 mb-1">Property Image {{ index + 1 }}'s Preview</label>
-      <img :src="url" alt="Connection Error"
-        class="w-[250px] md:w-[150px] h-[160px] md:h-[100px] object-cover rounded-md" />
-    </div>
-  </template>
-</div>
+            <div class="grid grid-cols-1 md:grid-cols-3">
+              <template
+                v-if="formData.images && formData.images.additionalPictures && formData.images.additionalPictures.length">
+                <div v-for="(url, index) in formData.images.additionalPictures" :key="index" class="mb-4">
+                  <label class="block text-gray-600 mb-1">Property Image {{ index + 1 }}'s Preview</label>
+                  <img :src="url" alt="Connection Error"
+                    class="w-[250px] md:w-[150px] h-[160px] md:h-[100px] object-cover rounded-md" />
+                </div>
+              </template>
+            </div>
 
           </aside>
         </div>
@@ -216,8 +217,12 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
+import Loader from '@/components/Loaders/Loader.vue';
 
 export default {
+  components: {
+        Loader,
+    },
   setup() {
     const route = useRoute();
     const router = useRouter();
@@ -235,8 +240,8 @@ export default {
       amenities: [],
       category: '',
       images: {
-    additionalPictures: [], // Ensures an empty array exists
-  },
+        additionalPictures: [], // Ensures an empty array exists
+      },
     });
 
     const fetchListingDetails = async () => {
@@ -250,10 +255,10 @@ export default {
         );
         //console.log(data.listing);
         Object.assign(formData.value, data.listing);
-      } 
+      }
       catch (error) {
         console.error('Error fetching listing:', error);
-      } 
+      }
       finally {
         isLoading.value = false; // Stop the loader once data is fetched
       }
@@ -279,7 +284,7 @@ export default {
         );
         alert('Listing updated successfully!');
         router.push('/host/host-listings');
-      } 
+      }
       catch (error) {
         console.error('Error updating listing:', error);
       }
