@@ -8,13 +8,14 @@
   <div v-else class="w-full overflow-x-hidden px-[18px] sm:px-6 xl:px-[160px] min-h-screen pb-[80px] lg:py-6 bg-white">
 
     <div class="mt-[85px] mb-[10px] flex items-center">
-      <Icon name="fa6-brands:font-awesome" class="md:text-[22px] text-[16px] md:mr-[12px] mr-[5px] text-gray-400" /> 
+      <Icon name="fa6-brands:font-awesome" class="md:text-[22px] text-[16px] md:mr-[12px] mr-[5px] text-gray-400" />
       <div class="md:text-[24px] text-[18px] font-semibold">{{ listing.name }}</div>
     </div>
 
     <Reviews v-if="showModal" :listingId="listingId" :ratingReviews="ratingReviews" @close="handleCloseReviews" />
 
-    <div v-if="isListingPicturesModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div v-if="isListingPicturesModalOpen"
+      class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div
         class="bg-white rounded-lg overflow-y-auto pb-[25px] no-scrollbar h-[80vh] w-[95vw] px-[8px] space-y-[8px] flex flex-col md:w-[90vw] mx-4 md:mx-auto shadow-lg"
         v-motion="{
@@ -65,7 +66,8 @@
       <div class="lg:col-span-2 space-y-4">
         <div class="flex md:flex-row flex-col md:justify-between md:items-center space-y-4">
           <div>
-            <h2 class="text-[18px] lg:text-2xl font-semibold">{{ listing.property_type || '' }} In {{ listing.address.suburb || '' }},
+            <h2 class="text-[18px] lg:text-2xl font-semibold">{{ listing.property_type || '' }} In {{
+              listing.address.suburb || '' }},
               {{ listing.address.country || '' }}</h2>
             <p class="text-gray-600">{{ listing.bedrooms }} beds · {{ listing.bathrooms }} Shared bathroom</p>
           </div>
@@ -100,7 +102,8 @@
 
           <button @click="showModal = true" class="flex flex-col items-center justify-center">
             <span class="text-[20px] md:text-[24px] text-rose-700 font-[600]">{{ ratingReviews.reviewCount }}</span>
-            <span class="text-rose-800 mt-[-8px] font-[600] text-[14px] md:text-[15px] underline">Review{{ ratingReviews.reviewCount === 1 ? "" : "s" }}</span>
+            <span class="text-rose-800 mt-[-8px] font-[600] text-[14px] md:text-[15px] underline">Review{{
+              ratingReviews.reviewCount === 1 ? "" : "s" }}</span>
           </button>
         </div>
 
@@ -248,8 +251,9 @@ import Reviews from '@/components/Reviews.vue';
 import AddRating from '@/components/AddRating.vue';
 import FavoriteButton from '@/components/FavoriteButton.vue';
 import axios from 'axios';
-import { isLoggedIn } from '../../../composables/isLoggedIn.js'; 
+import { isLoggedIn } from '../../../composables/isLoggedIn.js';
 import LisitngDetailsLoader from '@/components/Loaders/LisitngDetailsLoader.vue';
+
 
 
 export default {
@@ -261,6 +265,14 @@ export default {
     FavoriteButton,
   },
   setup() {
+    // Set the initial title
+    useHead({
+      title: 'StaySuite - Property Details',
+      meta: [
+        { name: 'description', content: 'View detailed information about this property on StaySuite.' },
+      ],
+    });
+
     const route = useRoute();
     const listingId = route.params.listingId;
     const router = useRouter();
@@ -338,7 +350,7 @@ export default {
     };
 
     const handleBooking = () => {
-      router.push(`/guest/make-booking/${hostListingId.value}/${listingId}`); 
+      router.push(`/guest/make-booking/${hostListingId.value}/${listingId}`);
     };
 
     return {

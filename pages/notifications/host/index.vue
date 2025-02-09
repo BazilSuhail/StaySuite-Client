@@ -71,20 +71,19 @@
 
         <div v-if="isModalOpen"
             class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center px-[15px] z-50">
-            <div class="bg-white rounded-lg p-6 shadow-lg lg:w-[600px] sm:w-[450px] w-[100%] relative" 
-                v-motion="{
-                    initial: { y: 900, opacity: 0, scale: 0 },
-                    enter: {
-                        y: 0,
-                        opacity: 1,
-                        scale: 1,
-                        transition: {
-                            type: 'tween',
-                            duration: 400,
-                            ease: 'easeOut',
-                        },
+            <div class="bg-white rounded-lg p-6 shadow-lg lg:w-[600px] sm:w-[450px] w-[100%] relative" v-motion="{
+                initial: { y: 900, opacity: 0, scale: 0 },
+                enter: {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    transition: {
+                        type: 'tween',
+                        duration: 400,
+                        ease: 'easeOut',
                     },
-                }">
+                },
+            }">
                 <button @click="closeModal"
                     class="absolute top-4 right-4 scale-x-[1.3] text-gray-500 hover:text-gray-700">
                     X
@@ -151,7 +150,7 @@
                 <p class="text-gray-700 font-medium mt-4">
                     Total Amount: <span class="font-bold text-green-500">${{
                         bookingDetails.booking.totalAmount.toFixed(2) || ''
-                        }}</span>
+                    }}</span>
                 </p>
 
                 <p class="text-sm text-gray-500 italic mt-2">
@@ -181,6 +180,13 @@ export default {
         };
     },
     setup() {
+        // Set the initial title
+useHead({
+  title: 'StaySuite - Notifications',
+  meta: [
+    { name: 'description', content: 'View updates about booking on your listed Properties.' },
+  ],
+});
         const { notifications, userNotifications } = useAuthStore();
         return { notifications, userNotifications };
     },
@@ -216,8 +222,8 @@ export default {
     },
     mounted() {
         window.scrollTo(0, 0);
-        this.fetchNotifications(); // Ensure this runs to update isLoading
-    },
+        this.fetchNotifications();
+    }, 
 };
 
 </script>
