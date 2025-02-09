@@ -21,10 +21,10 @@
                     class="border-b-[2px] border-rose-700 lg:px-[20px] py-[15px] flex flex-col">
                     <div class="flex items-center">
                         <div
-                            class="w-[32px] h-[32px] md:w-[38px] md:h-[38px] rounded-full flex items-center justify-center text-[23px] bg-rose-800 text-rose-50">
+                            class="w-[28px] h-[28px] md:w-[32px] md:h-[32px] rounded-full flex items-center justify-center text-[17px] lg:text-[20px] bg-rose-800 text-rose-50">
                             <Icon name="ic:outline-bookmark-add" />
                         </div>
-                        <h3 class="text-[16px] ml-[12px] text-rose-600 font-[500]">
+                        <h3 class="text-[15px] md:text-[18px] ml-[15px] text-rose-600 font-[500]">
                             New Booking Created at Your Property In
                             <span @click="navigateTo(`/listing/${notification.listing_Id}`)"
                                 class="text-rose-800 text-[17px] cursor-pointer underline underline-offset-1 font-[600]">
@@ -33,36 +33,39 @@
                         </h3>
                     </div>
                     <p class="ml-[49px]">
-                        <span class="text-rose-500 text-[16px] font-[700]">Special Requests: </span>{{
-                            notification.details }}
+                        <span class="text-rose-500 text-[16px] font-[700]">Special Requests: </span>
+                        <br>
+                        {{ notification.details }}
                     </p>
                     <button @click="fetchBookingDetails(notification.bookingId)"
-                        class="ml-[48px] text-rose-700 underline underline-offset-2 font-[500] mt-[4px] text-start">
+                        class="ml-[48px] text-rose-700 underline text-[14px] underline-offset-2 font-[500] mt-[8px] text-start">
                         See Booking
                     </button>
                 </div>
 
+                <!-- -->
+
                 <div v-for="(notification, index) in userNotifications" :key="index"
-                    class="bg-rose-50 rounded-[25px] lg:px-[20px] py-[15px] flex flex-col">
+                    class="bg-rose-50 rounded-[25px] px-[10px] lg:px-[20px] py-[15px] flex flex-col">
                     <div class="flex items-center">
-                        <div
-                            class="w-[32px] h-[32px] md:w-[38px] md:h-[38px] rounded-full flex items-center justify-center text-[22px] bg-rose-200 text-rose-600">
+                        <div class="w-[28px] h-[28px] md:w-[32px] md:h-[32px] rounded-full flex items-center justify-center text-[17px] lg:text-[20px] bg-rose-200 text-rose-600">
                             <Icon name="ic:baseline-collections-bookmark" />
                         </div>
-                        <h3 class="text-[16px] ml-[12px] text-rose-400 font-[500]">
+                        <h3 class="text-[15px] md:text-[18px] ml-[15px] text-rose-500 font-[600]">
                             Booking Created at Your Property In
                             <span @click="navigateTo(`/listing/${notification.listing_Id}`)"
-                                class="text-rose-500 text-[17px] cursor-pointer underline underline-offset-1 font-[600]">
+                                class="text-rose-700 text-[17px] cursor-pointer underline underline-offset-1 font-[600]">
                                 {{ notification.location }}
                             </span>
                         </h3>
                     </div>
                     <p class="ml-[49px] text-rose-800">
-                        <span class="text-rose-400 text-[16px] font-[600]">Special Requests: </span>{{
-                            notification.details }}
+                        <span class="text-rose-400 underline underline-offset-2 text-[12px] font-[700]">Special Requests: </span>
+                        <br>
+                        <span class="text-[13px] font-[600]">{{ notification.details }}</span>
                     </p>
                     <button @click="fetchBookingDetails(notification.bookingId)"
-                        class="ml-[48px] text-rose-700 underline underline-offset-2 font-[500] mt-[4px] text-start">
+                        class="ml-[48px] text-rose-700 underline text-[14px] underline-offset-2 font-[500] mt-[8px] text-start">
                         See Booking
                     </button>
                 </div>
@@ -150,7 +153,7 @@
                 <p class="text-gray-700 font-medium mt-4">
                     Total Amount: <span class="font-bold text-green-500">${{
                         bookingDetails.booking.totalAmount.toFixed(2) || ''
-                        }}</span>
+                    }}</span>
                 </p>
 
                 <p class="text-sm text-gray-500 italic mt-2">

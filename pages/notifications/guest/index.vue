@@ -1,12 +1,12 @@
 <template>
-  <div class="bg-white pt-[100px] min-h-screen pb-[65px] justify-center items-center">
-    <div class="max-w-[950px] mx-auto px-6">
+  <div class="bg-white py-[80px] lg:pt-[100px] min-h-screen pb-[65px] justify-center items-center">
+    <div class="max-w-[950px] mx-auto px-3 lg:px-6">
       <div class="flex items-center text-rose-600">
         <Icon name="fa:bell" class="mr-[8px] text-[20px] mt-[3px] sm:text-[22px]" />
         <h3 class="text-[20px] sm:text-[22px] font-[700] text-start">Notifications</h3>
       </div>
 
-      <div class="h-[2px] bg-rose-300 rounded-lg my-[15px] mb-[35px]"></div>
+      <div class="h-[2px] bg-rose-300 rounded-lg mt-[15px] mb-[15px] lg:mb-[35px]"></div>
 
       <!-- Loading State -->
       <div v-if="!notifications || !userNotifications" class="">
@@ -26,19 +26,19 @@
             class="border-b-[2px] border-rose-700 lg:px-[20px] py-[15px] flex flex-col">
             <div class="flex items-center">
               <div
-                class="w-[28px] h-[28px] md:w-[38px] md:h-[38px] rounded-full flex items-center justify-center text-[28px] bg-rose-800 text-rose-100">
+                class="w-[28px] h-[28px] md:w-[32px] md:h-[32px] rounded-full flex items-center justify-center text-[20px] lg:text-[26px] bg-rose-800 text-rose-100">
                 <Icon name="material-symbols-light:calendar-add-on-outline" />
               </div>
-              <h3 class="text-[16px] ml-[5px] text-rose-700 font-[500]">
+              <h3 class="text-[14px] md:text-[16px] ml-[10px] lg:ml-[15px] text-rose-700 font-[500]">
                 {{ notification.title }}
                 <span
-                  :class="`scale-[0.9] mt-[5px] uppercase font-[600] px-[12px] mx-[8px] pb-[2px] text-white rounded-[30px] text-[13px] ${getStatusClass(notification.UpdatedStatus)}`">
+                  :class="`scale-[0.9] mt-[5px] uppercase font-[600] px-[12px] mx-[8px] pb-[2px] text-white rounded-[30px] text-[10px] lg:text-[11px] ${getStatusClass(notification.UpdatedStatus)}`">
                   {{ notification.UpdatedStatus }}
                 </span>
               </h3>
             </div>
 
-            <p class="ml-[48px] break-words">
+            <p class="ml-[39px] md:ml-[48px] break-words">
               Your reservation for {{ notification.address }} between {{ notification.checkInOut }} has been
               <span
                 :class="`scale-[0.9] mt-[5px] px-[8px] font-[700] underline ${getStatusTextClass(notification.UpdatedStatus)}`">
@@ -47,7 +47,7 @@
               by Host {{ notification.host }}.
             </p>
             <button @click="goToListing(notification.listingId)"
-              class="ml-[48px] text-rose-700 underline underline-offset-2 font-[500] mt-[4px] text-start">
+              class="ml-[38px] lg:ml-[48px] text-rose-700 underline underline-offset-2 font-[500] mt-[4px] text-start">
               See Listing
             </button>
           </div>
@@ -57,13 +57,13 @@
             class="bg-rose-50 rounded-[12px] lg:rounded-[18px] px-[10px] lg:px-[20px] py-[15px] flex flex-col">
             <div class="flex items-center">
               <div
-                class="w-[28px] h-[28px] md:w-[38px] md:h-[38px] pl-[2px] rounded-full flex items-center justify-center text-[20px] lg:text-[26px] bg-rose-300 text-white">
+                class="w-[28px] h-[28px] md:w-[32px] md:h-[32px] pl-[2px] rounded-full flex items-center justify-center text-[20px] lg:text-[26px] bg-rose-300 text-white">
                 <Icon name="material-symbols-light:calendar-add-on-outline" />
               </div>
-              <div class="text-[16px] ml-[10px] lg:ml-[5px] text-rose-700 font-[500]">
+              <div class="text-[14px] md:text-[16px] ml-[10px] lg:ml-[15px] text-rose-700 font-[500]">
                 {{ notification.title }}
                 <p
-                  :class="`inline-block scale-[0.8] md:ml-0 ml-[-5px] md:scale-[0.9] mt-[5px] uppercase font-[600] px-[12px] mx-[8px] pb-[2px] text-white rounded-[30px] text-[11px] ${getStatusClass(notification.UpdatedStatus)}`">
+                  :class="`inline-block scale-[0.8] md:ml-0 ml-[-5px] md:scale-[0.9] uppercase font-[600] px-[12px] mx-[8px] text-white rounded-[30px] text-[10px] lg:text-[11px] ${getStatusClass(notification.UpdatedStatus)}`">
                   {{ notification.UpdatedStatus }}
                 </p>
               </div>
@@ -78,7 +78,7 @@
               by Host {{ notification.host }}.
             </p>
             <button @click="goToListing(notification.listingId)"
-              class="ml-[38px] text-rose-700 underline underline-offset-2 text-[12px] lg:text-[14px] font-[500] text-start">
+              class="ml-[38px] lg:ml-[48px] text-rose-700 underline underline-offset-2 text-[12px] lg:text-[14px] font-[500] text-start">
               See Listing
             </button>
           </div>
