@@ -8,7 +8,7 @@
             <div class="h-[2px] bg-rose-300 rounded-lg my-[15px] mb-[35px]"></div>
 
 
-            <div v-if="isLoading" class="flex justify-center items-center">
+            <div v-if="isLoading" class="">
                 <Loader />
             </div>
             <div v-else-if="userNotifications.length === 0 && notifications.length === 0"

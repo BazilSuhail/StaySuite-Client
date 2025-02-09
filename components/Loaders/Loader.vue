@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white w-full min-h-screen flex justify-center items-center">
+    <div class="w-full min-h-screen flex justify-center items-center">
       <div>
         <div class="animate-spin">
           <div class="lg:scale-[0.7] scale-[0.65] custom-loader"></div>

@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   ],
   devtools: { enabled: false },
   css: [
-    '@/assets/global.css', // Add your global CSS file
+    '@/assets/global.css',
   ],
   postcss: {
     plugins: {
@@ -17,6 +17,6 @@ export default defineNuxtConfig({
     },
   },
   plugins: [
-    '~/plugins/pinia.js', // Include Pinia plugin
+    '~/plugins/pinia.js',
   ],
 });

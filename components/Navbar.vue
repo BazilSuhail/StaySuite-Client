@@ -8,8 +8,8 @@
         :class="`${isHomePath ? 'border-white pt-4' : 'border-b-[3px] border-gray-100 py-4'} md:pb-[10px] mx-auto px-4 sm:px-6 md:px-[15px] lg:px-[35px] xl:px-[75px]`">
         <div class="flex justify-between items-center">
           <div class="flex items-center">
-            <img src="/logo.svg" alt="" class="w-[32px] mr-[5px] h-[27px] mt-[2px]" />
-            <NuxtLink to="/" class="text-[24px] font-[780] text-red-500">
+            <img src="/logo.webp" alt="" class="w-[32px] mr-[2px] h-[30px] mt-[2px]" />
+            <NuxtLink to="/" class="text-[26px] scale-x-[0.9] font-[700] text-red-500">
               StaySuite
             </NuxtLink>
           </div>

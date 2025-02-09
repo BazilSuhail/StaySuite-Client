@@ -23,6 +23,7 @@
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@iconify-json/fa": "^1.2.1",
     "@iconify-json/fa6-solid": "^1.2.3",
     "@iconify-json/flowbite": "^1.2.3",
     "@iconify-json/ic": "^1.2.2",

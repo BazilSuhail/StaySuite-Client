@@ -9,7 +9,7 @@
       <div class="h-[2px] bg-rose-300 rounded-lg my-[15px] mb-[35px]"></div>
 
       <!-- Loading State -->
-      <div v-if="notifications || !userNotifications" class="pt-[-180px]">
+      <div v-if="notifications || !userNotifications" class="">
         <Loader />
       </div>
 

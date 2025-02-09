@@ -1,10 +1,10 @@
 <template>
-  <main class="h-screen w-full pt-[75px] flex justify-center items-center bg-gray-100">
+  <main class="h-screen w-full md:pt-[75px] flex justify-center items-center bg-gray-100">
     <div class="flex flex-col w-[90%] md:w-[500px] md:scale-[1] scale-[0.9]">
-      <div class="scale-[1.2] flex mx-auto">
-        <img src="/logo.svg" alt="Connection Failed" class="w-[34px] h-[31px] mt-[4px]" />
+      <div class="scale-[1.2]  mb-[15px] flex mx-auto">
+        <img src="/logo.webp" alt="Connection Failed" class="w-[34px] h-[31px] mt-[4px]" />
         <div class="text-rose-600 ml-[4px] md:text-[25px] text-[25px] font-[700]">
-          Air<span class="text-red-400">BnB</span>
+          Stay<span class="text-red-400">Suite</span>
         </div>
       </div>
       <p class="text-[15px] mb-[15px] text-center mt-[8px] text-gray-500 font-[400]">
