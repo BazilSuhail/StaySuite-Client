@@ -85,7 +85,11 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import CategoryList from '@/components/CategoryList.vue';   
-import ListingsLoader from '@/components/Loaders/ListingsLoader.vue';
+import ListingsLoader from '@/components/Loaders/ListingsLoader.vue'; 
+ 
+useHead({
+  title: 'StaySuite - Listings', 
+});
 
 const router = useRouter();
 

@@ -80,7 +80,7 @@ const { login, showToast } = useAuthStore();
 const router = useRouter();
 
 const focusField = ref('');
-const formData = ref({ email: '', password: '' });
+const formData = ref({ email: 'bazil@gmail.com', password: '112233' });
 const loading = ref(false);
 
 onMounted(() => {
