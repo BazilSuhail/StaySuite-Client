@@ -150,7 +150,7 @@
                 <p class="text-gray-700 font-medium mt-4">
                     Total Amount: <span class="font-bold text-green-500">${{
                         bookingDetails.booking.totalAmount.toFixed(2) || ''
-                    }}</span>
+                        }}</span>
                 </p>
 
                 <p class="text-sm text-gray-500 italic mt-2">
@@ -162,6 +162,7 @@
 </template>
 
 <script>
+
 import axios from "axios";
 import { useAuthStore } from "../../../store/auth";
 import Loader from "@/components/Loaders/Loader.vue";
@@ -176,17 +177,17 @@ export default {
             userNotifications: [],
             isModalOpen: false,
             bookingDetails: null,
-            isLoading: true, // Add this line
+            isLoading: true,
         };
     },
     setup() {
         // Set the initial title
-useHead({
-  title: 'StaySuite - Notifications',
-  meta: [
-    { name: 'description', content: 'View updates about booking on your listed Properties.' },
-  ],
-});
+        useHead({
+            title: 'StaySuite - Notifications',
+            meta: [
+                { name: 'description', content: 'View updates about booking on your listed Properties.' },
+            ],
+        });
         const { notifications, userNotifications } = useAuthStore();
         return { notifications, userNotifications };
     },
@@ -223,7 +224,7 @@ useHead({
     mounted() {
         window.scrollTo(0, 0);
         this.fetchNotifications();
-    }, 
+    },
 };
 
 </script>
