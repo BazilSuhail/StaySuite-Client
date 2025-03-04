@@ -2,6 +2,7 @@
   <header class="bg-white fixed w-full  z-50 top-0">
 
     <FiltersModal v-if="isFiltersModalOpen" v-model:onClose="isFiltersModalOpen" />
+    <NotificationPanel :isOpen="isNotificationPanelOpen" @close="isNotificationPanelOpen = false" />
 
     <nav class="hidden md:block">
       <div
@@ -42,15 +43,15 @@
           <client-only>
             <div class="flex items-center space-x-4  z-[900]">
               <span class="text-gray-400 font-[600] xl:block hidden text-md">StaySuite Your Home</span>
-              <NuxtLink v-if="user" :to="userRole === 'Guest' ? '/notifications/guest' : '/notifications/host'"
-                class="hidden md:inline-flex items-center space-x-2 hover:text-black">
+              <button v-if="user" @click="isNotificationPanelOpen = true"
+                class="hidden md:inline-flex items-center space-x-2 hover:text-black relative">
                 <Icon name="ic:baseline-notifications"
-                  :class="`text-[28px] bg-gray-500 ${notificationsCount === 0 ? '' : ' mr-[-20px]'}`" />
-                <div v-if="notificationsCount > 0"
-                  class="absolute text-[12px] font-[600] rounded-full w-[22px] h-[22px] ml-[20px] text-white text-center bg-rose-800 border-[2px] border-white mt-[-10px]">
-                  {{ notificationsCount }}
+                  class="text-[28px] text-gray-500" />
+                <div v-if="totalNotificationsCount > 0"
+                  class="absolute text-[11px] font-[700] rounded-full w-[22px] h-[22px] -top-[8px] -right-[8px] text-white text-center bg-rose-600 border-[2px] border-white flex items-center justify-center">
+                  {{ totalNotificationsCount > 99 ? '99+' : totalNotificationsCount }}
                 </div>
-              </NuxtLink>
+              </button>
               <div @click="toggleMenu"
                 class="flex items-center space-x-2 border rounded-full px-3 py-2 hover:shadow-lg transition-shadow">
                 <Icon name="material-symbols:menu" class="text-[24px] text-gray-500 sm:block hidden" />
@@ -270,17 +271,17 @@
           </div>
 
           <div v-if="user">
-            <NuxtLink :to="userRole === 'Guest' ? '/notifications/guest' : '/notifications/host'" :class="`relative flex flex-col items-center ${isActive('/notifications/host') || isActive('/notifications/guest') ? 'text-rose-600' : 'text-gray-400'
+            <button @click="isNotificationPanelOpen = true" :class="`relative flex flex-col items-center ${isActive('/notifications/host') || isActive('/notifications/guest') ? 'text-rose-600' : 'text-gray-400'
               }`">
               <Icon name="fa6-solid:bell" class="mb-[5px] text-[26px]" />
 
-              <div v-if="notificationsCount && notificationsCount.length > 0"
-                class="absolute text-[12px] font-[600] rounded-full w-[22px] h-[22px] ml-[20px] text-white text-center bg-rose-800 border-[2px] border-white mt-[-10px]">
-                {{ notificationsCount.length }}
+              <div v-if="totalNotificationsCount > 0"
+                class="absolute text-[11px] font-[700] rounded-full w-[22px] h-[22px] -top-[8px] -right-[8px] text-white text-center bg-rose-600 flex items-center justify-center">
+                {{ totalNotificationsCount > 99 ? '99+' : totalNotificationsCount }}
               </div>
 
               <span class="text-xs">Alerts</span>
-            </NuxtLink>
+            </button>
           </div>
           <div v-else>
             <NuxtLink to="/authentication/signUp" :class="`flex flex-col items-center ${isActive('/authentication/signUp') ? 'text-rose-600' : 'text-gray-400'
@@ -305,32 +306,40 @@
 </template>
 
 <script>
+import { ref } from 'vue';
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "../store/auth.js"
 import FiltersModal from '@/components/FilterModal.vue';
+import NotificationPanel from '@/components/NotificationPanel.vue';
 import { useRouter } from "vue-router";
 
 
 export default {
   components: {
-    FiltersModal
+    FiltersModal,
+    NotificationPanel
   },
   setup() {
     const isFiltersModalOpen = ref(false);
     const userStore = useAuthStore();
     const userStored = storeToRefs(userStore);
     const router = useRouter();
-    //console.log("count is " + userStore.notificationsCount)
+    
     return {
       router,
       isFiltersModalOpen,
       user: userStored.user,
       userRole: userStored.userRole,
-      notificationsCount: userStore.notificationsCount,
+      notifications: userStored.notifications,
+      userNotifications: userStored.userNotifications,
       logout: userStore.logout,
     };
   },
   computed: {
+    totalNotificationsCount() {
+      // Only count LIVE socket notifications, not historical ones
+      return this.notifications?.length || 0;
+    },
     isHomePath() {
       return this.$route.path === '/';
     },
@@ -355,6 +364,7 @@ export default {
       scrollPosition: 0,
       isScrollingUp: true,
       prevScrollPosition: 0,
+      isNotificationPanelOpen: false,
       //showFilterModal: false,
     };
   },

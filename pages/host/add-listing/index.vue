@@ -25,15 +25,15 @@ import axios from "axios";
 import { ref, reactive, onMounted } from "vue";
 
 // Import steps as components
-import Step1 from "@/components/AddListing_Component/Step1.vue";
-import Step2 from "@/components/AddListing_Component/Step2.vue";
-import Step3 from "@/components/AddListing_Component/Step3.vue";
-import Step4 from "@/components/AddListing_Component/Step4.vue";
-import Step5 from "@/components/AddListing_Component/Step5.vue";
-import Step6 from "@/components/AddListing_Component/Step6.vue";
-import Step7 from "@/components/AddListing_Component/Step7.vue";
-import Step8 from "@/components/AddListing_Component/Step8.vue";
-import Step9 from "@/components/AddListing_Component/Step9.vue";
+import Step1 from "@/components/addListings/Step1.vue";
+import Step2 from "@/components/addListings/Step2.vue";
+import Step3 from "@/components/addListings/Step3.vue";
+import Step4 from "@/components/addListings/Step4.vue";
+import Step5 from "@/components/addListings/Step5.vue";
+import Step6 from "@/components/addListings/Step6.vue";
+import Step7 from "@/components/addListings/Step7.vue";
+import Step8 from "@/components/addListings/Step8.vue";
+import Step9 from "@/components/addListings/Step9.vue";
 
 export default {
     components: { Step1, Step2, Step3, Step4, Step5, Step6, Step7, Step8, Step9 },

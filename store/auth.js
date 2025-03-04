@@ -178,6 +178,7 @@ export const useAuthStore = defineStore('auth', () => {
     showToast,
     closeToast,
     setSearchFilters: (filters) => (searchFilters.value = filters),
+    fetchUserNotifications,
   };
 });
 */
