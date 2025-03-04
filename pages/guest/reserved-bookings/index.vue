@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-gradient-to-br from-rose-50 via-white to-pink-50 pt-[80px] md:pt-[120px] min-h-screen pb-[65px]">
-    <div class="max-w-[1000px] mx-auto px-4 md:px-6">
+  <div class="bg-gray-100 pt-[80px] md:pt-[120px] min-h-screen pb-[65px]">
+    <div class="max-w-6xl mx-auto px-4 md:px-6">
       <!-- Header Section -->
       <div class="mb-[40px]">
         <div class="flex items-center gap-3 mb-3">
