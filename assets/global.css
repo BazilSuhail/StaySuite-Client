@@ -2,10 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  background-color: #ffffff;
+}
 
 *{
     scroll-behavior: smooth;
-    background-color: white;
   }
   
   .reserved-date { 
