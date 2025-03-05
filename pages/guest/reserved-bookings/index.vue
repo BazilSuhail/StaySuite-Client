@@ -4,10 +4,10 @@
       <!-- Header Section -->
       <div class="mb-[40px]">
         <div class="flex items-center gap-3 mb-3">
-          <div class="w-[45px] h-[45px] rounded-full bg-gradient-to-br from-rose-600 to-rose-800 flex items-center justify-center text-white shadow-lg">
-            <Icon name="fa6-solid:bookmark" class="text-[20px]" />
+          <div class="w-[35px] h-[35px] rounded-full bg-gradient-to-br from-rose-600 to-rose-800 flex items-center justify-center text-white shadow-lg">
+            <Icon name="fa6-solid:bookmark" class="text-[16px]" />
           </div>
-          <h1 class="text-[28px] md:text-[32px] font-[800] text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-red-600">
+          <h1 class="text-[28px] md:text-[32px] font-[700] text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-red-600">
             My Reserved Bookings
           </h1>
         </div>
