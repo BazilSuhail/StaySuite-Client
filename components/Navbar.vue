@@ -30,7 +30,7 @@
             </p>
             <Icon name="ic:baseline-search" class="bg-red-500 text-white rounded-full p-[5.5px] ml-[6px] text-[28px]" />
           </div>
-          <div v-else class="cursor-pointer flex items-center xl:mr-[-165px]">
+          <div v-else class="cursor-pointer flex items-center lg:ml-9 xl:ml-32">
             <div @click="isFiltersModalOpen = true" class="block py-2 text-gray-500 font-[600] hover:text-gray-800">
               Stays
             </div>

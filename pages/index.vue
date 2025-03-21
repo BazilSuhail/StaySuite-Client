@@ -73,7 +73,6 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 
-import AnimatedHero from '@/components/home/AnimatedHero.vue';
 import TestimonialsSection from '@/components/home/TestimonialsSection.vue';
 import CTASection from '@/components/home/CTASection.vue';
 import DestinationsGallery from '@/components/home/DestinationsGallery.vue';
@@ -167,9 +166,6 @@ const loadMore = () => {
   }
 };
 
-const navigateToListing = (id) => {
-  router.push(`/listing/${id}`);
-};
 
 const navigateToListings = () => {
   router.push('/staysuite');
