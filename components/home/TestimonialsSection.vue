@@ -62,22 +62,6 @@
         </div>
       </div>
 
-      <!-- Stats Section -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-20 pt-12 border-t-2 border-rose-100">
-        <div
-          v-for="(stat, index) in stats"
-          :key="index"
-          v-motion
-          :initial="{ opacity: 0, scale: 0.8 }"
-          :enter="{ opacity: 1, scale: 1, transition: { duration: 600, delay: 400 + index * 100 } }"
-          class="text-center"
-        >
-          <div class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600 mb-2">
-            {{ stat.value }}
-          </div>
-          <p class="text-gray-600 text-lg">{{ stat.label }}</p>
-        </div>
-      </div>
     </div>
   </section>
 </template>
@@ -122,9 +106,5 @@ const testimonials = [
   }
 ];
 
-const stats = [
-  { value: '2.5M+', label: 'Happy Guests' },
-  { value: '190+', label: 'Countries' },
-  { value: '500K+', label: 'Verified Properties' }
-];
+
 </script>

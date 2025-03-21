@@ -1,0 +1,20 @@
+export const AIRBNB_IMAGES = [
+  "https://a0.muscache.com/im/pictures/hosting/Hosting-1085531493683532852/original/e47fcc32-667a-4e5e-b0f1-20a193095c5c.jpeg?im_w=1200",
+  "https://a0.muscache.com/im/pictures/hosting/Hosting-1599146081364743114/original/46516ce9-2051-4a74-98fb-2ddef37d7aca.jpeg?im_w=1200",
+  "https://a0.muscache.com/im/pictures/hosting/Hosting-1558280249001101945/original/c20072af-1eb4-4c43-99f5-7c8aa5b903f1.jpeg?im_w=1200",
+  "https://a0.muscache.com/im/pictures/hosting/Hosting-1633035529862763653/original/0f8f5142-2ff9-4d58-bc6a-ea9a22866ea8.jpeg?im_w=1200",
+  "https://a0.muscache.com/im/pictures/hosting/Hosting-1632667733049800379/original/a0a2f72e-8d5c-414f-bf92-f58e8266d618.jpeg?im_w=1200",
+  "https://a0.muscache.com/im/pictures/hosting/Hosting-1607362525916047609/original/bc8ed4c1-4da2-4df5-a9bd-b186348f7e6e.jpeg?im_w=1200",
+  "https://a0.muscache.com/im/pictures/hosting/Hosting-1594761124237833169/original/ed937c8f-bb87-403b-958b-bd0f5ff695bd.png?im_w=1200",
+  "https://a0.muscache.com/im/pictures/hosting/Hosting-1626146243109827088/original/d38bf4df-82ae-4a14-ab5b-bb99044beff8.png?im_w=1200",
+  "https://a0.muscache.com/im/pictures/hosting/Hosting-1578326795236506213/original/17a7a930-e925-464b-a481-c31d470f523b.jpeg?im_w=1200",
+  "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1612782220904649668/original/d964ecab-65bb-4ca0-9e60-995c8e9f0962.jpeg?im_w=1200",
+  "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1638071867087298086/original/6fcc27ff-006a-41ed-8d94-4c99bdba9f84.jpeg?im_w=1200",
+  "https://a0.muscache.com/im/pictures/hosting/Hosting-1621607534199030525/original/fe634f1b-cfcf-4dac-bbcd-bd10a3217575.png?im_w=1200",
+  "https://a0.muscache.com/im/pictures/hosting/Hosting-1520415047906385779/original/224f8767-de68-4e84-bd00-257fbed41f43.jpeg?im_w=1200",
+  "https://a0.muscache.com/im/pictures/hosting/Hosting-1646487759471666461/original/5c596d56-7426-4731-9f98-21b251394f11.jpeg?im_w=1200",
+  "https://a0.muscache.com/im/pictures/hosting/Hosting-1641354023029912805/original/61766102-efcc-4dad-ba50-3cb6bf9270bf.jpeg?im_w=1200",
+  "https://a0.muscache.com/im/pictures/hosting/Hosting-1642844508533662877/original/60f84896-a1c2-475a-90de-f7a8405de09f.jpeg?im_w=1200",
+  "https://a0.muscache.com/im/pictures/hosting/Hosting-1642460163398669599/original/406034cd-efd0-4bad-a3b6-232497a4475f.jpeg?im_w=1200",
+  "https://a0.muscache.com/im/pictures/hosting/Hosting-1643432837873237759/original/5434ff66-59b8-4b12-844c-24708c525c5a.jpeg?im_w=1200"
+];

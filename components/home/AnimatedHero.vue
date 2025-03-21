@@ -10,7 +10,7 @@
     />
 
     <!-- Content Overlay -->
-    <div class="absolute inset-0 flex flex-col items-center justify-center px-4 z-10">
+    <div class="absolute inset-0 bg-white/50 flex flex-col items-center justify-center px-4 z-10">
       <div
         v-motion
         :initial="{ opacity: 0, y: 50 }"
@@ -46,7 +46,7 @@
             :initial="{ opacity: 0, x: 20 }"
             :enter="{ opacity: 1, x: 0, transition: { duration: 800, delay: 200 } }"
             @click="navigateToHosting"
-            class="border-2 border-rose-600 text-rose-600 hover:bg-rose-50 font-bold py-4 px-8 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 text-lg"
+            class="border-2 border-rose-600 text-rose-600 hover:bg-rose-50 bg-white font-bold py-4 px-8 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 text-lg"
           >
             <Icon name="fa6-solid:house" class="text-[20px]" />
             Become a Host
@@ -54,18 +54,6 @@
         </div>
       </div>
 
-      <!-- Scroll Indicator -->
-      <div
-        v-motion
-        :initial="{ opacity: 0, y: -20 }"
-        :enter="{ opacity: 1, y: 0, transition: { duration: 600, delay: 400 } }"
-        class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce"
-      >
-        <div class="flex flex-col items-center gap-2">
-          <span class="text-sm text-gray-600 font-medium">Scroll to explore</span>
-          <Icon name="fa6-solid:chevron-down" class="text-rose-600 text-[24px]" />
-        </div>
-      </div>
     </div>
   </div>
 </template>
