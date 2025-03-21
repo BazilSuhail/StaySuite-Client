@@ -9,8 +9,8 @@
     <!-- Header Section -->
     <div v-if="listings.length > 0 && !loading" class="px-4 xl:px-[75px] py-[20px] border-b border-rose-100">
       <div class="flex items-center gap-2">
-        <Icon name="fa6-solid:house-chimney" class="text-rose-600 text-[24px]" />
-        <h2 class="text-[20px] md:text-[24px] font-[700] text-gray-800">
+        <Icon name="fa6-solid:house-chimney" class="text-rose-600 text-[20px] mb-0.75" />
+        <h2 class="text-[16px] md:text-[20px] font-[600] text-gray-800">
           Explore Stays
         </h2>
         <span class="text-[13px] font-[600] text-gray-500 ml-auto">{{ listings.length }} properties available</span>
@@ -18,14 +18,18 @@
     </div>
 
     <!-- Listings Loading -->
-    <div v-if="loading" class="px-4 xl:px-[75px] py-[20px]">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-[18px]">
-        <ListingsLoader/>
-        <ListingsLoader/>
-        <ListingsLoader/>
-        <ListingsLoader/>
-        <ListingsLoader/>
+    <div v-if="loading" class="px-4 xl:px-[75px] py-[20px] space-y-8">
+  <div class="flex items-center gap-2">
+        <Icon name="fa6-solid:house-chimney" class="text-rose-600 text-[20px] mb-0.75" />
+        <h2 class="text-[16px] md:text-[20px] font-[600] text-gray-800">
+          Explore Stays
+        </h2>
+        <span class="text-[13px] font-[600] text-gray-500 ml-auto">{{ listings.length }} properties available</span>
       </div>
+
+      <ListingsLoader/>
+        <ListingsLoader/>
+        <ListingsLoader/>
     </div>
 
     <!-- Listings Grid -->

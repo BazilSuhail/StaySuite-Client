@@ -171,6 +171,14 @@ const navigateToListing = (id) => {
   router.push(`/listing/${id}`);
 };
 
+const navigateToListings = () => {
+  router.push('/staysuite');
+};
+
+const navigateToHosting = () => {
+  router.push('/authentication/signUp');
+};
+
 onMounted(() => {
   const saved = localStorage.getItem('favorites');
   if (saved) {

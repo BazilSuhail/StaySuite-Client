@@ -1,10 +1,21 @@
 <template>
     <div class="bg-gray-100 pt-[90px] md:pt-[120px] p-6 min-h-screen justify-center items-center">
       <div class="max-w-[1150px] mx-auto">
-        <Icons name="material-symbols-light:bookmark-check-sharp" class="text-rose-600 "/>
-        <h3 class="text-[20px] sm:text-[24px] mb-[15px] text-rose-600 font-[700]">Favourite Listings</h3>
-        <div class="h-[2px] md:h-[2.5px] bg-rose-600 mb-[35px] lg:mb-[55px]"></div>
-  
+        
+        <!-- Header Section -->
+      <div class="mb-[40px]">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-[35px] h-[35px] rounded-full bg-gradient-to-br from-rose-600 to-rose-800 flex items-center justify-center text-white shadow-lg">
+            <Icon name="fa6-solid:bookmark" class="text-[16px]" />
+          </div>
+          <h1 class="text-[24px] md:text-[32px] font-[700] text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-red-600">
+            Favourite Listings
+          </h1>
+        </div>
+        <p class="text-gray-600 text-[14px] ml-[58px] font-[500]">{{ listings.length }} favourite listings</p>
+        <div class="h-[1px] bg-gradient-to-r from-rose-300 via-pink-300 to-transparent mt-[20px]"></div>
+      </div>
+        
         <div v-if="error" class="flex flex-col justify-center items-center mix-blend-multiply">
           <img src="/assets/noFavourites.webp" alt="No Favourites" class="scale-[0.6] md:scale-[0.7] opacity-70" />
           <p class="text-center mt-[-65px] font-[600] text-rose-700 mx-auto">You Have no favourite Listings</p>

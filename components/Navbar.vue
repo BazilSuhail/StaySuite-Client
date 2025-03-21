@@ -227,6 +227,7 @@
       </client-only>
 
       <div
+        v-if="user"
         :class="`fixed bottom-0 left-0 w-full bg-white shadow-lg flex justify-between py-2 transition-transform duration-300 px-[40px] ${getNavbarTranslateClasses} ${getNavbarClasses} '}`">
         <NuxtLink to="/" :class="`flex flex-col items-center ${isActive('/') ? 'text-rose-600' : 'text-gray-400'}`">
           <Icon name="fa6-solid:house-chimney" class="mb-[6px] text-[24px]" />
