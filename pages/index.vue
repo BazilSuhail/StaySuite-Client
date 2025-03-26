@@ -175,7 +175,26 @@ const navigateToHosting = () => {
   router.push('/authentication/signUp');
 };
 
+// Wake up server on page mount (silent API call, disregard response)
+const wakeUpServer = async () => {
+  try {
+    await axios.get(
+      `${import.meta.env.VITE_REACT_APP_API_BASE_URL}/air-bnb/home/listings`,
+      {
+        params: { page: 1, limit: 1 },
+      }
+    );
+    // Response is received but discarded - server is now active
+  } catch (error) {
+    // Silently fail - don't display error to user
+    console.log('Server wake-up call made');
+  }
+};
+
 onMounted(() => {
+  // Wake up server first
+  wakeUpServer();
+  
   const saved = localStorage.getItem('favorites');
   if (saved) {
     favorites.value = JSON.parse(saved);
